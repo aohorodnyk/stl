@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  test:
+    desc: Run unit tests
+    cmds:
+      - go test -v -race ./...
+    env:
+      CGO_ENABLED: 1
+  bench:
+    desc: Run benchmark tests
+    cmds:
+      - go test -v ./... -benchmem -bench . -run=^#
+    env:
+      CGO_ENABLED: 1
+  lint:
+    desc: Run linter
+    cmds:
+      - golangci-lint run -v ./...
+    env:
+      CGO_ENABLED: 0
+  verify:
+    desc: Run unit tests and linter
+    deps:
+      - test
+      - lint
