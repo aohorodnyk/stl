@@ -1,26 +1,42 @@
 package math
 
 type Comparable interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64 | ~string
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 | ~float64
 }
 
-func Max[T Comparable](input ...T) T {
+func MaxMulti[T Comparable](input ...T) T {
 	cmp := func(a, b T) bool {
 		return a > b
 	}
 
-	return minMax(cmp, input...)
+	return minMaxMulti(cmp, input...)
 }
 
-func Min[T Comparable](input ...T) T {
+func MinMulti[T Comparable](input ...T) T {
 	cmp := func(a, b T) bool {
 		return a < b
 	}
 
-	return minMax(cmp, input...)
+	return minMaxMulti(cmp, input...)
 }
 
-func minMax[T Comparable](cmp func(a, b T) bool, input ...T) T {
+func Min[T Comparable](a, b T) T {
+	if a < b {
+		return a
+	}
+
+	return b
+}
+
+func Max[T Comparable](a, b T) T {
+	if a > b {
+		return a
+	}
+
+	return b
+}
+
+func minMaxMulti[T Comparable](cmp func(a, b T) bool, input ...T) T {
 	var result T
 
 	if len(input) == 0 {

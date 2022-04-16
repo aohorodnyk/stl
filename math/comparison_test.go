@@ -8,7 +8,7 @@ import (
 	mathstl "github.com/aohorodnyk/stl/math"
 )
 
-func TestMinByte(t *testing.T) {
+func TestMinMultiByte(t *testing.T) {
 	t.Parallel()
 
 	prov := []struct {
@@ -39,7 +39,7 @@ func TestMinByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(p.input...)
+			res := mathstl.MinMulti(p.input...)
 			if res != p.want {
 				t.Errorf("got %v, expected %v", res, p.want)
 			}
@@ -47,7 +47,7 @@ func TestMinByte(t *testing.T) {
 	}
 }
 
-func TestMinInt(t *testing.T) {
+func TestMinMultiInt(t *testing.T) {
 	t.Parallel()
 
 	type myInt int
@@ -80,7 +80,7 @@ func TestMinInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(p.input...)
+			res := mathstl.MinMulti(p.input...)
 			if res != p.want {
 				t.Errorf("got %v, expected %v", res, p.want)
 			}
@@ -88,60 +88,7 @@ func TestMinInt(t *testing.T) {
 	}
 }
 
-func TestMinStr(t *testing.T) {
-	t.Parallel()
-
-	type str string
-
-	prov := []struct {
-		input []str
-		want  str
-	}{
-		{
-			input: []str{},
-			want:  "",
-		},
-		{
-			input: []str{"a"},
-			want:  "a",
-		},
-		{
-			input: []str{"", "1", "a", "b", "Z"},
-			want:  "",
-		},
-		{
-			input: []str{"4", "1", "a", "b", "Z"},
-			want:  "1",
-		},
-		{
-			input: []str{"A", "m", "a", "b", "Z"},
-			want:  "A",
-		},
-		{
-			input: []str{"cab", "caa", "cba"},
-			want:  "caa",
-		},
-		{
-			input: []str{"aaa", "aa2", "aa1", "a2a", "a1a", "a0a", "ava"},
-			want:  "a0a",
-		},
-	}
-
-	for idx, p := range prov {
-		p := p
-
-		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
-			t.Parallel()
-
-			res := mathstl.Min(p.input...)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
-			}
-		})
-	}
-}
-
-func TestMaxByte(t *testing.T) {
+func TestMaxMultiByte(t *testing.T) {
 	t.Parallel()
 
 	prov := []struct {
@@ -172,7 +119,7 @@ func TestMaxByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(p.input...)
+			res := mathstl.MaxMulti(p.input...)
 			if res != p.want {
 				t.Errorf("got %v, expected %v", res, p.want)
 			}
@@ -180,7 +127,7 @@ func TestMaxByte(t *testing.T) {
 	}
 }
 
-func TestMaxInt(t *testing.T) {
+func TestMaxMultiInt(t *testing.T) {
 	t.Parallel()
 
 	type myInt int
@@ -213,7 +160,7 @@ func TestMaxInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(p.input...)
+			res := mathstl.MaxMulti(p.input...)
 			if res != p.want {
 				t.Errorf("got %v, expected %v", res, p.want)
 			}
@@ -221,42 +168,32 @@ func TestMaxInt(t *testing.T) {
 	}
 }
 
-func TestMaxStr(t *testing.T) {
+func TestMinByte(t *testing.T) {
 	t.Parallel()
 
-	type str string
-
 	prov := []struct {
-		input []str
-		want  str
+		a, b byte
+		want byte
 	}{
 		{
-			input: []str{},
-			want:  "",
+			a:    0,
+			b:    0,
+			want: 0,
 		},
 		{
-			input: []str{"a"},
-			want:  "a",
+			a:    1,
+			b:    1,
+			want: 1,
 		},
 		{
-			input: []str{"", "1", "a", "b", "Z"},
-			want:  "b",
+			a:    255,
+			b:    0,
+			want: 0,
 		},
 		{
-			input: []str{"4", "1", "a", "b", "Z"},
-			want:  "b",
-		},
-		{
-			input: []str{"A", "m", "a", "b", "Z"},
-			want:  "m",
-		},
-		{
-			input: []str{"cab", "caa", "cba"},
-			want:  "cba",
-		},
-		{
-			input: []str{"aaa", "aa2", "aa1", "a2a", "a1a", "a0a", "ava"},
-			want:  "ava",
+			a:    1,
+			b:    234,
+			want: 1,
 		},
 	}
 
@@ -266,7 +203,140 @@ func TestMaxStr(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(p.input...)
+			res := mathstl.Min(p.a, p.b)
+			if res != p.want {
+				t.Errorf("got %v, expected %v", res, p.want)
+			}
+		})
+	}
+}
+
+func TestMinInt(t *testing.T) {
+	t.Parallel()
+
+	type myInt int
+
+	prov := []struct {
+		a, b myInt
+		want myInt
+	}{
+		{
+			a:    0,
+			b:    0,
+			want: 0,
+		},
+		{
+			a:    1,
+			b:    1,
+			want: 1,
+		},
+		{
+			a:    235214,
+			b:    234,
+			want: 234,
+		},
+		{
+			a:    math.MinInt,
+			b:    877423564,
+			want: math.MinInt,
+		},
+	}
+
+	for idx, p := range prov {
+		p := p
+
+		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
+			t.Parallel()
+
+			res := mathstl.Min(p.a, p.b)
+			if res != p.want {
+				t.Errorf("got %v, expected %v", res, p.want)
+			}
+		})
+	}
+}
+
+func TestMaxByte(t *testing.T) {
+	t.Parallel()
+
+	prov := []struct {
+		a, b byte
+		want byte
+	}{
+		{
+			a:    0,
+			b:    0,
+			want: 0,
+		},
+		{
+			a:    1,
+			b:    1,
+			want: 1,
+		},
+		{
+			a:    231,
+			b:    math.MaxUint8,
+			want: math.MaxUint8,
+		},
+		{
+			a:    245,
+			b:    123,
+			want: 245,
+		},
+	}
+
+	for idx, p := range prov {
+		p := p
+
+		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
+			t.Parallel()
+
+			res := mathstl.Max(p.a, p.b)
+			if res != p.want {
+				t.Errorf("got %v, expected %v", res, p.want)
+			}
+		})
+	}
+}
+
+func TestMaxInt(t *testing.T) {
+	t.Parallel()
+
+	type myInt int
+
+	prov := []struct {
+		a, b myInt
+		want myInt
+	}{
+		{
+			a:    0,
+			b:    0,
+			want: 0,
+		},
+		{
+			a:    1,
+			b:    1,
+			want: 1,
+		},
+		{
+			a:    math.MaxInt,
+			b:    236523452,
+			want: math.MaxInt,
+		},
+		{
+			a:    123,
+			b:    math.MaxInt,
+			want: math.MaxInt,
+		},
+	}
+
+	for idx, p := range prov {
+		p := p
+
+		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
+			t.Parallel()
+
+			res := mathstl.Max(p.a, p.b)
 			if res != p.want {
 				t.Errorf("got %v, expected %v", res, p.want)
 			}
