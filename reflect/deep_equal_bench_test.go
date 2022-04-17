@@ -9,36 +9,56 @@ import (
 
 func BenchmarkDeepEqualStandardInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflect.DeepEqual(i, i)
+		if reflect.DeepEqual(i, i) {
+			b.Fatal("not equal")
+		}
 	}
 }
 
 func BenchmarkDeepEqualStandardMap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflect.DeepEqual(map[string]int{"tset": i}, map[string]int{"tset": i})
+		if !reflect.DeepEqual(map[string]int{"test": i}, map[string]int{"test": i}) {
+			b.Fatal("not equal")
+		}
 	}
 }
 
 func BenchmarkDeepEqualInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflectstl.DeepEqual(i, i)
+		if !reflectstl.DeepEqual(i, i) {
+			b.Fatal("not equal")
+		}
 	}
 }
 
 func BenchmarkDeepEqualMap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflectstl.DeepEqual(map[string]int{"tset": i}, map[string]int{"tset": i})
+		if !reflectstl.DeepEqual(map[string]int{"test": i}, map[string]int{"test": i}) {
+			b.Fatal("not equal")
+		}
 	}
 }
 
 func BenchmarkDeepEqualCmpInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflectstl.DeepEqualCmp(true, i, i)
+		if !reflectstl.DeepEqualCmp(true, i, i) {
+			b.Fatal("not equal")
+		}
+	}
+}
+
+func BenchmarkEqualInt(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		if i != i {
+			b.Fatal("not equal")
+		}
 	}
 }
 
 func BenchmarkDeepEqualCmpMap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		reflectstl.DeepEqualCmp(false, map[string]int{"tset": i}, map[string]int{"tset": i})
+		if !reflectstl.DeepEqualCmp(false, map[string]int{"test": i}, map[string]int{"test": i}) {
+			b.Fatal("not equal")
+		}
 	}
 }

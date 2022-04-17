@@ -4,7 +4,7 @@ import (
 	"github.com/aohorodnyk/stl/math"
 )
 
-func NewSinglyComparable[T comparable]() LinkedList[T] {
+func NewSinglyComparable[T comparable]() *SinglyComparable[T] {
 	return &SinglyComparable[T]{}
 }
 
@@ -57,6 +57,20 @@ func (s *SinglyComparable[T]) IndexOf(value T) int {
 	}
 
 	return -1
+}
+
+func (s *SinglyComparable[T]) IndexOfLast(value T) int {
+	result := -1
+	pointer := s.head
+	for index := 0; pointer != nil; index++ {
+		if pointer.value == value {
+			result = index
+		}
+
+		pointer = pointer.next
+	}
+
+	return result
 }
 
 func (s *SinglyComparable[T]) Contains(value T) bool {
@@ -141,6 +155,122 @@ func (s *SinglyComparable[T]) PopAt(index int) (T, bool) {
 	node.next = node.next.next
 
 	return result, true
+}
+
+func (s *SinglyComparable[T]) RemoveNode(node Node[T]) bool {
+	if node == nil {
+		return false
+	}
+
+	if s.head == node {
+		s.head = s.head.next
+		s.length--
+
+		return true
+	}
+
+	pointer := s.head
+	for pointer != nil {
+		if pointer.next == node {
+			pointer.next = pointer.next.next
+			s.length--
+
+			return true
+		}
+
+		pointer = pointer.next
+	}
+
+	return false
+}
+
+func (s *SinglyComparable[T]) RemoveFirstBy(value T) bool {
+	if s.head == nil {
+		return false
+	}
+
+	if s.head.value == value {
+		s.head = s.head.next
+		s.length--
+
+		return true
+	}
+
+	pointer := s.head
+	for pointer.next != nil {
+		if pointer.next.value == value {
+			pointer.next = pointer.next.next
+			s.length--
+
+			return true
+		}
+
+		pointer = pointer.next
+	}
+
+	return false
+}
+
+func (s *SinglyComparable[T]) RemoveLastBy(value T) bool {
+	if s.head == nil {
+		return false
+	}
+
+	if s.head.value == value {
+		s.head = s.head.next
+		s.length--
+
+		return true
+	}
+
+	var pointerLast *SinglyNodeComparable[T]
+
+	pointer := s.head
+	for pointer.next != nil {
+		if pointer.next.value == value {
+			pointerLast = pointer
+		}
+
+		pointer = pointer.next
+	}
+
+	if pointerLast != nil {
+		pointerLast.next = pointerLast.next.next
+		s.length--
+
+		return true
+	}
+
+	return false
+}
+
+func (s *SinglyComparable[T]) RemoveAllBy(value T) bool {
+	var removed bool
+
+	if s.head == nil {
+		return removed
+	}
+
+	pointer := s.head
+	for pointer.next != nil {
+		if pointer.next.value == value {
+			pointer.next = pointer.next.next
+			s.length--
+
+			removed = true
+		}
+
+		pointer = pointer.next
+	}
+
+	if s.head.value == value {
+		s.head = s.head.next
+		s.length--
+
+		removed = true
+	}
+
+	return removed
 }
 
 func (s *SinglyComparable[T]) Clear() {

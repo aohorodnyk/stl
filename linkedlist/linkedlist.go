@@ -8,6 +8,7 @@ type LinkedList[T any] interface {
 	ValueLast() (T, bool)
 	ValueAt(int) (T, bool)
 	IndexOf(T) int
+	IndexOfLast(T) int
 	Contains(T) bool
 	Length() int
 	Empty() bool
@@ -17,6 +18,10 @@ type LinkedList[T any] interface {
 	PopFirst() (T, bool)
 	PopLast() (T, bool)
 	PopAt(int) (T, bool)
+	RemoveNode(Node[T]) bool
+	RemoveFirstBy(T) bool
+	RemoveLastBy(T) bool
+	RemoveAllBy(T) bool
 	Clear()
 }
 

@@ -35,6 +35,105 @@ func TestSinglyComparableSyncEmpty(t *testing.T) {
 	emptyTest(t, list)
 }
 
+func TestSinglyComparableMultiple(t *testing.T) {
+	list := linkedlist.NewSinglyComparable[int]()
+	multipleTest(t, list)
+}
+
+func TestSinglyComparableSyncMultiple(t *testing.T) {
+	list := linkedlist.NewSinglyComparableSync[int]()
+	multipleTest(t, list)
+}
+
+func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
+	list.AddFirst(5234)
+	list.AddFirst(532)
+	list.AddFirst(5234)
+	list.AddFirst(532)
+	list.AddFirst(123)
+	list.AddFirst(123)
+	list.AddLast(123)
+	list.AddLast(532)
+	list.AddLast(5234)
+
+	if list.Length() != 9 {
+		t.Errorf("Expected length to be 9, got %d", list.Length())
+	}
+
+	if !list.RemoveAllBy(123) {
+		t.Errorf("Expected to remove all elements with value 123")
+	}
+
+	if list.Length() != 6 {
+		t.Errorf("Expected length to be 6, got %d", list.Length())
+	}
+
+	if list.RemoveAllBy(123) {
+		t.Errorf("Expected to not remove any elements")
+	}
+
+	if list.Length() != 6 {
+		t.Errorf("Expected length to be 6, got %d", list.Length())
+	}
+
+	if list.IndexOf(532) != 0 {
+		t.Errorf("Expected the first index of 532 to be 0, got %d", list.IndexOf(532))
+	}
+
+	if list.IndexOfLast(532) != 4 {
+		t.Errorf("Expected the last index of 532 to be 4, got %d", list.IndexOfLast(532))
+	}
+
+	if !list.RemoveFirstBy(532) {
+		t.Errorf("Expected to remove first element with value 523")
+	}
+
+	if list.IndexOf(532) != 1 {
+		t.Errorf("Expected the first index of 532 to be 1, got %d", list.IndexOf(532))
+	}
+
+	if list.IndexOfLast(532) != 3 {
+		t.Errorf("Expected the last index of 532 to be 3, got %d", list.IndexOfLast(532))
+	}
+
+	if !list.RemoveLastBy(532) {
+		t.Errorf("Expected to last first element with value 523")
+	}
+
+	if list.IndexOf(532) != 1 {
+		t.Errorf("Expected the first index of 532 to be 1, got %d", list.IndexOf(532))
+	}
+
+	if list.IndexOfLast(532) != 1 {
+		t.Errorf("Expected the last index of 532 to be 3, got %d", list.IndexOfLast(532))
+	}
+
+	if list.IndexOf(5234) != 0 {
+		t.Errorf("Expected the first index of 5234 to be 0, got %d", list.IndexOf(5234))
+	}
+
+	node, ok := list.NodeAt(0)
+	if !ok {
+		t.Errorf("Expected to find node at index 0")
+	}
+
+	if node.Value() != 5234 {
+		t.Errorf("Expected the value of the first node to be 5234, got %d", node.Value())
+	}
+
+	if !list.RemoveNode(node) {
+		t.Errorf("Expected to remove node")
+	}
+
+	if list.IndexOf(5234) != 1 {
+		t.Errorf("Expected the first index of 5234 to be 1, got %d", list.IndexOf(5234))
+	}
+
+	if list.IndexOfLast(5234) != 2 {
+		t.Errorf("Expected the first index of 5234 to be 1, got %d", list.IndexOfLast(5234))
+	}
+}
+
 func simpleTest(t *testing.T, list linkedlist.LinkedList[int]) {
 	list.AddFirst(1)
 	list.AddFirst(2)

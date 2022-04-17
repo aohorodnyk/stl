@@ -2,7 +2,7 @@ package linkedlist
 
 import "sync"
 
-func NewSinglyComparableSync[T comparable]() LinkedList[T] {
+func NewSinglyComparableSync[T comparable]() *SinglyComparableSync[T] {
 	return &SinglyComparableSync[T]{}
 }
 
@@ -58,6 +58,13 @@ func (s *SinglyComparableSync[T]) IndexOf(value T) int {
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.IndexOf(value)
+}
+
+func (s *SinglyComparableSync[T]) IndexOfLast(value T) int {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+
+	return s.linkedlist.IndexOfLast(value)
 }
 
 func (s *SinglyComparableSync[T]) Contains(value T) bool {
@@ -121,6 +128,34 @@ func (s *SinglyComparableSync[T]) PopAt(index int) (T, bool) {
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.PopAt(index)
+}
+
+func (s *SinglyComparableSync[T]) RemoveNode(node Node[T]) bool {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	return s.linkedlist.RemoveNode(node)
+}
+
+func (s *SinglyComparableSync[T]) RemoveFirstBy(value T) bool {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	return s.linkedlist.RemoveFirstBy(value)
+}
+
+func (s *SinglyComparableSync[T]) RemoveLastBy(value T) bool {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	return s.linkedlist.RemoveLastBy(value)
+}
+
+func (s *SinglyComparableSync[T]) RemoveAllBy(value T) bool {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	return s.linkedlist.RemoveAllBy(value)
 }
 
 func (s *SinglyComparableSync[T]) Clear() {
