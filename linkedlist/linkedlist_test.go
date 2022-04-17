@@ -43,6 +43,34 @@ func TestSinglyAnySync(t *testing.T) {
 	simpleTest(t, list)
 }
 
+func TestSinglyAnyRemoveLast(t *testing.T) {
+	t.Parallel()
+
+	list := linkedlist.NewSinglyAny[int]()
+	removeLast(t, list)
+}
+
+func TestSinglyAnySyncRemoveLast(t *testing.T) {
+	t.Parallel()
+
+	list := linkedlist.NewSinglyAnySync[int]()
+	removeLast(t, list)
+}
+
+func TestSinglyComparableRemoveLast(t *testing.T) {
+	t.Parallel()
+
+	list := linkedlist.NewSinglyComparable[int]()
+	removeLast(t, list)
+}
+
+func TestSinglyComparableSyncRemoveLast(t *testing.T) {
+	t.Parallel()
+
+	list := linkedlist.NewSinglyComparableSync[int]()
+	removeLast(t, list)
+}
+
 func TestSinglyComparable(t *testing.T) {
 	t.Parallel()
 
@@ -173,6 +201,41 @@ func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
 
 	if list.IndexOfLast(5234) != 2 {
 		t.Errorf("Expected the first index of 5234 to be 1, got %d", list.IndexOfLast(5234))
+	}
+}
+
+func removeLast(t *testing.T, list linkedlist.LinkedList[int]) {
+	t.Helper()
+
+	list.AddLast(1)
+	list.AddLast(2)
+	list.AddLast(1)
+	list.AddLast(2)
+	list.AddLast(1)
+	list.AddLast(2)
+
+	if list.Length() != 6 {
+		t.Errorf("Expected length to be 6, got %d", list.Length())
+	}
+
+	if list.IndexOf(1) != 0 {
+		t.Errorf("Expected the first index of 1 to be 0, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 4 {
+		t.Errorf("Expected the last index of 1 to be 4, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveLastBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != 0 {
+		t.Errorf("Expected the first index of 1 to be 0, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 2 {
+		t.Errorf("Expected the last index of 1 to be 4, got %d", list.IndexOfLast(1))
 	}
 }
 

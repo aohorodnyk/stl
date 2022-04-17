@@ -218,13 +218,6 @@ func (s *SinglyComparable[T]) RemoveLastBy(value T) bool {
 		return false
 	}
 
-	if s.head.value == value {
-		s.head = s.head.next
-		s.length--
-
-		return true
-	}
-
 	var pointerLast *SinglyNodeComparable[T]
 
 	pointer := s.head
@@ -238,6 +231,13 @@ func (s *SinglyComparable[T]) RemoveLastBy(value T) bool {
 
 	if pointerLast != nil {
 		pointerLast.next = pointerLast.next.next
+		s.length--
+
+		return true
+	}
+
+	if s.head.value == value {
+		s.head = s.head.next
 		s.length--
 
 		return true

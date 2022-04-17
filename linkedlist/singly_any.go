@@ -237,13 +237,6 @@ func (s *SinglyAny[T]) RemoveLastBy(value T) bool {
 		return false
 	}
 
-	if s.compare(s.head.value, value) {
-		s.head = s.head.next
-		s.length--
-
-		return true
-	}
-
 	var pointerLast *SinglyNodeAny[T]
 
 	pointer := s.head
@@ -257,6 +250,13 @@ func (s *SinglyAny[T]) RemoveLastBy(value T) bool {
 
 	if pointerLast != nil {
 		pointerLast.next = pointerLast.next.next
+		s.length--
+
+		return true
+	}
+
+	if s.compare(s.head.value, value) {
+		s.head = s.head.next
 		s.length--
 
 		return true

@@ -1,6 +1,15 @@
 # See https://github.com/golangci/golangci-lint/blob/master/.golangci.example.yml.
 run:
   modules-download-mode: readonly # Do not update dependencies.
+linters-settings:
+  gomnd:
+    ignored-numbers:
+      - "0"
+      - "0.0"
+      - "1"
+      - "1.0"
+      - "2"
+      - "2.0"
 linters:
   disable-all: true
   enable:
