@@ -15,6 +15,26 @@ var _ linkedlist.Node[int] = &linkedlist.SinglyNodeComparable[int]{}
 // Verify that SinglyComparable implements LinkedList interface.
 var _ linkedlist.LinkedList[int] = &linkedlist.SinglyComparableSync[int]{}
 
+func TestSinglyAnyCmp(t *testing.T) {
+	list := linkedlist.NewSinglyAnyCmp[int](func(a, b any) bool { return a == b })
+	simpleTest(t, list)
+}
+
+func TestSinglyAnySyncCmp(t *testing.T) {
+	list := linkedlist.NewSinglyAnySyncCmp[int](func(a, b any) bool { return a == b })
+	simpleTest(t, list)
+}
+
+func TestSinglyAny(t *testing.T) {
+	list := linkedlist.NewSinglyAny[int]()
+	simpleTest(t, list)
+}
+
+func TestSinglyAnySync(t *testing.T) {
+	list := linkedlist.NewSinglyAnySync[int]()
+	simpleTest(t, list)
+}
+
 func TestSinglyComparable(t *testing.T) {
 	list := linkedlist.NewSinglyComparable[int]()
 	simpleTest(t, list)
