@@ -285,10 +285,6 @@ func (s *SinglyComparable[T]) nodeAt(index int) *SinglyNodeComparable[T] {
 		return nil
 	}
 
-	if index == 0 {
-		return s.head
-	}
-
 	node := s.head
 	for i := 0; i < index && node != nil; i++ {
 		node = node.next

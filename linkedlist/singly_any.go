@@ -304,10 +304,6 @@ func (s *SinglyAny[T]) nodeAt(index int) *SinglyNodeAny[T] {
 		return nil
 	}
 
-	if index == 0 {
-		return s.head
-	}
-
 	node := s.head
 	for i := 0; i < index && node != nil; i++ {
 		node = node.next
