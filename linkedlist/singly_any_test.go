@@ -11,14 +11,11 @@ func TestSinglyAnyCustomCmp(t *testing.T) {
 		a, b int
 	}
 
-	cmp := func(a, b any) bool {
-		ta := a.(test)
-		tb := b.(test)
-
-		return ta.a == tb.b || ta.b == tb.a
+	cmp := func(a, b test) bool {
+		return a.a == b.b || a.b == b.a
 	}
 
-	ll := linkedlist.NewSinglyAnyCmp[test](cmp)
+	ll := linkedlist.NewSinglyAnyCmp(cmp)
 	ll.AddFirst(test{a: 1, b: 5})
 
 	if ll.IndexOf(test{a: 6, b: 1}) != 0 {

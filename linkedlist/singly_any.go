@@ -15,7 +15,7 @@ func NewSinglyAny[T any]() *SinglyAny[T] {
 	}
 }
 
-func NewSinglyAnyCmp[T any](cmp func(any, any) bool) *SinglyAny[T] {
+func NewSinglyAnyCmp[T any](cmp func(T, T) bool) *SinglyAny[T] {
 	if cmp == nil {
 		panic("Comparable function is required")
 	}
@@ -28,7 +28,7 @@ func NewSinglyAnyCmp[T any](cmp func(any, any) bool) *SinglyAny[T] {
 type SinglyAny[T any] struct {
 	head       *SinglyNodeAny[T]
 	length     int
-	cmp        func(any, any) bool
+	cmp        func(T, T) bool
 	comparable bool
 }
 

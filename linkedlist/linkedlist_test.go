@@ -16,12 +16,12 @@ var _ linkedlist.Node[int] = &linkedlist.SinglyNodeComparable[int]{}
 var _ linkedlist.LinkedList[int] = &linkedlist.SinglyComparableSync[int]{}
 
 func TestSinglyAnyCmp(t *testing.T) {
-	list := linkedlist.NewSinglyAnyCmp[int](func(a, b any) bool { return a == b })
+	list := linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
 	simpleTest(t, list)
 }
 
 func TestSinglyAnySyncCmp(t *testing.T) {
-	list := linkedlist.NewSinglyAnySyncCmp[int](func(a, b any) bool { return a == b })
+	list := linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
 	simpleTest(t, list)
 }
 

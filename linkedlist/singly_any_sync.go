@@ -8,9 +8,9 @@ func NewSinglyAnySync[T any]() *SinglyAnySync[T] {
 	}
 }
 
-func NewSinglyAnySyncCmp[T any](cmp func(any, any) bool) *SinglyAnySync[T] {
+func NewSinglyAnySyncCmp[T any](cmp func(T, T) bool) *SinglyAnySync[T] {
 	return &SinglyAnySync[T]{
-		linkedlist: NewSinglyAnyCmp[T](cmp),
+		linkedlist: NewSinglyAnyCmp(cmp),
 	}
 }
 
