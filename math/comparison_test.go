@@ -33,15 +33,16 @@ func TestMinMultiByte(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MinMulti(p.input...)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.MinMulti(provData.input...)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -74,15 +75,16 @@ func TestMinMultiInt(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MinMulti(p.input...)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.MinMulti(provData.input...)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -113,15 +115,16 @@ func TestMaxMultiByte(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MaxMulti(p.input...)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.MaxMulti(provData.input...)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -154,15 +157,16 @@ func TestMaxMultiInt(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MaxMulti(p.input...)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.MaxMulti(provData.input...)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -197,15 +201,16 @@ func TestMinByte(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(p.a, p.b)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.Min(provData.a, provData.b)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -242,15 +247,16 @@ func TestMinInt(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(p.a, p.b)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.Min(provData.a, provData.b)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -285,15 +291,16 @@ func TestMaxByte(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(p.a, p.b)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.Max(provData.a, provData.b)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}
@@ -330,15 +337,16 @@ func TestMaxInt(t *testing.T) {
 		},
 	}
 
-	for idx, p := range prov {
-		p := p
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
+	for idx, provData := range prov {
+		provData := provData
 
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(p.a, p.b)
-			if res != p.want {
-				t.Errorf("got %v, expected %v", res, p.want)
+			res := mathstl.Max(provData.a, provData.b)
+			if res != provData.want {
+				t.Errorf("got %v, expected %v", res, provData.want)
 			}
 		})
 	}

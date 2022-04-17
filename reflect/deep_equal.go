@@ -5,13 +5,13 @@ import (
 )
 
 func DeepEqual(a, b any) bool {
-	comparable := reflect.TypeOf(a).Comparable() && reflect.TypeOf(b).Comparable()
+	isCmp := reflect.TypeOf(a).Comparable() && reflect.TypeOf(b).Comparable()
 
-	return DeepEqualCmp(comparable, a, b)
+	return DeepEqualCmp(isCmp, a, b)
 }
 
-func DeepEqualCmp(comparable bool, a, b any) bool {
-	if comparable {
+func DeepEqualCmp(isCmp bool, a, b any) bool {
+	if isCmp {
 		return a == b
 	}
 

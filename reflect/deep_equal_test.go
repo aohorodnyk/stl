@@ -71,6 +71,7 @@ func TestDeepEqual(t *testing.T) {
 		},
 	}
 
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
 	for idx, prov := range provider {
 		prov := prov
 
@@ -162,6 +163,7 @@ func TestDeepEqualCpm(t *testing.T) {
 		},
 	}
 
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
 	for idx, prov := range provider {
 		prov := prov
 
@@ -293,6 +295,7 @@ func TestDeepEqualCpmPanic(t *testing.T) {
 		},
 	}
 
+	//nolint:paralleltest,nlintlint // We use provider data in subtests runs.
 	for idx, prov := range provider {
 		prov := prov
 

@@ -36,8 +36,7 @@ func (s *SinglyComparable[T]) ValueLast() (T, bool) {
 }
 
 func (s *SinglyComparable[T]) ValueAt(index int) (T, bool) {
-	node := s.nodeAt(index)
-	if node != nil {
+	if node := s.nodeAt(index); node != nil {
 		return node.Value(), true
 	}
 
@@ -62,6 +61,7 @@ func (s *SinglyComparable[T]) IndexOf(value T) int {
 func (s *SinglyComparable[T]) IndexOfLast(value T) int {
 	result := -1
 	pointer := s.head
+
 	for index := 0; pointer != nil; index++ {
 		if pointer.value == value {
 			result = index
@@ -114,6 +114,7 @@ func (s *SinglyComparable[T]) AddAt(index int, value T) bool {
 	}
 
 	s.length++
+
 	node.next = &SinglyNodeComparable[T]{
 		value: value,
 		next:  node.next,
@@ -151,6 +152,7 @@ func (s *SinglyComparable[T]) PopAt(index int) (T, bool) {
 	}
 
 	s.length--
+
 	result = node.next.value
 	node.next = node.next.next
 
@@ -300,14 +302,14 @@ type SinglyNodeComparable[T comparable] struct {
 	next  *SinglyNodeComparable[T]
 }
 
-func (n *SinglyNodeComparable[T]) Value() T {
-	return n.value
+func (s *SinglyNodeComparable[T]) Value() T {
+	return s.value
 }
 
-func (n *SinglyNodeComparable[T]) Next() Node[T] {
-	return n.next
+func (s *SinglyNodeComparable[T]) Next() Node[T] {
+	return s.next
 }
 
-func (n *SinglyNodeComparable[T]) Prev() Node[T] {
+func (s *SinglyNodeComparable[T]) Prev() Node[T] {
 	panic("Singly linked list does not support prev, use doubly linked list instead")
 }
