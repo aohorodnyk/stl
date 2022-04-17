@@ -3,11 +3,13 @@ package linkedlist
 import "sync"
 
 func NewSinglyComparableSync[T comparable]() *SinglyComparableSync[T] {
-	return &SinglyComparableSync[T]{}
+	return &SinglyComparableSync[T]{
+		linkedlist: NewSinglyComparable[T](),
+	}
 }
 
 type SinglyComparableSync[T comparable] struct {
-	linkedlist SinglyComparable[T]
+	linkedlist *SinglyComparable[T]
 	mutex      sync.RWMutex
 }
 
