@@ -2,165 +2,171 @@ package linkedlist
 
 import "sync"
 
-func NewSinglyComparableSync[T comparable]() *SinglyComparableSync[T] {
-	return &SinglyComparableSync[T]{
+func NewSinglyComparableSync[T comparable]() *ComparableSync[T] {
+	return &ComparableSync[T]{
 		linkedlist: NewSinglyComparable[T](),
 	}
 }
 
-type SinglyComparableSync[T comparable] struct {
-	linkedlist *SinglyComparable[T]
+func NewDoublyComparableSync[T comparable]() *ComparableSync[T] {
+	return &ComparableSync[T]{
+		linkedlist: NewDoublyComparable[T](),
+	}
+}
+
+type ComparableSync[T comparable] struct {
+	linkedlist LinkedList[T]
 	mutex      sync.RWMutex
 }
 
-func (s *SinglyComparableSync[T]) NodeFirst() (Node[T], bool) {
+func (s *ComparableSync[T]) NodeFirst() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.NodeFirst()
 }
 
-func (s *SinglyComparableSync[T]) NodeLast() (Node[T], bool) {
+func (s *ComparableSync[T]) NodeLast() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.NodeLast()
 }
 
-func (s *SinglyComparableSync[T]) NodeAt(index int) (Node[T], bool) {
+func (s *ComparableSync[T]) NodeAt(index int) Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.NodeAt(index)
 }
 
-func (s *SinglyComparableSync[T]) ValueFirst() (T, bool) {
+func (s *ComparableSync[T]) ValueFirst() (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.ValueFirst()
 }
 
-func (s *SinglyComparableSync[T]) ValueLast() (T, bool) {
+func (s *ComparableSync[T]) ValueLast() (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.ValueLast()
 }
 
-func (s *SinglyComparableSync[T]) ValueAt(index int) (T, bool) {
+func (s *ComparableSync[T]) ValueAt(index int) (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.ValueAt(index)
 }
 
-func (s *SinglyComparableSync[T]) IndexOf(value T) int {
+func (s *ComparableSync[T]) IndexOf(value T) int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.IndexOf(value)
 }
 
-func (s *SinglyComparableSync[T]) IndexOfLast(value T) int {
+func (s *ComparableSync[T]) IndexOfLast(value T) int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.IndexOfLast(value)
 }
 
-func (s *SinglyComparableSync[T]) Contains(value T) bool {
+func (s *ComparableSync[T]) Contains(value T) bool {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.Contains(value)
 }
 
-func (s *SinglyComparableSync[T]) Length() int {
+func (s *ComparableSync[T]) Length() int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.Length()
 }
 
-func (s *SinglyComparableSync[T]) Empty() bool {
+func (s *ComparableSync[T]) Empty() bool {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.Empty()
 }
 
-func (s *SinglyComparableSync[T]) AddFirst(value T) bool {
+func (s *ComparableSync[T]) AddFirst(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.AddFirst(value)
 }
 
-func (s *SinglyComparableSync[T]) AddLast(value T) bool {
+func (s *ComparableSync[T]) AddLast(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.AddLast(value)
 }
 
-func (s *SinglyComparableSync[T]) AddAt(index int, value T) bool {
+func (s *ComparableSync[T]) AddAt(index int, value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.AddAt(index, value)
 }
 
-func (s *SinglyComparableSync[T]) PopFirst() (T, bool) {
+func (s *ComparableSync[T]) PopFirst() (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.PopFirst()
 }
 
-func (s *SinglyComparableSync[T]) PopLast() (T, bool) {
+func (s *ComparableSync[T]) PopLast() (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.PopLast()
 }
 
-func (s *SinglyComparableSync[T]) PopAt(index int) (T, bool) {
+func (s *ComparableSync[T]) PopAt(index int) (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.PopAt(index)
 }
 
-func (s *SinglyComparableSync[T]) RemoveNode(node Node[T]) bool {
+func (s *ComparableSync[T]) RemoveNode(node Node[T]) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.RemoveNode(node)
 }
 
-func (s *SinglyComparableSync[T]) RemoveFirstBy(value T) bool {
+func (s *ComparableSync[T]) RemoveFirstBy(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.RemoveFirstBy(value)
 }
 
-func (s *SinglyComparableSync[T]) RemoveLastBy(value T) bool {
+func (s *ComparableSync[T]) RemoveLastBy(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.RemoveLastBy(value)
 }
 
-func (s *SinglyComparableSync[T]) RemoveAllBy(value T) bool {
+func (s *ComparableSync[T]) RemoveAllBy(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.linkedlist.RemoveAllBy(value)
 }
 
-func (s *SinglyComparableSync[T]) Clear() {
+func (s *ComparableSync[T]) Clear() {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 

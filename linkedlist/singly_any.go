@@ -32,18 +32,16 @@ type SinglyAny[T any] struct {
 	comparable bool
 }
 
-func (s *SinglyAny[T]) NodeFirst() (Node[T], bool) {
+func (s *SinglyAny[T]) NodeFirst() Node[T] {
 	return s.NodeAt(0)
 }
 
-func (s *SinglyAny[T]) NodeLast() (Node[T], bool) {
+func (s *SinglyAny[T]) NodeLast() Node[T] {
 	return s.NodeAt(math.Max(s.length-1, 0))
 }
 
-func (s *SinglyAny[T]) NodeAt(index int) (Node[T], bool) {
-	node := s.nodeAt(index)
-
-	return node, node != nil
+func (s *SinglyAny[T]) NodeAt(index int) Node[T] {
+	return s.nodeAt(index)
 }
 
 func (s *SinglyAny[T]) ValueFirst() (T, bool) {
@@ -113,10 +111,6 @@ func (s *SinglyAny[T]) AddLast(value T) bool {
 }
 
 func (s *SinglyAny[T]) AddAt(index int, value T) bool {
-	if index > s.length {
-		return false
-	}
-
 	if index == 0 {
 		s.length++
 		s.head = &SinglyNodeAny[T]{
@@ -307,6 +301,10 @@ func (s *SinglyAny[T]) nodeAt(index int) *SinglyNodeAny[T] {
 	node := s.head
 	for i := 0; i < index && node != nil; i++ {
 		node = node.next
+	}
+
+	if node == nil {
+		return nil
 	}
 
 	return node

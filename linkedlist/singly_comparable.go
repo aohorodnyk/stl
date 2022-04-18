@@ -13,18 +13,16 @@ type SinglyComparable[T comparable] struct {
 	length int
 }
 
-func (s *SinglyComparable[T]) NodeFirst() (Node[T], bool) {
+func (s *SinglyComparable[T]) NodeFirst() Node[T] {
 	return s.NodeAt(0)
 }
 
-func (s *SinglyComparable[T]) NodeLast() (Node[T], bool) {
+func (s *SinglyComparable[T]) NodeLast() Node[T] {
 	return s.NodeAt(math.Max(s.length-1, 0))
 }
 
-func (s *SinglyComparable[T]) NodeAt(index int) (Node[T], bool) {
-	node := s.nodeAt(index)
-
-	return node, node != nil
+func (s *SinglyComparable[T]) NodeAt(index int) Node[T] {
+	return s.nodeAt(index)
 }
 
 func (s *SinglyComparable[T]) ValueFirst() (T, bool) {
@@ -94,10 +92,6 @@ func (s *SinglyComparable[T]) AddLast(value T) bool {
 }
 
 func (s *SinglyComparable[T]) AddAt(index int, value T) bool {
-	if index > s.length {
-		return false
-	}
-
 	if index == 0 {
 		s.length++
 		s.head = &SinglyNodeComparable[T]{
@@ -290,6 +284,10 @@ func (s *SinglyComparable[T]) nodeAt(index int) *SinglyNodeComparable[T] {
 		node = node.next
 	}
 
+	if node == nil {
+		return nil
+	}
+
 	return node
 }
 
@@ -303,6 +301,10 @@ func (s *SinglyNodeComparable[T]) Value() T {
 }
 
 func (s *SinglyNodeComparable[T]) Next() Node[T] {
+	if s.next == nil {
+		return nil
+	}
+
 	return s.next
 }
 

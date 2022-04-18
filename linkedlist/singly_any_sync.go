@@ -19,21 +19,21 @@ type SinglyAnySync[T any] struct {
 	mutex      sync.RWMutex
 }
 
-func (s *SinglyAnySync[T]) NodeFirst() (Node[T], bool) {
+func (s *SinglyAnySync[T]) NodeFirst() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.NodeFirst()
 }
 
-func (s *SinglyAnySync[T]) NodeLast() (Node[T], bool) {
+func (s *SinglyAnySync[T]) NodeLast() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
 	return s.linkedlist.NodeLast()
 }
 
-func (s *SinglyAnySync[T]) NodeAt(index int) (Node[T], bool) {
+func (s *SinglyAnySync[T]) NodeAt(index int) Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 

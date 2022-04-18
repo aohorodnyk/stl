@@ -2,9 +2,9 @@ package linkedlist
 
 //nolint:varnamelen,nilintlint // It's good name for the generic type.
 type LinkedList[T any] interface {
-	NodeFirst() (Node[T], bool)
-	NodeLast() (Node[T], bool)
-	NodeAt(int) (Node[T], bool)
+	NodeFirst() Node[T]
+	NodeLast() Node[T]
+	NodeAt(int) Node[T]
 	ValueFirst() (T, bool)
 	ValueLast() (T, bool)
 	ValueAt(int) (T, bool)
