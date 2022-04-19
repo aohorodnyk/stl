@@ -376,7 +376,35 @@ func removeLast(t *testing.T, list linkedlist.LinkedList[int]) {
 	}
 
 	if list.IndexOfLast(1) != 2 {
-		t.Errorf("Expected the last index of 1 to be 4, got %d", list.IndexOfLast(1))
+		t.Errorf("Expected the last index of 1 to be 2, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveLastBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != 0 {
+		t.Errorf("Expected the first index of 1 to be 0, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 0 {
+		t.Errorf("Expected the last index of 1 to be 0, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveLastBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != -1 {
+		t.Errorf("Expected the first index of 1 to be -1, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != -1 {
+		t.Errorf("Expected the last index of 1 to be -1, got %d", list.IndexOfLast(1))
+	}
+
+	if list.RemoveLastBy(1) {
+		t.Errorf("Expected to not remove an element with value 1, not elements kept")
 	}
 }
 
