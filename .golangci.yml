@@ -82,7 +82,7 @@ linters:
     - nilnil
     - nlreturn
     - noctx
-    - nolintlint
+    # - nolintlint # Let's keed nolintlint if we decide to add it.
     - paralleltest
     - prealloc
     - predeclared
@@ -114,3 +114,7 @@ issues:
           - goconst
           - gocyclo
           - lll
+# golangci.com configuration
+# https://github.com/golangci/golangci/wiki/Configuration
+service:
+  golangci-lint-version: 1.45.x # use the fixed version to not introduce new linters unexpectedly
