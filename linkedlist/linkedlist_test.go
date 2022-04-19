@@ -33,225 +33,120 @@ var _ linkedlist.Node[map[string]string] = &linkedlist.SinglyNodeAny[map[string]
 func TestDoublyComparable(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewDoublyComparable[int]()
-	simpleTest(t, list)
-}
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyComparable[int]()
+	}
 
-func TestDoublyComparableRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewDoublyComparable[int]()
-	removeLast(t, list)
-}
-
-func TestDoublyComparableEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewDoublyComparable[int]()
-	emptyTest(t, list)
-}
-
-func TestDoublyComparableMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewDoublyComparable[int]()
-	multipleTest(t, list)
-}
-
-func TestSinglyComparable(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparable[int]()
-	simpleTest(t, list)
-}
-
-func TestSinglyComparableMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparable[int]()
-	multipleTest(t, list)
-}
-
-func TestSinglyComparableRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparable[int]()
-	removeLast(t, list)
-}
-
-func TestSinglyComparableEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparable[int]()
-	emptyTest(t, list)
-}
-
-func TestSinglyComparableSyncRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparableSync[int]()
-	removeLast(t, list)
-}
-
-func TestSinglyComparableSync(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparableSync[int]()
-	simpleTest(t, list)
-}
-
-func TestSinglyComparableSyncEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparableSync[int]()
-	emptyTest(t, list)
-}
-
-func TestSinglyComparableSyncMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyComparableSync[int]()
-	multipleTest(t, list)
-}
-
-func TestDoublyComparableSyncRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewDoublyComparableSync[int]()
-	removeLast(t, list)
+	runTests(t, factory)
 }
 
 func TestDoublyComparableSync(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewDoublyComparableSync[int]()
-	simpleTest(t, list)
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyComparableSync[int]()
+	}
+
+	runTests(t, factory)
 }
 
-func TestDoublyComparableSyncEmpty(t *testing.T) {
+func TestSinglyComparable(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewDoublyComparableSync[int]()
-	emptyTest(t, list)
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyComparable[int]()
+	}
+
+	runTests(t, factory)
 }
 
-func TestDoublyComparableSyncMultiple(t *testing.T) {
+func TestSinglyComparableSync(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewDoublyComparableSync[int]()
-	multipleTest(t, list)
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyComparableSync[int]()
+	}
+
+	runTests(t, factory)
 }
 
 func TestSinglyAny(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewSinglyAny[int]()
-	simpleTest(t, list)
-}
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAny[int]()
+	}
 
-func TestSinglyAnyRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAny[int]()
-	removeLast(t, list)
-}
-
-func TestSinglyAnyMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAny[int]()
-	multipleTest(t, list)
-}
-
-func TestSinglyAnyEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAny[int]()
-	emptyTest(t, list)
-}
-
-func TestSinglyAnySyncRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnySync[int]()
-	removeLast(t, list)
+	runTests(t, factory)
 }
 
 func TestSinglyAnySync(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewSinglyAnySync[int]()
-	simpleTest(t, list)
-}
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnySync[int]()
+	}
 
-func TestSinglyAnySyncEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnySync[int]()
-	emptyTest(t, list)
-}
-
-func TestSinglyAnySyncMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnySync[int]()
-	multipleTest(t, list)
+	runTests(t, factory)
 }
 
 func TestSinglyAnyCmp(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
-	simpleTest(t, list)
-}
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
+	}
 
-func TestSinglyAnyCmpEmpty(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
-	emptyTest(t, list)
-}
-
-func TestSinglyAnyCmpRemoveLast(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
-	removeLast(t, list)
-}
-
-func TestSinglyAnyCmpMultiple(t *testing.T) {
-	t.Parallel()
-
-	list := linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
-	multipleTest(t, list)
+	runTests(t, factory)
 }
 
 func TestSinglyAnySyncCmp(t *testing.T) {
 	t.Parallel()
 
-	list := linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
-	simpleTest(t, list)
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
 }
 
-func TestSinglyAnySyncCmpEmpty(t *testing.T) {
-	t.Parallel()
+func runTests(t *testing.T, factory func() linkedlist.LinkedList[int]) {
+	t.Helper()
 
-	list := linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
-	emptyTest(t, list)
-}
+	t.Run("Test Simple", func(t *testing.T) {
+		t.Parallel()
 
-func TestSinglyAnySyncCmpMultiple(t *testing.T) {
-	t.Parallel()
+		list := factory()
+		simpleTest(t, list)
+	})
 
-	list := linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
-	multipleTest(t, list)
-}
+	t.Run("Test Multiple", func(t *testing.T) {
+		t.Parallel()
 
-func TestSinglyAnySyncCmpRemoveLast(t *testing.T) {
-	t.Parallel()
+		list := factory()
+		multipleTest(t, list)
+	})
 
-	list := linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
-	removeLast(t, list)
+	t.Run("Test Remove First", func(t *testing.T) {
+		t.Parallel()
+
+		list := factory()
+		removeFirst(t, list)
+	})
+
+	t.Run("Test Remove Last", func(t *testing.T) {
+		t.Parallel()
+
+		list := factory()
+		removeLast(t, list)
+	})
+
+	t.Run("Test Empty", func(t *testing.T) {
+		t.Parallel()
+
+		list := factory()
+		emptyTest(t, list)
+	})
 }
 
 func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
@@ -405,6 +300,101 @@ func removeLast(t *testing.T, list linkedlist.LinkedList[int]) {
 
 	if list.RemoveLastBy(1) {
 		t.Errorf("Expected to not remove an element with value 1, not elements kept")
+	}
+
+	for index := list.Length() - 1; index >= 0; index-- {
+		if list.IndexOf(2) != 0 {
+			t.Errorf("Expected the first index of 2 to be 0, got %d", list.IndexOf(2))
+		}
+
+		if list.IndexOfLast(2) != index {
+			t.Errorf("Expected the last index of 2 to be %d, got %d", index, list.IndexOfLast(2))
+		}
+
+		if !list.RemoveLastBy(2) {
+			t.Errorf("Expected to remove last element with value %d", index)
+		}
+	}
+
+	if list.RemoveLastBy(2) {
+		t.Errorf("Expected to not remove an element with value 2, not elements kept")
+	}
+}
+
+func removeFirst(t *testing.T, list linkedlist.LinkedList[int]) {
+	t.Helper()
+
+	list.AddLast(1)
+	list.AddLast(2)
+	list.AddLast(1)
+	list.AddLast(2)
+	list.AddLast(1)
+	list.AddLast(2)
+
+	if list.Length() != 6 {
+		t.Errorf("Expected length to be 6, got %d", list.Length())
+	}
+
+	if list.IndexOf(1) != 0 {
+		t.Errorf("Expected the first index of 1 to be 0, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 4 {
+		t.Errorf("Expected the last index of 1 to be 4, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveFirstBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != 1 {
+		t.Errorf("Expected the first index of 1 to be 1, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 3 {
+		t.Errorf("Expected the last index of 1 to be 3, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveFirstBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != 2 {
+		t.Errorf("Expected the first index of 1 to be 2, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != 2 {
+		t.Errorf("Expected the last index of 1 to be 2, got %d", list.IndexOfLast(1))
+	}
+
+	if !list.RemoveFirstBy(1) {
+		t.Errorf("Expected to remove last element with value 1")
+	}
+
+	if list.IndexOf(1) != -1 {
+		t.Errorf("Expected the first index of 1 to be -1, got %d", list.IndexOf(1))
+	}
+
+	if list.IndexOfLast(1) != -1 {
+		t.Errorf("Expected the last index of 1 to be -1, got %d", list.IndexOfLast(1))
+	}
+
+	for index := list.Length() - 1; index >= 0; index-- {
+		if list.IndexOf(2) != 0 {
+			t.Errorf("Expected the first index of 2 to be 0, got %d", list.IndexOf(2))
+		}
+
+		if list.IndexOfLast(2) != index {
+			t.Errorf("Expected the last index of 2 to be %d, got %d", index, list.IndexOfLast(2))
+		}
+
+		if !list.RemoveLastBy(2) {
+			t.Errorf("Expected to remove last element with value %d", index)
+		}
+	}
+
+	if list.RemoveLastBy(2) {
+		t.Errorf("Expected to not remove an element with value 2, not elements kept")
 	}
 }
 
