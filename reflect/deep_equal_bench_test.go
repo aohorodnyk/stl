@@ -9,7 +9,7 @@ import (
 
 func BenchmarkDeepEqualStandardInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		//nolint:gocritic,nolintlint //This test is expected to have the same params.
+		//nolint:gocritic //This test is expected to have the same params.
 		if reflect.DeepEqual(i, i) {
 			b.Fatal("not equal")
 		}
@@ -50,7 +50,7 @@ func BenchmarkDeepEqualCmpInt(b *testing.B) {
 
 func BenchmarkEqualInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		//nolint:gocritic,nolintlint //This test is expected to have the same params.
+		//nolint:gocritic //This test is expected to have the same params.
 		if i != i {
 			b.Fatal("not equal")
 		}

@@ -1,6 +1,6 @@
 package linkedlist
 
-//nolint:varnamelen,nilintlint // It's good name for the generic type.
+//nolint:varnamelen // It's good name for the generic type.
 type LinkedList[T any] interface {
 	NodeFirst() Node[T]
 	NodeLast() Node[T]
