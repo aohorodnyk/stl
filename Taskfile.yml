@@ -4,7 +4,7 @@ tasks:
   test:
     desc: Run unit tests
     cmds:
-      - go test -v -race ./...
+      - go test -race ./...
     env:
       CGO_ENABLED: 1
       GOFLAGS: -count=1
@@ -17,7 +17,7 @@ tasks:
   lint:
     desc: Run linter
     cmds:
-      - golangci-lint run -v ./...
+      - golangci-lint run ./...
     env:
       CGO_ENABLED: 0
   verify:
