@@ -11,7 +11,7 @@ tasks:
   bench:
     desc: Run benchmark tests
     cmds:
-      - go test -v ./... -benchmem -bench . -run=^#
+      - go test ./... -benchmem -bench . -run=^#
     env:
       CGO_ENABLED: 1
   lint:
