@@ -12,7 +12,7 @@ Every linked list has four different implementations:
 
 Any and Comparable implementations are needed to speed-up the implementation of the linked list's search methods.
 The comparable implementation in 16 times faster than the Any implementation in the search methods with comparable types.
-Two separate implementations were created, because of there is not posibility to pass `[T any]` to `[T comparable]`, for example:
+Two separate implementations were created, because of there is not posibility to pass "[T any]" to "[T comparable]", for example:
 		func cmp[T comparable](a, b T) bool {
 				return a == b
 		}
@@ -24,7 +24,7 @@ Two separate implementations were created, because of there is not posibility to
 				return reflect.DeepEqual(a, b)
 		}
 
-If I'll find a way to pass `[T any]` to `[T comparable]`, I'll remove the Comparable implementations.
+If I'll find a way to pass "[T any]" to "[T comparable]", I'll remove the Comparable implementations.
 
 To create a new linked list, use New functions.
 */
