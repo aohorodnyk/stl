@@ -15,6 +15,12 @@ func NewSinglyAny[T any]() *SinglyAny[T] {
 	}
 }
 
+func NewSinglyAnyDeep[T any]() *SinglyAny[T] {
+	return &SinglyAny[T]{
+		comparable: false,
+	}
+}
+
 func NewSinglyAnyCmp[T any](cmp func(T, T) bool) *SinglyAny[T] {
 	if cmp == nil {
 		panic("Comparable function is required")

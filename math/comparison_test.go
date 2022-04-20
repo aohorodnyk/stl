@@ -351,3 +351,45 @@ func TestMaxInt(t *testing.T) {
 		})
 	}
 }
+
+func TestCompareMultiCustom(t *testing.T) {
+	t.Parallel()
+
+	type customType struct {
+		field int
+	}
+
+	cmpMin := func(first, second customType) bool { return first.field < second.field }
+	cmpMax := func(first, second customType) bool { return first.field > second.field }
+	cmpRef := func(first, second *customType) bool { return first.field > second.field }
+
+	min := mathstl.CompareMulti(cmpMin, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	if min.field != -15 {
+		t.Errorf("got %v, expected %v", min.field, -15)
+	}
+
+	max := mathstl.CompareMulti(cmpMax, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	if max.field != 2 {
+		t.Errorf("got %v, expected %v", max.field, 2)
+	}
+
+	empty := mathstl.CompareMulti(cmpMax)
+	if empty.field != 0 {
+		t.Errorf("got %v, expected %v", max.field, 0)
+	}
+
+	emptyRef := mathstl.CompareMulti(cmpRef)
+	if emptyRef != nil {
+		t.Errorf("got %v, expected %v", emptyRef, nil)
+	}
+
+	maxRef := mathstl.CompareMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2})
+	if maxRef.field != 2 {
+		t.Errorf("got %v, expected %v", emptyRef, 2)
+	}
+
+	maxRef = mathstl.CompareMulti(cmpRef, &customType{field: 1})
+	if maxRef.field != 1 {
+		t.Errorf("got %v, expected %v", emptyRef, 1)
+	}
+}

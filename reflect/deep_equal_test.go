@@ -15,6 +15,21 @@ func TestDeepEqual(t *testing.T) {
 		exp  bool
 	}{
 		{
+			a:   nil,
+			b:   nil,
+			exp: true,
+		},
+		{
+			a:   nil,
+			b:   1,
+			exp: false,
+		},
+		{
+			a:   1,
+			b:   nil,
+			exp: false,
+		},
+		{
 			a:   1,
 			b:   1,
 			exp: true,
@@ -96,6 +111,42 @@ func TestDeepEqualCpm(t *testing.T) {
 		exp        bool
 	}{
 		{
+			a:          nil,
+			b:          1,
+			comparable: false,
+			exp:        false,
+		},
+		{
+			a:          1,
+			b:          nil,
+			comparable: false,
+			exp:        false,
+		},
+		{
+			a:          nil,
+			b:          1,
+			comparable: true,
+			exp:        false,
+		},
+		{
+			a:          1,
+			b:          nil,
+			comparable: true,
+			exp:        false,
+		},
+		{
+			a:          nil,
+			b:          nil,
+			comparable: false,
+			exp:        true,
+		},
+		{
+			a:          nil,
+			b:          nil,
+			comparable: true,
+			exp:        true,
+		},
+		{
 			a:          1,
 			b:          1,
 			comparable: true,
@@ -138,6 +189,18 @@ func TestDeepEqualCpm(t *testing.T) {
 			exp:        false,
 		},
 		{
+			a:          124235.0,
+			b:          124235,
+			comparable: false,
+			exp:        false,
+		},
+		{
+			a:          124235.0,
+			b:          "124235",
+			comparable: false,
+			exp:        false,
+		},
+		{
 			a:          []string{"asdf", "asdf", "asdf"},
 			b:          []string{"asdf", "asdf", "asdf"},
 			comparable: false,
@@ -157,6 +220,12 @@ func TestDeepEqualCpm(t *testing.T) {
 		},
 		{
 			a:          map[string]string{"asdf": "qwetr", "berwf": "qwet21", "wfwe": "efqwe2r"},
+			b:          map[string]string{"asdf": "qwetr", "berwf": "qwet21", "wfwe": "efqwetr"},
+			comparable: false,
+			exp:        false,
+		},
+		{
+			a:          []string{"asdf", "qwetr", "berwf", "qwet21", "wfwe", "efqwe2r"},
 			b:          map[string]string{"asdf": "qwetr", "berwf": "qwet21", "wfwe": "efqwetr"},
 			comparable: false,
 			exp:        false,
@@ -217,6 +286,20 @@ func TestDeepEqualCpmPanic(t *testing.T) {
 			panic:      false,
 		},
 		{
+			a:          34524,
+			b:          "34524",
+			comparable: true,
+			exp:        false,
+			panic:      false,
+		},
+		{
+			a:          124235,
+			b:          124235.234523,
+			comparable: true,
+			exp:        false,
+			panic:      false,
+		},
+		{
 			a:          124235.234523,
 			b:          124235.234523,
 			comparable: true,
@@ -245,11 +328,25 @@ func TestDeepEqualCpmPanic(t *testing.T) {
 			panic:      false,
 		},
 		{
-			a:          []string{"asdf", "asdf", "asda"},
-			b:          []string{"asdf", "asdf", "asdf"},
-			comparable: false,
+			a:          234,
+			b:          map[string]string{"asdf": "qwetr"},
+			comparable: true,
 			exp:        false,
 			panic:      false,
+		},
+		{
+			a:          []string{"asdf", "asdf", "asda"},
+			b:          map[string]string{"asdf": "qwetr"},
+			comparable: true,
+			exp:        false,
+			panic:      false,
+		},
+		{
+			a:          []string{"asdf", "asdf", "asda"},
+			b:          []string{"asdf", "asdf", "asdf"},
+			comparable: true,
+			exp:        false,
+			panic:      true,
 		},
 		{
 			a:          map[string]string{"asdf": "qwetr", "berwf": "qwet21", "wfwe": "efqwetr"},

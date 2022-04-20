@@ -25,7 +25,7 @@ var _ linkedlist.Node[int] = &linkedlist.SinglyNodeComparable[int]{}
 var _ linkedlist.LinkedList[map[string]string] = &linkedlist.SinglyAny[map[string]string]{}
 
 // Verify that SinglyComparable implements LinkedList interface.
-var _ linkedlist.LinkedList[map[string]string] = &linkedlist.SinglyAnySync[map[string]string]{}
+var _ linkedlist.LinkedList[map[string]string] = &linkedlist.AnySync[map[string]string]{}
 
 // Verify that SinglyComparable implements LinkedList interface.
 var _ linkedlist.Node[map[string]string] = &linkedlist.SinglyNodeAny[map[string]string]{}
@@ -45,6 +45,26 @@ func TestDoublyComparableSync(t *testing.T) {
 
 	factory := func() linkedlist.LinkedList[int] {
 		return linkedlist.NewDoublyComparableSync[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAny(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAny[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAnySync(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnySync[int]()
 	}
 
 	runTests(t, factory)
