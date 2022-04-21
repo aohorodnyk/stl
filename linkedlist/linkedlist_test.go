@@ -70,6 +70,26 @@ func TestDoublyAnySync(t *testing.T) {
 	runTests(t, factory)
 }
 
+func TestDoublyAnyCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnyCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAnySyncCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnySyncCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
 func TestSinglyComparable(t *testing.T) {
 	t.Parallel()
 
@@ -166,6 +186,13 @@ func runTests(t *testing.T, factory func() linkedlist.LinkedList[int]) {
 
 		list := factory()
 		emptyTest(t, list)
+	})
+
+	t.Run("Test Next", func(t *testing.T) {
+		t.Parallel()
+
+		list := factory()
+		nextTest(t, list)
 	})
 }
 
@@ -606,5 +633,35 @@ func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
 
 	if list.RemoveNode(node) {
 		t.Error("RemoveNode function. Expected false, got true")
+	}
+}
+
+func nextTest(t *testing.T, ll linkedlist.LinkedList[int]) {
+	t.Helper()
+
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	for idx, value := range values {
+		if !ll.AddAt(idx, value) {
+			t.Errorf("AddAt(%d, %d) function. Expected true, got false", idx, value)
+		}
+	}
+
+	if ll.Length() != len(values) {
+		t.Errorf("Expected length %d, got %d", len(values), ll.Length())
+	}
+
+	node := ll.NodeFirst()
+	if node == nil {
+		t.Errorf("NodeFirst function. Expected non-nil, got nil")
+	}
+
+	counter := 0
+	for node != nil {
+		if node.Value() != values[counter] {
+			t.Errorf("Node.Value() function. Expected %d, got %d", values[counter], node.Value())
+		}
+
+		node = node.Next()
+		counter++
 	}
 }
