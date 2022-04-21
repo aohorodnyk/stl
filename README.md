@@ -15,3 +15,8 @@ There are the main goals of this library:
 * Implement and tests the most common functions and structures of the standard library
 * The simplicity and generalization should not affect performance
 * The library should be easy to use and understand
+
+## Documentation
+To make documentation more standartized and always up-to-date, we use [GoDoc (pkg.go.dev/github.com/aohorodnyk/stl)](https://pkg.go.dev/github.com/aohorodnyk/stl). It is the best documentation tool for Go.
+
+Every feature or feature change should introduce some changes in comments, doc.go, README.md and tests include examples.
