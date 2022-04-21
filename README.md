@@ -20,3 +20,21 @@ There are the main goals of this library:
 To make documentation more standartized and always up-to-date, we use [GoDoc (pkg.go.dev/github.com/aohorodnyk/stl)](https://pkg.go.dev/github.com/aohorodnyk/stl). It is the best documentation tool for Go.
 
 Every feature or feature change should introduce some changes in comments, doc.go, README.md and tests include examples.
+
+## Contributing
+The library is open source and you can contribute to it.
+
+Before contrbution, make sure that githook is configured for you and all your commits contain the correct issue tag.
+
+### Branch Name
+Before you start the contribution, make sure that you are on the correct branch. Branch name should start from the issue number dash and short explanation with spaces replaced by underscores. Example:
+* `1-my_feature`
+* `2-fix_bug`
+* `234-my_important_pr`
+
+### Git Hook
+To configure the git hook, you need to simply run the command: `git config core.hooksPath .githooks`
+
+It will configure the git hook to run the `pre-commit` script. Source code of the hook is in `.githooks/prepare-commit-msg`.
+
+This git-hook will parse branch name and add the issue tag to the commit message.
