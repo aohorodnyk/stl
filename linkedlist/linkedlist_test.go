@@ -186,16 +186,16 @@ func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
 		t.Errorf("Expected length to be 9, got %d", list.Length())
 	}
 
-	if !list.RemoveAllBy(123) {
-		t.Errorf("Expected to remove all elements with value 123")
+	if val := list.RemoveAllBy(123); val != 3 {
+		t.Errorf("Expected to remove 3 items, got %d", val)
 	}
 
 	if list.Length() != 6 {
 		t.Errorf("Expected length to be 6, got %d", list.Length())
 	}
 
-	if list.RemoveAllBy(123) {
-		t.Errorf("Expected to not remove any elements")
+	if val := list.RemoveAllBy(123); val != 0 {
+		t.Errorf("Expected to remove 0 items, got %d", val)
 	}
 
 	if list.Length() != 6 {
@@ -592,8 +592,8 @@ func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
 		t.Error("PopAt function. Expected false, got true")
 	}
 
-	if list.RemoveAllBy(1) {
-		t.Error("RemoveAllBy function. Expected false, got true")
+	if val := list.RemoveAllBy(1); val != 0 {
+		t.Errorf("RemoveAllBy function. Expected 0, got %d", val)
 	}
 
 	if list.RemoveFirstBy(1) {
