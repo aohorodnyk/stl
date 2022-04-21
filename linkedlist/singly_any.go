@@ -418,6 +418,10 @@ func (s *SinglyNodeAny[T]) Value() T {
 // Next returns the next node.
 // If the node is the last node, it returns nil.
 func (s *SinglyNodeAny[T]) Next() Node[T] {
+	if s.next == nil {
+		return nil
+	}
+
 	return s.next
 }
 
