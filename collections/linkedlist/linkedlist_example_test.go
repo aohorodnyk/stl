@@ -3,7 +3,7 @@ package linkedlist_test
 import (
 	"fmt"
 
-	"github.com/aohorodnyk/stl/linkedlist"
+	"github.com/aohorodnyk/stl/collections/linkedlist"
 )
 
 func ExampleLinkedList() {

@@ -3,7 +3,7 @@ package linkedlist_test
 import (
 	"testing"
 
-	"github.com/aohorodnyk/stl/linkedlist"
+	"github.com/aohorodnyk/stl/collections/linkedlist"
 )
 
 // Verify that DoublyComparable implements LinkedList interface.
