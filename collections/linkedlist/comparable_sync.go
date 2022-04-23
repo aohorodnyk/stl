@@ -2,6 +2,12 @@ package linkedlist
 
 import "sync"
 
+// AnySync is a concurrent safe linked list for comparable types T.
+// It can be used to cover thread safe container over any custom LinkedList implementation.
+func NewComparableSync[T comparable](list LinkedList[T]) *ComparableSync[T] {
+	return &ComparableSync[T]{linkedlist: list}
+}
+
 // NewSinglyComparableSync returns a new ComparableSync for a singly linked list for comparable types T.
 // The ComparableSync is not safe for concurrent use without additional synchronization.
 // The result will be a singly linked list for comparable types T safe for concurrent use.
@@ -29,7 +35,33 @@ type ComparableSync[T comparable] struct {
 	mutex      sync.RWMutex
 }
 
+// Lock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (c *ComparableSync[T]) Lock() {
+	c.mutex.Lock()
+}
+
+// Unlock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (c *ComparableSync[T]) Unlock() {
+	c.mutex.Unlock()
+}
+
+// RLock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (c *ComparableSync[T]) RLock() {
+	c.mutex.RLock()
+}
+
+// RUnlock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (c *ComparableSync[T]) RUnlock() {
+	c.mutex.RUnlock()
+}
+
 // NodeFirst returns the first node in the list.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (c *ComparableSync[T]) NodeFirst() Node[T] {
 	c.mutex.RLock()
@@ -39,6 +71,8 @@ func (c *ComparableSync[T]) NodeFirst() Node[T] {
 }
 
 // NodeLast returns the last node in the list.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (c *ComparableSync[T]) NodeLast() Node[T] {
 	c.mutex.RLock()
@@ -48,6 +82,8 @@ func (c *ComparableSync[T]) NodeLast() Node[T] {
 }
 
 // NodeAt returns the node at the given index.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (c *ComparableSync[T]) NodeAt(index int) Node[T] {
 	c.mutex.RLock()
