@@ -336,7 +336,7 @@ func (d *DoublyComparable[T]) nodeAt(index int) *DoublyNodeComparable[T] {
 
 	var node *DoublyNodeComparable[T]
 
-	if middle := d.length / 2; index <= middle {
+	if middle := d.length / 2; index < middle {
 		node = d.head
 		for i := 0; i < index && node != nil; i++ {
 			node = node.next

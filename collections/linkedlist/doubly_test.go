@@ -9,31 +9,31 @@ import (
 func TestDDoublyComparable(t *testing.T) {
 	t.Parallel()
 
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyComparable[int]()
+	factory := func() linkedlist.LinkedList[string] {
+		return linkedlist.NewDoublyComparable[string]()
 	}
 
-	runTests(t, factory)
+	runDoublyTests(t, factory)
 }
 
 func TestDDoublyComparableSync(t *testing.T) {
 	t.Parallel()
 
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyComparableSync[int]()
+	factory := func() linkedlist.LinkedList[string] {
+		return linkedlist.NewDoublyComparableSync[string]()
 	}
 
-	runTests(t, factory)
+	runDoublyTests(t, factory)
 }
 
 func TestDDoublyAny(t *testing.T) {
 	t.Parallel()
 
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyAny[int]()
+	factory := func() linkedlist.LinkedList[string] {
+		return linkedlist.NewDoublyAny[string]()
 	}
 
-	runTests(t, factory)
+	runDoublyTests(t, factory)
 }
 
 func TestDDoublyAnySync(t *testing.T) {

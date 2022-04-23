@@ -2,6 +2,12 @@ package linkedlist
 
 import "sync"
 
+// AnySync is a concurrent safe linked list for any types T.
+// It can be used to cover thread safe container over any custom LinkedList implementation.
+func NewAnySync[T any](list LinkedList[T]) *AnySync[T] {
+	return &AnySync[T]{linkedlist: list}
+}
+
 // NewSinglyAnySync returns a new Singly linked list for any type T.
 // Current instance of the LinkedList will be concurrent safe.
 func NewSinglyAnySync[T any]() *AnySync[T] {
@@ -59,7 +65,33 @@ type AnySync[T any] struct {
 	mutex      sync.RWMutex
 }
 
+// Lock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (s *AnySync[T]) Lock() {
+	s.mutex.Lock()
+}
+
+// Unlock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (s *AnySync[T]) Unlock() {
+	s.mutex.Unlock()
+}
+
+// RLock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (s *AnySync[T]) RLock() {
+	s.mutex.RLock()
+}
+
+// RUnlock locks the mutex for writing.
+// It can be used if some outside synchronization is needed.
+func (s *AnySync[T]) RUnlock() {
+	s.mutex.RUnlock()
+}
+
 // NodeFirst returns the first node in the list.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (s *AnySync[T]) NodeFirst() Node[T] {
 	s.mutex.RLock()
@@ -69,6 +101,8 @@ func (s *AnySync[T]) NodeFirst() Node[T] {
 }
 
 // NodeLast returns the last node in the list.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (s *AnySync[T]) NodeLast() Node[T] {
 	s.mutex.RLock()
@@ -78,6 +112,8 @@ func (s *AnySync[T]) NodeLast() Node[T] {
 }
 
 // NodeAt returns the node at the given index.
+// Returned node is not safe for concurrent use.
+// If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
 func (s *AnySync[T]) NodeAt(index int) Node[T] {
 	s.mutex.RLock()

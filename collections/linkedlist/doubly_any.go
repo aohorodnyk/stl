@@ -201,6 +201,8 @@ func (d *DoublyAny[T]) AddAt(index int, value T) bool {
 
 	if node.next.next == nil {
 		d.tail = node.next
+	} else {
+		node.next.next.prev = node.next
 	}
 
 	return true
@@ -372,7 +374,7 @@ func (d *DoublyAny[T]) nodeAt(index int) *DoublyNodeAny[T] {
 
 	var node *DoublyNodeAny[T]
 
-	if middle := d.length / 2; index <= middle {
+	if middle := d.length / 2; index < middle {
 		node = d.head
 		for i := 0; i < index && node != nil; i++ {
 			node = node.next
