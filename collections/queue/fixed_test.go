@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	_ queue.Queue[int]      = &queue.Fixed[int]{}
-	_ queue.Queue[string]   = &queue.Fixed[string]{}
-	_ queue.Queue[testType] = &queue.Fixed[testType]{}
+	_ queue.Queue[int]               = &queue.Fixed[int]{}
+	_ queue.Queue[string]            = &queue.Fixed[string]{}
+	_ queue.Queue[map[string]string] = &queue.Fixed[map[string]string]{}
 )
 
 func TestFixed(t *testing.T) {

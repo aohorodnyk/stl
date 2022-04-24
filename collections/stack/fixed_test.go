@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	_ stack.Stack[int]      = &stack.Fixed[int]{}
-	_ stack.Stack[string]   = &stack.Fixed[string]{}
-	_ stack.Stack[testType] = &stack.Fixed[testType]{}
+	_ stack.Stack[int]               = &stack.Fixed[int]{}
+	_ stack.Stack[string]            = &stack.Fixed[string]{}
+	_ stack.Stack[map[string]string] = &stack.Fixed[map[string]string]{}
 )
 
 func TestFixed(t *testing.T) {

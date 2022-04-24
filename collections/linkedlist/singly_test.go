@@ -6,6 +6,82 @@ import (
 	"github.com/aohorodnyk/stl/collections/linkedlist"
 )
 
+var (
+	_ linkedlist.LinkedList[int]               = &linkedlist.SinglyAny[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.SinglyAny[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.SinglyAny[map[string]string]{}
+
+	_ linkedlist.Node[int]               = &linkedlist.SinglyNodeAny[int]{}
+	_ linkedlist.Node[string]            = &linkedlist.SinglyNodeAny[string]{}
+	_ linkedlist.Node[map[string]string] = &linkedlist.SinglyNodeAny[map[string]string]{}
+
+	_ linkedlist.LinkedList[int]    = &linkedlist.SinglyComparable[int]{}
+	_ linkedlist.LinkedList[string] = &linkedlist.SinglyComparable[string]{}
+
+	_ linkedlist.Node[int]    = &linkedlist.SinglyNodeComparable[int]{}
+	_ linkedlist.Node[string] = &linkedlist.SinglyNodeComparable[string]{}
+)
+
+func TestSinglyComparable(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyComparable[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestSinglyComparableSync(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyComparableSync[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestSinglyAny(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAny[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestSinglyAnySync(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnySync[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestSinglyAnyCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
+func TestSinglyAnySyncCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
 func TestSSinglyComparable(t *testing.T) {
 	t.Parallel()
 

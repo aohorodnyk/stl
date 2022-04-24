@@ -6,6 +6,82 @@ import (
 	"github.com/aohorodnyk/stl/collections/linkedlist"
 )
 
+var (
+	_ linkedlist.LinkedList[int]               = &linkedlist.DoublyAny[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.DoublyAny[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.DoublyAny[map[string]string]{}
+
+	_ linkedlist.Node[int]               = &linkedlist.DoublyNodeAny[int]{}
+	_ linkedlist.Node[string]            = &linkedlist.DoublyNodeAny[string]{}
+	_ linkedlist.Node[map[string]string] = &linkedlist.DoublyNodeAny[map[string]string]{}
+
+	_ linkedlist.LinkedList[int]    = &linkedlist.DoublyComparable[int]{}
+	_ linkedlist.LinkedList[string] = &linkedlist.DoublyComparable[string]{}
+
+	_ linkedlist.Node[int]    = &linkedlist.DoublyNodeComparable[int]{}
+	_ linkedlist.Node[string] = &linkedlist.DoublyNodeComparable[string]{}
+)
+
+func TestDoublyComparable(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyComparable[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyComparableSync(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyComparableSync[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAny(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAny[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAnySync(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnySync[int]()
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAnyCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnyCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
+func TestDoublyAnySyncCmp(t *testing.T) {
+	t.Parallel()
+
+	factory := func() linkedlist.LinkedList[int] {
+		return linkedlist.NewDoublyAnySyncCmp(func(a, b int) bool { return a == b })
+	}
+
+	runTests(t, factory)
+}
+
 func TestDDoublyComparable(t *testing.T) {
 	t.Parallel()
 

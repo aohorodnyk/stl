@@ -6,6 +6,15 @@ import (
 	"github.com/aohorodnyk/stl/collections/linkedlist"
 )
 
+var (
+	_ linkedlist.LinkedList[int]    = &linkedlist.ComparableSync[int]{}
+	_ linkedlist.LinkedList[string] = &linkedlist.ComparableSync[string]{}
+
+	_ linkedlist.LinkedList[int]               = &linkedlist.AnySync[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.AnySync[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.AnySync[map[string]string]{}
+)
+
 func TestSinglyAnyCustomCmp(t *testing.T) {
 	t.Parallel()
 
