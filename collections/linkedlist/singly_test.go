@@ -67,8 +67,6 @@ func TestSSinglyAnySyncCmp(t *testing.T) {
 }
 
 func runSinglyTests(t *testing.T, factory func() linkedlist.LinkedList[string]) {
-	t.Helper()
-
 	t.Run("TestNode", func(t *testing.T) {
 		t.Parallel()
 
@@ -78,8 +76,6 @@ func runSinglyTests(t *testing.T, factory func() linkedlist.LinkedList[string]) 
 }
 
 func prevPanicSinglyTest(t *testing.T, ll linkedlist.LinkedList[string]) {
-	t.Helper()
-
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("The code did not panic")

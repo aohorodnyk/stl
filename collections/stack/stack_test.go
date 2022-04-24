@@ -14,8 +14,6 @@ var (
 )
 
 func clearTest(t *testing.T, stackObj stack.Stack[int]) {
-	t.Helper()
-
 	if !stackObj.Empty() {
 		t.Errorf("Expected stack to be empty, got %t", stackObj.Empty())
 	}

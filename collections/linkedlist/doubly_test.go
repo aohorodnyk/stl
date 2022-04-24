@@ -67,8 +67,6 @@ func TestDDoublyAnySyncCmp(t *testing.T) {
 }
 
 func runDoublyTests(t *testing.T, factory func() linkedlist.LinkedList[string]) {
-	t.Helper()
-
 	t.Run("TestNode", func(t *testing.T) {
 		t.Parallel()
 
@@ -78,8 +76,6 @@ func runDoublyTests(t *testing.T, factory func() linkedlist.LinkedList[string]) 
 }
 
 func nodeDoublyTest(t *testing.T, ll linkedlist.LinkedList[string]) {
-	t.Helper()
-
 	values := []string{"a1", "a2", "a3", "a4", "a5"}
 	for i, v := range values {
 		ll.AddAt(i, v)

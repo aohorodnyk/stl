@@ -21,8 +21,6 @@ func TestFixed(t *testing.T) {
 }
 
 func size10Test(t *testing.T, queueObj queue.Queue[int]) {
-	t.Helper()
-
 	fullList := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
 	if queueObj.Length() != 0 {

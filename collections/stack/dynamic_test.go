@@ -29,8 +29,6 @@ func TestDynamicSize10(t *testing.T) {
 }
 
 func size10DynamicTest(t *testing.T, stackObj stack.Stack[string]) {
-	t.Helper()
-
 	fullList := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
 	for idx, val := range fullList {
 		if !stackObj.Push(val) {

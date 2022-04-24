@@ -97,7 +97,7 @@ linters:
     - tagliatelle
     - tenv
     - testpackage
-    - thelper
+    # - thelper // It's useless linter for now.
     - tparallel
     - unconvert
     - unparam
