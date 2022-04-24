@@ -8,11 +8,6 @@ import (
 
 type testType struct{}
 
-var (
-	_ stack.Stack[int] = &stack.Dynamic[int]{}
-	_ stack.Stack[int] = &stack.Sync[int]{}
-)
-
 func clearTest(t *testing.T, stackObj stack.Stack[int]) {
 	if !stackObj.Empty() {
 		t.Errorf("Expected stack to be empty, got %t", stackObj.Empty())

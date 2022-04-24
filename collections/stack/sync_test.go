@@ -7,9 +7,11 @@ import (
 )
 
 var (
-	_ stack.Stack[int]    = &stack.Sync[int]{}
-	_ stack.Stack[string] = stack.NewSync[string](&stack.Dynamic[string]{})
-	_ stack.Stack[string] = stack.NewSync[string](&stack.Fixed[string]{})
+	_ stack.Stack[int]      = &stack.Sync[int]{}
+	_ stack.Stack[string]   = &stack.Sync[string]{}
+	_ stack.Stack[testType] = &stack.Sync[testType]{}
+	_ stack.Stack[string]   = stack.NewSync[string](&stack.Dynamic[string]{})
+	_ stack.Stack[string]   = stack.NewSync[string](&stack.Fixed[string]{})
 )
 
 func TestDynamicClearSync(t *testing.T) {
