@@ -20,6 +20,14 @@ func TestDynamicSize10(t *testing.T) {
 	size10DynamicTest(t, queueObj)
 }
 
+func TestDynamicClear(t *testing.T) {
+	t.Parallel()
+
+	queueObj := queue.NewDynamic[int]()
+
+	clearTest(t, queueObj)
+}
+
 func size10DynamicTest(t *testing.T, queueObj queue.Queue[string]) {
 	fullList := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
 	for idx, val := range fullList {

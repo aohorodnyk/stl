@@ -20,6 +20,14 @@ func TestFixed(t *testing.T) {
 	size10Test(t, queueObj)
 }
 
+func TestFixedClear(t *testing.T) {
+	t.Parallel()
+
+	queueObj := queue.NewFixed[int](3)
+
+	clearTest(t, queueObj)
+}
+
 func size10Test(t *testing.T, queueObj queue.Queue[int]) {
 	fullList := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
