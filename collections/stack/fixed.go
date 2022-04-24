@@ -89,9 +89,3 @@ func (d *Fixed[T]) Length() int {
 func (d *Fixed[T]) Clear() {
 	d.length = 0
 }
-
-// next returns the next index in the stack.
-// next is a O(1) operation.
-func (d *Fixed[T]) next(idx int) int {
-	return (idx + 1) % len(d.data)
-}
