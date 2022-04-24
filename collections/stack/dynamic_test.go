@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	_ stack.Stack[int]      = &stack.Dynamic[int]{}
-	_ stack.Stack[string]   = &stack.Dynamic[string]{}
-	_ stack.Stack[testType] = &stack.Dynamic[testType]{}
+	_ stack.Stack[int]               = &stack.Dynamic[int]{}
+	_ stack.Stack[string]            = &stack.Dynamic[string]{}
+	_ stack.Stack[map[string]string] = &stack.Dynamic[map[string]string]{}
 )
 
 func TestDynamicClear(t *testing.T) {

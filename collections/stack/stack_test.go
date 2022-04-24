@@ -6,8 +6,6 @@ import (
 	"github.com/aohorodnyk/stl/collections/stack"
 )
 
-type testType struct{}
-
 func clearTest(t *testing.T, stackObj stack.Stack[int]) {
 	if !stackObj.Empty() {
 		t.Errorf("Expected stack to be empty, got %t", stackObj.Empty())

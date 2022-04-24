@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	_ queue.Queue[int]      = &queue.Dynamic[int]{}
-	_ queue.Queue[string]   = &queue.Dynamic[string]{}
-	_ queue.Queue[testType] = &queue.Dynamic[testType]{}
+	_ queue.Queue[int]               = &queue.Dynamic[int]{}
+	_ queue.Queue[string]            = &queue.Dynamic[string]{}
+	_ queue.Queue[map[string]string] = &queue.Dynamic[map[string]string]{}
 )
 
 func TestDynamicSize10(t *testing.T) {

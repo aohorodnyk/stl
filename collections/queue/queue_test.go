@@ -6,8 +6,6 @@ import (
 	"github.com/aohorodnyk/stl/collections/queue"
 )
 
-type testType struct{}
-
 func clearTest(t *testing.T, stackObj queue.Queue[int]) {
 	if !stackObj.Empty() {
 		t.Errorf("Expected stack to be empty, got %t", stackObj.Empty())
