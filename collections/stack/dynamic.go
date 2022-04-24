@@ -10,7 +10,7 @@ func NewDynamicLinkedList[T any](list linkedlist.LinkedList[T]) *Dynamic[T] {
 
 // NewDynamic returns a new dynamic stack for any type T.
 // The stack is not safe for concurrent use.
-// The stack based on NewDoublyAnyDeep linked list. The factory function does not use reflection.
+// The stack based on NewSinglyAnyDeep linked list. The factory function does not use reflection.
 // Stack does not use comparison functions.
 func NewDynamic[T any]() *Dynamic[T] {
 	return &Dynamic[T]{
