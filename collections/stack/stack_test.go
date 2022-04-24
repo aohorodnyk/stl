@@ -3,7 +3,7 @@ package stack_test
 import (
 	"testing"
 
-	"github.com/aohorodnyk/stl/stack"
+	"github.com/aohorodnyk/stl/collections/stack"
 )
 
 type testType struct{}
