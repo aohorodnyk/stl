@@ -151,8 +151,6 @@ func TestSinglyAnySyncCmp(t *testing.T) {
 }
 
 func runTests(t *testing.T, factory func() linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	t.Run("Test Simple", func(t *testing.T) {
 		t.Parallel()
 
@@ -197,8 +195,6 @@ func runTests(t *testing.T, factory func() linkedlist.LinkedList[int]) {
 }
 
 func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	list.AddFirst(5234)
 	list.AddFirst(532)
 	list.AddFirst(5234)
@@ -288,8 +284,6 @@ func multipleTest(t *testing.T, list linkedlist.LinkedList[int]) {
 }
 
 func removeLast(t *testing.T, list linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	list.AddLast(1)
 	list.AddLast(2)
 	list.AddLast(1)
@@ -369,8 +363,6 @@ func removeLast(t *testing.T, list linkedlist.LinkedList[int]) {
 }
 
 func removeFirst(t *testing.T, list linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	list.AddLast(1)
 	list.AddLast(2)
 	list.AddLast(1)
@@ -446,8 +438,6 @@ func removeFirst(t *testing.T, list linkedlist.LinkedList[int]) {
 }
 
 func simpleTest(t *testing.T, list linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	list.AddFirst(1)
 	list.AddFirst(2)
 	list.AddLast(-1)
@@ -548,8 +538,6 @@ func simpleTest(t *testing.T, list linkedlist.LinkedList[int]) {
 }
 
 func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	list.AddFirst(1)
 	list.AddFirst(2)
 	list.AddLast(-1)
@@ -637,8 +625,6 @@ func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
 }
 
 func nextTest(t *testing.T, ll linkedlist.LinkedList[int]) {
-	t.Helper()
-
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	for idx, value := range values {
 		if !ll.AddAt(idx, value) {

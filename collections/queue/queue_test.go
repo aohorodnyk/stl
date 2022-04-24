@@ -1,14 +1,14 @@
-package stack_test
+package queue_test
 
 import (
 	"testing"
 
-	"github.com/aohorodnyk/stl/collections/stack"
+	"github.com/aohorodnyk/stl/collections/queue"
 )
 
 type testType struct{}
 
-func clearTest(t *testing.T, stackObj stack.Stack[int]) {
+func clearTest(t *testing.T, stackObj queue.Queue[int]) {
 	if !stackObj.Empty() {
 		t.Errorf("Expected stack to be empty, got %t", stackObj.Empty())
 	}
@@ -46,8 +46,8 @@ func clearTest(t *testing.T, stackObj stack.Stack[int]) {
 		t.Errorf("Length() = %d, want %d", stackObj.Length(), 2)
 	}
 
-	if val, ok := stackObj.Pop(); !ok || val != 222 {
-		t.Errorf("Pop() = %d, %t, want 222, true", val, ok)
+	if val, ok := stackObj.Pop(); !ok || val != 111 {
+		t.Errorf("Pop() = %d, %t, want 111, true", val, ok)
 	}
 
 	stackObj.Push(333)
@@ -56,7 +56,7 @@ func clearTest(t *testing.T, stackObj stack.Stack[int]) {
 		t.Errorf("Length() = %d, want %d", stackObj.Length(), 2)
 	}
 
-	if val, ok := stackObj.Pop(); !ok || val != 333 {
-		t.Errorf("Pop() = %d, %t, want 333, true", val, ok)
+	if val, ok := stackObj.Pop(); !ok || val != 222 {
+		t.Errorf("Pop() = %d, %t, want 222, true", val, ok)
 	}
 }

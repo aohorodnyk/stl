@@ -29,8 +29,6 @@ func TestFixedClear(t *testing.T) {
 }
 
 func size10Test(t *testing.T, stackObj stack.Stack[int]) {
-	t.Helper()
-
 	fullList := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
 	if stackObj.Length() != 0 {

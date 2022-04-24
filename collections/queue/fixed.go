@@ -1,7 +1,7 @@
-package stack
+package queue
 
-// NewFixed returns a new fixed-size stack for any type T.
-// The stack is initialized with the given capacity.
+// NewFixed returns a new fixed-size queue for any type T.
+// The queue is initialized with the given capacity.
 // The capacity must be greater than zero.
 // nolint:varnamelen // It's good name for the generic type.
 func NewFixed[T any](capacity int) *Fixed[T] {
@@ -14,19 +14,21 @@ func NewFixed[T any](capacity int) *Fixed[T] {
 	}
 }
 
-// Fixed is a stack implementation based on static slice.
-// This stack is not safe for concurrent use.
-// This stack is memory efficient and is suitable for use cases where the stack is has.
+// Fixed is a queue implementation based on static slice.
+// This queue is not safe for concurrent use.
+// This queue is memory efficient and is suitable for use cases where the stack is has.
 // It allocates the memory with the specified size during initialization
 // and just use it without any additional allocations.
 // All operations are performed in O(1) time.
 // nolint:varnamelen // It's good name for the generic type.
 type Fixed[T any] struct {
 	data   []T
+	first  int
+	last   int
 	length int
 }
 
-// Push adds a new element to the top of the stack.
+// Push adds a new element to the bottom of the stack.
 // The latest pushed element is the first one to be popped.
 // Returns true if the element was pushed successfully.
 // Push is a O(1) operation.
@@ -35,7 +37,8 @@ func (d *Fixed[T]) Push(value T) bool {
 		return false
 	}
 
-	d.data[d.length] = value
+	d.data[d.last] = value
+	d.last = d.next(d.last)
 
 	d.length++
 
@@ -54,7 +57,8 @@ func (d *Fixed[T]) Pop() (T, bool) {
 
 	d.length--
 
-	result = d.data[d.length]
+	result = d.data[d.first]
+	d.first = d.next(d.first)
 
 	return result, true
 }
@@ -69,7 +73,7 @@ func (d *Fixed[T]) Peek() (T, bool) {
 		return tmp, false
 	}
 
-	return d.data[d.length-1], true
+	return d.data[d.first], true
 }
 
 // Empty returns true if the stack is empty.
@@ -88,4 +92,10 @@ func (d *Fixed[T]) Length() int {
 // Length is a O(1) operation.
 func (d *Fixed[T]) Clear() {
 	d.length = 0
+}
+
+// next returns the next index in the stack.
+// next is a O(1) operation.
+func (d *Fixed[T]) next(idx int) int {
+	return (idx + 1) % len(d.data)
 }

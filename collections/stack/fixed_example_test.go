@@ -24,6 +24,15 @@ func ExampleFixed() {
 	// Pop the top element off the stack.
 	fmt.Println(stackFixed.Pop())
 
+	// Push the new third element to the stack, because of one has been already popped.
+	fmt.Println(stackFixed.Push(5))
+
+	// Peek the top element from the stack.
+	fmt.Println(stackFixed.Peek())
+
+	// Pop the top element off the stack.
+	fmt.Println(stackFixed.Pop())
+
 	// Peek the top element from the stack.
 	fmt.Println(stackFixed.Peek())
 
@@ -50,6 +59,9 @@ func ExampleFixed() {
 	// false
 	// 3 true
 	// 3 true
+	// true
+	// 5 true
+	// 5 true
 	// 2 true
 	// 2 true
 	// 1 true
