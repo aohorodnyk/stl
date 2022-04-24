@@ -11,7 +11,7 @@ Every linked list has four different implementations:
 	4. AnySync - the Any implementation with concurrent access
 
 To the example on how to use the linked list, please refer to the linkedlist_example_test.go file.
-Or see https://pkg.go.dev/github.com/aohorodnyk/stl@v0.0.5/collections/linkedlist#example-LinkedList, but use needed factory method, that is needed.
+Or see https://pkg.go.dev/github.com/aohorodnyk/stl/collections/linkedlist#example-LinkedList, but use needed factory method, that is needed.
 
 Any and Comparable implementations are needed to speed-up the implementation of the linked list's search methods.
 The comparable implementation in 16 times faster than the Any implementation in the search methods with comparable types.
