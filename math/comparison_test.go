@@ -33,7 +33,6 @@ func TestMinMultiByte(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -75,7 +74,6 @@ func TestMinMultiInt(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -115,7 +113,6 @@ func TestMaxMultiByte(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -157,7 +154,6 @@ func TestMaxMultiInt(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -201,7 +197,6 @@ func TestMinByte(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -247,7 +242,6 @@ func TestMinInt(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -291,7 +285,6 @@ func TestMaxByte(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
@@ -337,7 +330,6 @@ func TestMaxInt(t *testing.T) {
 		},
 	}
 
-	//nolint:paralleltest // We use provider data in subtests runs.
 	for idx, provData := range prov {
 		provData := provData
 
