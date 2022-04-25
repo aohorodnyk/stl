@@ -1,0 +1,433 @@
+package sort_test
+
+import (
+	"fmt"
+	"testing"
+
+	"github.com/aohorodnyk/stl/reflect"
+	"github.com/aohorodnyk/stl/sort"
+)
+
+func TestOrderedInt(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]int{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []int{},
+			"expected": []int{},
+		},
+		{
+			"slice":    []int{1},
+			"expected": []int{1},
+		},
+		{
+			"slice":    []int{2, 1},
+			"expected": []int{1, 2},
+		},
+		{
+			"slice":    []int{2, 1, 6, 12, 5, 11, 12, 10, 16},
+			"expected": []int{1, 2, 5, 6, 10, 11, 12, 12, 16},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.Ordered(slice)
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestOrderedString(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]string{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []string{},
+			"expected": []string{},
+		},
+		{
+			"slice":    []string{"a"},
+			"expected": []string{"a"},
+		},
+		{
+			"slice":    []string{"b", "a"},
+			"expected": []string{"a", "b"},
+		},
+		{
+			"slice":    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			"expected": []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+		},
+		{
+			"slice":    []string{"b", "a", "f", "d", "e", "e", "h", "i", "c", "g", "j"},
+			"expected": []string{"a", "b", "c", "d", "e", "e", "f", "g", "h", "i", "j"},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.Ordered(slice)
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestOrderedReverseInt(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]int{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []int{},
+			"expected": []int{},
+		},
+		{
+			"slice":    []int{1},
+			"expected": []int{1},
+		},
+		{
+			"slice":    []int{1, 2},
+			"expected": []int{2, 1},
+		},
+		{
+			"slice":    []int{2, 1},
+			"expected": []int{2, 1},
+		},
+		{
+			"slice":    []int{2, 1, 6, 12, 5, 11, 12, 10, 16},
+			"expected": []int{16, 12, 12, 11, 10, 6, 5, 2, 1},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.OrderedReverse(slice)
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestOrderedReverseString(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]string{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []string{},
+			"expected": []string{},
+		},
+		{
+			"slice":    []string{"a"},
+			"expected": []string{"a"},
+		},
+		{
+			"slice":    []string{"b", "a"},
+			"expected": []string{"b", "a"},
+		},
+		{
+			"slice":    []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+		},
+		{
+			"slice":    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+		},
+		{
+			"slice":    []string{"b", "a", "f", "d", "e", "e", "h", "i", "c", "g", "j"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "e", "d", "c", "b", "a"},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.OrderedReverse(slice)
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestLessFuncIntReverse(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]int{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []int{},
+			"expected": []int{},
+		},
+		{
+			"slice":    []int{1},
+			"expected": []int{1},
+		},
+		{
+			"slice":    []int{1, 2},
+			"expected": []int{2, 1},
+		},
+		{
+			"slice":    []int{2, 1},
+			"expected": []int{2, 1},
+		},
+		{
+			"slice":    []int{2, 1, 6, 12, 5, 11, 12, 10, 16},
+			"expected": []int{16, 12, 12, 11, 10, 6, 5, 2, 1},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.LessFunc(slice, func(i, j int) bool { return slice[i] > slice[j] })
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestLessFuncStringReverse(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]string{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []string{},
+			"expected": []string{},
+		},
+		{
+			"slice":    []string{"a"},
+			"expected": []string{"a"},
+		},
+		{
+			"slice":    []string{"b", "a"},
+			"expected": []string{"b", "a"},
+		},
+		{
+			"slice":    []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+		},
+		{
+			"slice":    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "d", "c", "b", "a"},
+		},
+		{
+			"slice":    []string{"b", "a", "f", "d", "e", "e", "h", "i", "c", "g", "j"},
+			"expected": []string{"j", "i", "h", "g", "f", "e", "e", "d", "c", "b", "a"},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.LessFunc(slice, func(i, j int) bool { return slice[i] > slice[j] })
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestLessFuncInt(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]int{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []int{},
+			"expected": []int{},
+		},
+		{
+			"slice":    []int{1},
+			"expected": []int{1},
+		},
+		{
+			"slice":    []int{2, 1},
+			"expected": []int{1, 2},
+		},
+		{
+			"slice":    []int{2, 1, 6, 12, 5, 11, 12, 10, 16},
+			"expected": []int{1, 2, 5, 6, 10, 11, 12, 12, 16},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.LessFunc(slice, func(i, j int) bool { return slice[i] < slice[j] })
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestLessFuncString(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][]string{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    []string{},
+			"expected": []string{},
+		},
+		{
+			"slice":    []string{"a"},
+			"expected": []string{"a"},
+		},
+		{
+			"slice":    []string{"b", "a"},
+			"expected": []string{"a", "b"},
+		},
+		{
+			"slice":    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			"expected": []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+		},
+		{
+			"slice":    []string{"b", "a", "f", "d", "e", "e", "h", "i", "c", "g", "j"},
+			"expected": []string{"a", "b", "c", "d", "e", "e", "f", "g", "h", "i", "j"},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.LessFunc(slice, func(i, j int) bool { return slice[i] < slice[j] })
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
+
+func TestLessFuncSliceLen(t *testing.T) {
+	t.Parallel()
+
+	provider := []map[string][][]string{
+		{
+			"slice":    nil,
+			"expected": nil,
+		},
+		{
+			"slice":    [][]string{},
+			"expected": [][]string{},
+		},
+		{
+			"slice":    [][]string{{"a"}},
+			"expected": [][]string{{"a"}},
+		},
+		{
+			"slice":    [][]string{{"b", "a"}, {"a"}},
+			"expected": [][]string{{"a"}, {"b", "a"}},
+		},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			slice := prov["slice"]
+			expected := prov["expected"]
+
+			sort.LessFunc(slice, func(i, j int) bool { return len(slice[i]) < len(slice[j]) })
+
+			if !reflect.DeepEqual(slice, expected) {
+				t.Errorf("Expected %v, got %v", expected, slice)
+			}
+		})
+	}
+}
