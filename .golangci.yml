@@ -119,6 +119,9 @@ issues:
       - path: doc\.go
         linters:
           - lll
+      - linters:
+        - paralleltest
+        text: "does not use range value in test Run"
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration
 service:
