@@ -6,6 +6,10 @@ import (
 
 // NewSimple returns new instance of SimpleLRU cache.
 func NewSimple[Key comparable, Value any](capacity int) *Simple[Key, Value] {
+	if capacity <= 0 {
+		panic("capacity must be greater than zero")
+	}
+
 	return &Simple[Key, Value]{
 		evictList: linkedlist.NewDoublyAnyDeep[entity[Key, Value]](),
 		data:      make(map[Key]linkedlist.Node[entity[Key, Value]], capacity),
@@ -146,6 +150,7 @@ func (lru *Simple[Key, Value]) Remove(key Key) {
 // But it allocates memory for the new map with required preallocated capacity.
 func (lru *Simple[Key, Value]) Clear() {
 	lru.data = make(map[Key]linkedlist.Node[entity[Key, Value]], lru.capacity)
+	lru.length = 0
 
 	lru.evictList.Clear()
 }
