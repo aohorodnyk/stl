@@ -399,8 +399,6 @@ func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
 	list.AddLast(-1)
 	list.AddAt(1, 3)
 
-	node := list.NodeFirst()
-
 	if list.Length() != 4 {
 		t.Errorf("Expected length %d, got %d", 4, list.Length())
 	}
@@ -473,10 +471,6 @@ func emptyTest(t *testing.T, list linkedlist.LinkedList[int]) {
 
 	if list.RemoveLastBy(1) {
 		t.Error("RemoveLastBy function. Expected false, got true")
-	}
-
-	if list.RemoveNode(node) {
-		t.Error("RemoveNode function. Expected false, got true")
 	}
 }
 

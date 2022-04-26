@@ -159,7 +159,22 @@ func prevPanicSinglyTest(t *testing.T, ll linkedlist.LinkedList[string]) {
 	}()
 
 	ll.AddFirst("a")
+	ll.AddFirst("b")
+	ll.AddFirst("c")
+	ll.AddFirst("d")
 
-	node := ll.NodeFirst()
+	node := ll.NodeAt(1)
+	if !ll.RemoveNode(node) {
+		t.Errorf("RemoveNode failed")
+	}
+
+	if ll.Length() != 3 {
+		t.Errorf("Length failed")
+	}
+
+	if ll.NodeAt(1).Value() != node.Next().Value() {
+		t.Errorf("NodeAt failed")
+	}
+
 	node.Prev()
 }
