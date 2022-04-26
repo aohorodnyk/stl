@@ -5,6 +5,9 @@ package cache
 type Cache[Key comparable, Value any] interface {
 	// Contains returns true if the key is in the cache.
 	Contains(Key) bool
+	// Peek returns the value for the given key.
+	// It does not update the access time.
+	Peek(Key) (Value, bool)
 	// Value retrieves a value from the cache.
 	// If the key is not found, the false returned in second return value.
 	Value(Key) (Value, bool)
