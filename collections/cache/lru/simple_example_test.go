@@ -3,7 +3,7 @@ package lru_test
 import (
 	"fmt"
 
-	"github.com/aohorodnyk/stl/cache/lru"
+	"github.com/aohorodnyk/stl/collections/cache/lru"
 )
 
 func ExampleSimple() {

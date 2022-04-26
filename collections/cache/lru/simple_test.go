@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/aohorodnyk/stl/cache"
-	"github.com/aohorodnyk/stl/cache/lru"
+	"github.com/aohorodnyk/stl/collections/cache"
+	"github.com/aohorodnyk/stl/collections/cache/lru"
 )
 
 var (
