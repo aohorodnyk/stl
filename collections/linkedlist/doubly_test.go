@@ -178,4 +178,30 @@ func nodeDoublyTest(t *testing.T, ll linkedlist.LinkedList[string]) {
 
 		node = node.Prev()
 	}
+
+	node = ll.NodeAt(3)
+	if node.Value() != values[3] {
+		t.Errorf("Node.Value = %s, want %s", node.Value(), values[3])
+	}
+
+	if !ll.RemoveNode(node) {
+		t.Errorf("RemoveNode() = false, want true")
+	}
+
+	if ll.Length() != len(values)-1 {
+		t.Errorf("Length() = %d, want %d", ll.Length(), len(values)-1)
+	}
+
+	node2 := ll.NodeAt(3)
+	if node2.Value() == values[3] {
+		t.Errorf("Node2.Value = %s, want %s", node2.Value(), values[3])
+	}
+
+	if node.Next().Value() != node2.Value() {
+		t.Errorf("Node.Next().Value = %s, want %s", node.Next().Value(), node2.Value())
+	}
+
+	if node.Prev().Value() != node2.Prev().Value() {
+		t.Errorf("Node2.Prev().Value = %s, want %s", node2.Prev().Value(), node.Value())
+	}
 }
