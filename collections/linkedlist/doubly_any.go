@@ -241,25 +241,22 @@ func (d *DoublyAny[T]) PopAt(index int) (T, bool) {
 
 // RemoveNode removes the given node from the list.
 // This method returns true if node has been removed from the list.
-// Nodes compare by reference (pointer) `==`. It will compare exact references.
-// This method has O(n) performance complexity.
+// This function just use prev and next links to remove the node.
+// Make sure to pass the node that is associated to the current linked list.
+// This method has O(1) performance complexity.
 func (d *DoublyAny[T]) RemoveNode(node Node[T]) bool {
 	if node == nil {
 		return false
 	}
 
-	pointer := d.head
-	for pointer != nil {
-		if pointer == node {
-			d.removeNode(pointer)
-
-			return true
-		}
-
-		pointer = pointer.next
+	nodeAny, ok := node.(*DoublyNodeAny[T])
+	if !ok {
+		return false
 	}
 
-	return false
+	d.removeNode(nodeAny)
+
+	return true
 }
 
 // RemoveFirstBy removes the first node with the given value from the list.
