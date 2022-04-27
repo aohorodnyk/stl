@@ -6,24 +6,32 @@ import (
 	"github.com/aohorodnyk/stl/types"
 )
 
-// Ordered is a helper function that sorts a slice of elements of Ordered type in ascending order.
-func Ordered[T types.Ordered](slice []T) {
+// Sort is a helper function that simplifies the API for standard library.
+func Sort[T types.Ordered](slice []T) {
 	sort.Sort(SliceOrdered[T](slice))
 }
 
-// OrderedReverse is a helper function that sorts a slice of elements of Ordered type in reverse order.
-func OrderedReverse[T types.Ordered](slice []T) {
+// Reverse is a helper function that simplifies the API for standard library.
+func Reverse[T types.Ordered](slice []T) {
 	sort.Sort(sort.Reverse(SliceOrdered[T](slice)))
 }
 
-// LessFunc is a helper function that sorts a slice of elements of any type use custom less function.
-// It is useful for sorting slices of custom types.
-// It is better implementation than sort.Slice for custom types, because it does not use reflection.
-func LessFunc[T any](slice []T, less func(int, int) bool) {
-	sortSlice := &SliceLessFunc[T]{
-		Data:     slice,
-		LessFunc: less,
-	}
+// Sorted is a helper function that simplifies the API for standard library.
+func Sorted[T types.Ordered](slice []T) bool {
+	return sort.IsSorted(SliceOrdered[T](slice))
+}
 
-	sort.Sort(sortSlice)
+// SortedReverse is a helper function that simplifies the API for standard library.
+func SortedReverse[T types.Ordered](slice []T) bool {
+	return sort.IsSorted(sort.Reverse(SliceOrdered[T](slice)))
+}
+
+// Stable is a helper function that simplifies the API for standard library.
+func Stable[T types.Ordered](slice []T) {
+	sort.Stable(SliceOrdered[T](slice))
+}
+
+// Stable is a helper function that simplifies the API for standard library.
+func StableReverse[T types.Ordered](slice []T) {
+	sort.Stable(sort.Reverse(SliceOrdered[T](slice)))
 }
