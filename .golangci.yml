@@ -12,6 +12,8 @@ linters-settings:
       - "2.0"
   varnamelen:
     min-name-length: 2
+  gomoddirectives:
+    retract-allow-no-explanation: true # Allow during some issue.
 linters:
   disable-all: true
   enable:
