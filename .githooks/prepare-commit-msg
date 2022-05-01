@@ -10,13 +10,13 @@ MSG=$(head -n 1 "${1}")
 
 TICKET=$(echo "${BRANCH_NAME}" | grep -m 1 -oE "^v?[0-9\.]+|^\w+-[0-9]+" | head -n1)
 if [[ "${TICKET}" == "" ]]; then
-  PREPEND="[${BRANCH_NAME}] "
+  PREPEND="[${BRANCH_NAME}]"
 elif [[ "${TICKET}" =~ ^[0-9]+$ ]]; then
-  PREPEND="#${TICKET} "
+  PREPEND="#${TICKET}"
 else
-  PREPEND="[${TICKET}] "
+  PREPEND="[${TICKET}]"
 fi
 
-[[ "${MSG:0:${#PREPEND}}" == "${PREPEND}" ]] && exit 0
+[[ "${MSG}" == *"${PREPEND}"* ]] && exit 0
 
-sed -i.bak -e "1s|^|${PREPEND}|" "${1}"
+sed -i.bak -e "1s|^|${PREPEND} |" "${1}"
