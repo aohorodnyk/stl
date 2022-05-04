@@ -1,4 +1,4 @@
-package sort
+package slices
 
 import (
 	"github.com/aohorodnyk/stl/types"
