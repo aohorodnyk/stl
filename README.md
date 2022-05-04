@@ -21,6 +21,15 @@ To make documentation more standartized and always up-to-date, we use [GoDoc (pk
 
 Every feature or feature change should introduce some changes in comments, doc.go, README.md and tests include examples.
 
+### Different types usage in the library
+As we can mention, all the generic types are specified on te structure level, instead of the Get functions' levels.
+The implementation has been done, because of the Golang generics limitations where we cannot use generic's types on method level (more informaton [here](https://go.dev/doc/faq#generic_methods) and [here](https://go.googlesource.com/proposal/+/master/design/43651-type-parameters.md#no-parameterized-methods)).
+
+So, if you need to have different types on the value level, you can use `any` type and cast result by using `types.Cast` and `types.CastOk` functions.
+
+It's clear that the Golang's genetics implementation is not flexible enough for this kind of generic solutions, however, in the many cases it will work well without any problems.
+And we hope that aditional `Cast` function will not break the developer experience too much.
+
 ## Contributing
 The library is open source and you can contribute to it.
 

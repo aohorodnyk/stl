@@ -6,28 +6,28 @@ import (
 	"github.com/aohorodnyk/stl/types"
 )
 
-func ExampleConvertType() {
-	fmt.Println(types.ConvertType[int](-242))
-	fmt.Println(types.ConvertType[int](0))
-	fmt.Println(types.ConvertType[int](3))
-	fmt.Println(types.ConvertType[int](0x234))
-	fmt.Println(types.ConvertType[int](0b101011))
+func ExampleCast() {
+	fmt.Println(types.Cast[int](-242))
+	fmt.Println(types.Cast[int](0))
+	fmt.Println(types.Cast[int](3))
+	fmt.Println(types.Cast[int](0x234))
+	fmt.Println(types.Cast[int](0b101011))
 
 	ir := new(int)
 	*ir = 2532
-	ir, ok := types.ConvertType[*int](ir)
+	ir, ok := types.Cast[*int](ir)
 	fmt.Printf("%T %d %#v\n", ir, *ir, ok)
 
-	fmt.Println(types.ConvertType[string](""))
-	fmt.Println(types.ConvertType[string]("test"))
-	fmt.Println(types.ConvertType[string](nil))
+	fmt.Println(types.Cast[string](""))
+	fmt.Println(types.Cast[string]("test"))
+	fmt.Println(types.Cast[string](nil))
 
 	sr := new(string)
 	*sr = "sr_test"
-	sr, ok = types.ConvertType[*string](sr)
+	sr, ok = types.Cast[*string](sr)
 	fmt.Printf("%T %s %#v\n", sr, *sr, ok)
 
-	sr, ok = types.ConvertType[*string](nil)
+	sr, ok = types.Cast[*string](nil)
 	fmt.Printf("%T %#v\n", sr, ok)
 
 	// Output:
@@ -44,26 +44,26 @@ func ExampleConvertType() {
 	// *string false
 }
 
-func ExampleConvertTypeOk() {
+func ExampleCastOk() {
 	fFalse := func() (any, bool) {
 		return 234, false
 	}
 
-	fmt.Println(types.ConvertTypeOk[string](fFalse()))
-	fmt.Println(types.ConvertTypeOk[int](fFalse()))
-	fmt.Println(types.ConvertTypeOk[float64](fFalse()))
-	fmt.Println(types.ConvertTypeOk[*string](fFalse()))
-	fmt.Println(types.ConvertTypeOk[*int](fFalse()))
+	fmt.Println(types.CastOk[string](fFalse()))
+	fmt.Println(types.CastOk[int](fFalse()))
+	fmt.Println(types.CastOk[float64](fFalse()))
+	fmt.Println(types.CastOk[*string](fFalse()))
+	fmt.Println(types.CastOk[*int](fFalse()))
 
 	fTrue := func() (any, bool) {
 		return 234, true
 	}
 
-	fmt.Println(types.ConvertTypeOk[string](fTrue()))
-	fmt.Println(types.ConvertTypeOk[int](fTrue()))
-	fmt.Println(types.ConvertTypeOk[float64](fTrue()))
-	fmt.Println(types.ConvertTypeOk[*string](fTrue()))
-	fmt.Println(types.ConvertTypeOk[*int](fTrue()))
+	fmt.Println(types.CastOk[string](fTrue()))
+	fmt.Println(types.CastOk[int](fTrue()))
+	fmt.Println(types.CastOk[float64](fTrue()))
+	fmt.Println(types.CastOk[*string](fTrue()))
+	fmt.Println(types.CastOk[*int](fTrue()))
 
 	// Output:
 	//  false

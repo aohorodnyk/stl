@@ -14,7 +14,7 @@ func NewDynamicLinkedList[T any](list linkedlist.LinkedList[T]) *Dynamic[T] {
 // Stack does not use comparison functions.
 func NewDynamic[T any]() *Dynamic[T] {
 	return &Dynamic[T]{
-		list: linkedlist.NewSinglyAnyDeep[T](),
+		list: linkedlist.NewSinglyFuncDeep[T](),
 	}
 }
 

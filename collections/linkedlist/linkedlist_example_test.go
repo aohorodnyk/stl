@@ -8,7 +8,7 @@ import (
 
 func ExampleLinkedList() {
 	// Create a new doubly linked list with int type.
-	list := linkedlist.NewDoublyComparable[int]()
+	list := linkedlist.NewDoubly[int]()
 
 	fmt.Println("Length:", list.Length())
 	fmt.Println("AddFirst:", list.AddFirst(1))

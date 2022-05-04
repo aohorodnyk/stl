@@ -7,136 +7,96 @@ import (
 )
 
 var (
-	_ linkedlist.LinkedList[int]               = &linkedlist.DoublyAny[int]{}
-	_ linkedlist.LinkedList[string]            = &linkedlist.DoublyAny[string]{}
-	_ linkedlist.LinkedList[map[string]string] = &linkedlist.DoublyAny[map[string]string]{}
+	_ linkedlist.LinkedList[int]               = &linkedlist.DoublyFunc[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.DoublyFunc[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.DoublyFunc[map[string]string]{}
 
 	_ linkedlist.Node[int]               = &linkedlist.DoublyNodeAny[int]{}
 	_ linkedlist.Node[string]            = &linkedlist.DoublyNodeAny[string]{}
 	_ linkedlist.Node[map[string]string] = &linkedlist.DoublyNodeAny[map[string]string]{}
 
-	_ linkedlist.LinkedList[int]    = &linkedlist.DoublyComparable[int]{}
-	_ linkedlist.LinkedList[string] = &linkedlist.DoublyComparable[string]{}
+	_ linkedlist.LinkedList[int]    = &linkedlist.Doubly[int]{}
+	_ linkedlist.LinkedList[string] = &linkedlist.Doubly[string]{}
 
-	_ linkedlist.Node[int]    = &linkedlist.DoublyNodeComparable[int]{}
-	_ linkedlist.Node[string] = &linkedlist.DoublyNodeComparable[string]{}
+	_ linkedlist.Node[int]    = &linkedlist.DoublyNode[int]{}
+	_ linkedlist.Node[string] = &linkedlist.DoublyNode[string]{}
 )
 
-func TestDoublyComparable(t *testing.T) {
+func TestDoubly(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyComparable[int]()
+		return linkedlist.NewDoubly[int]()
 	}
 
 	runTests(t, factory)
 }
 
-func TestDoublyComparableSync(t *testing.T) {
+func TestDoublySync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyComparableSync[int]()
+		return linkedlist.NewDoublySync[int]()
 	}
 
 	runTests(t, factory)
 }
 
-func TestDoublyAny(t *testing.T) {
+func TestDoublyFunc(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyAny[int]()
+		return linkedlist.NewDoublyFunc(func(a, b int) bool { return a == b })
 	}
 
 	runTests(t, factory)
 }
 
-func TestDoublyAnySync(t *testing.T) {
+func TestDoublyFuncSync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyAnySync[int]()
+		return linkedlist.NewDoublyFuncSync(func(a, b int) bool { return a == b })
 	}
 
 	runTests(t, factory)
 }
 
-func TestDoublyAnyCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyAnyCmp(func(a, b int) bool { return a == b })
-	}
-
-	runTests(t, factory)
-}
-
-func TestDoublyAnySyncCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewDoublyAnySyncCmp(func(a, b int) bool { return a == b })
-	}
-
-	runTests(t, factory)
-}
-
-func TestDDoublyComparable(t *testing.T) {
+func TestDDoubly(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyComparable[string]()
+		return linkedlist.NewDoubly[string]()
 	}
 
 	runDoublyTests(t, factory)
 }
 
-func TestDDoublyComparableSync(t *testing.T) {
+func TestDDoublySync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyComparableSync[string]()
+		return linkedlist.NewDoublySync[string]()
 	}
 
 	runDoublyTests(t, factory)
 }
 
-func TestDDoublyAny(t *testing.T) {
+func TestDDoublyFunc(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyAny[string]()
+		return linkedlist.NewDoublyFunc(func(a, b string) bool { return a == b })
 	}
 
 	runDoublyTests(t, factory)
 }
 
-func TestDDoublyAnySync(t *testing.T) {
+func TestDDoublyFuncSync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyAnySync[string]()
-	}
-
-	runDoublyTests(t, factory)
-}
-
-func TestDDoublyAnyCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyAnyCmp(func(a, b string) bool { return a == b })
-	}
-
-	runDoublyTests(t, factory)
-}
-
-func TestDDoublyAnySyncCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewDoublyAnySyncCmp(func(a, b string) bool { return a == b })
+		return linkedlist.NewDoublyFuncSync(func(a, b string) bool { return a == b })
 	}
 
 	runDoublyTests(t, factory)

@@ -7,136 +7,96 @@ import (
 )
 
 var (
-	_ linkedlist.LinkedList[int]               = &linkedlist.SinglyAny[int]{}
-	_ linkedlist.LinkedList[string]            = &linkedlist.SinglyAny[string]{}
-	_ linkedlist.LinkedList[map[string]string] = &linkedlist.SinglyAny[map[string]string]{}
+	_ linkedlist.LinkedList[int]               = &linkedlist.SinglyFunc[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.SinglyFunc[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.SinglyFunc[map[string]string]{}
 
 	_ linkedlist.Node[int]               = &linkedlist.SinglyNodeAny[int]{}
 	_ linkedlist.Node[string]            = &linkedlist.SinglyNodeAny[string]{}
 	_ linkedlist.Node[map[string]string] = &linkedlist.SinglyNodeAny[map[string]string]{}
 
-	_ linkedlist.LinkedList[int]    = &linkedlist.SinglyComparable[int]{}
-	_ linkedlist.LinkedList[string] = &linkedlist.SinglyComparable[string]{}
+	_ linkedlist.LinkedList[int]    = &linkedlist.Singly[int]{}
+	_ linkedlist.LinkedList[string] = &linkedlist.Singly[string]{}
 
-	_ linkedlist.Node[int]    = &linkedlist.SinglyNodeComparable[int]{}
-	_ linkedlist.Node[string] = &linkedlist.SinglyNodeComparable[string]{}
+	_ linkedlist.Node[int]    = &linkedlist.SinglyNode[int]{}
+	_ linkedlist.Node[string] = &linkedlist.SinglyNode[string]{}
 )
 
-func TestSinglyComparable(t *testing.T) {
+func TestSingly(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyComparable[int]()
+		return linkedlist.NewSingly[int]()
 	}
 
 	runTests(t, factory)
 }
 
-func TestSinglyComparableSync(t *testing.T) {
+func TestSinglySync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyComparableSync[int]()
+		return linkedlist.NewSinglySync[int]()
 	}
 
 	runTests(t, factory)
 }
 
-func TestSinglyAny(t *testing.T) {
+func TestSinglyFunc(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyAny[int]()
+		return linkedlist.NewSinglyFunc(func(a, b int) bool { return a == b })
 	}
 
 	runTests(t, factory)
 }
 
-func TestSinglyAnySync(t *testing.T) {
+func TestSinglyFuncSync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyAnySync[int]()
+		return linkedlist.NewSinglyFuncSync(func(a, b int) bool { return a == b })
 	}
 
 	runTests(t, factory)
 }
 
-func TestSinglyAnyCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyAnyCmp(func(a, b int) bool { return a == b })
-	}
-
-	runTests(t, factory)
-}
-
-func TestSinglyAnySyncCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[int] {
-		return linkedlist.NewSinglyAnySyncCmp(func(a, b int) bool { return a == b })
-	}
-
-	runTests(t, factory)
-}
-
-func TestSSinglyComparable(t *testing.T) {
+func TestSSingly(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyComparable[string]()
+		return linkedlist.NewSingly[string]()
 	}
 
 	runSinglyTests(t, factory)
 }
 
-func TestSSinglyComparableSync(t *testing.T) {
+func TestSSinglySync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyComparableSync[string]()
+		return linkedlist.NewSinglySync[string]()
 	}
 
 	runSinglyTests(t, factory)
 }
 
-func TestSSinglyAny(t *testing.T) {
+func TestSSinglyFunc(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyAny[string]()
+		return linkedlist.NewSinglyFunc(func(a, b string) bool { return a == b })
 	}
 
 	runSinglyTests(t, factory)
 }
 
-func TestSSinglyAnySync(t *testing.T) {
+func TestSSinglyFuncSync(t *testing.T) {
 	t.Parallel()
 
 	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyAnySync[string]()
-	}
-
-	runSinglyTests(t, factory)
-}
-
-func TestSSinglyAnyCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyAnyCmp(func(a, b string) bool { return a == b })
-	}
-
-	runSinglyTests(t, factory)
-}
-
-func TestSSinglyAnySyncCmp(t *testing.T) {
-	t.Parallel()
-
-	factory := func() linkedlist.LinkedList[string] {
-		return linkedlist.NewSinglyAnySyncCmp(func(a, b string) bool { return a == b })
+		return linkedlist.NewSinglyFuncSync(func(a, b string) bool { return a == b })
 	}
 
 	runSinglyTests(t, factory)

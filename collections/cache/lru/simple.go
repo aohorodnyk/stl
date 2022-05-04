@@ -11,7 +11,7 @@ func NewSimple[Key comparable, Value any](capacity int) *Simple[Key, Value] {
 	}
 
 	return &Simple[Key, Value]{
-		evictList: linkedlist.NewDoublyAnyDeep[entity[Key, Value]](),
+		evictList: linkedlist.NewDoublyFuncDeep[entity[Key, Value]](),
 		data:      make(map[Key]linkedlist.Node[entity[Key, Value]], capacity),
 		capacity:  capacity,
 	}

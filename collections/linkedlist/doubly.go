@@ -2,59 +2,59 @@ package linkedlist
 
 import "github.com/aohorodnyk/stl/math"
 
-// NewDoublyComparable returns a new DoublyComparable linked list for comparable types T.
-func NewDoublyComparable[T comparable]() *DoublyComparable[T] {
-	return &DoublyComparable[T]{}
+// NewDoubly returns a new DoublyComparable linked list for comparable types T.
+func NewDoubly[T comparable]() *Doubly[T] {
+	return &Doubly[T]{}
 }
 
-// DoublyComparable is a doubly linked list for comparable types T.
+// Doubly is a doubly linked list for comparable types T.
 // All search methods by value are compare values by direct comparison `==`.
 // This implementation is much faster than the DoublyAny implementation with the default cmp method.
-type DoublyComparable[T comparable] struct {
-	head   *DoublyNodeComparable[T]
-	tail   *DoublyNodeComparable[T]
+type Doubly[T comparable] struct {
+	head   *DoublyNode[T]
+	tail   *DoublyNode[T]
 	length int
 }
 
 // NodeFirst returns the first node in the list.
 // If the list is empty, it returns nil.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) NodeFirst() Node[T] {
+func (d *Doubly[T]) NodeFirst() Node[T] {
 	return d.NodeAt(0)
 }
 
 // NodeLast returns the last node in the list.
 // If the list is empty, it returns nil.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) NodeLast() Node[T] {
+func (d *Doubly[T]) NodeLast() Node[T] {
 	return d.NodeAt(math.Max(d.length-1, 0))
 }
 
 // NodeAt returns the node at the given index.
 // If index is out of range, it returns nil.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) NodeAt(index int) Node[T] {
+func (d *Doubly[T]) NodeAt(index int) Node[T] {
 	return d.nodeAt(index)
 }
 
 // ValueFirst returns the first value in the list.
 // If the list is empty, it returns false.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) ValueFirst() (T, bool) {
+func (d *Doubly[T]) ValueFirst() (T, bool) {
 	return d.ValueAt(0)
 }
 
 // ValueLast returns the last value in the list.
 // If the list is empty, it returns false.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) ValueLast() (T, bool) {
+func (d *Doubly[T]) ValueLast() (T, bool) {
 	return d.ValueAt(math.Max(d.length-1, 0))
 }
 
 // ValueAt returns the value at the given index.
 // If index is out of range, it returns false.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) ValueAt(index int) (T, bool) {
+func (d *Doubly[T]) ValueAt(index int) (T, bool) {
 	if node := d.nodeAt(index); node != nil {
 		return node.Value(), true
 	}
@@ -67,7 +67,7 @@ func (d *DoublyComparable[T]) ValueAt(index int) (T, bool) {
 // IndexOf returns the first index of the given value.
 // If the value is not found, it returns -1.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) IndexOf(value T) int {
+func (d *Doubly[T]) IndexOf(value T) int {
 	pointer := d.head
 	for index := 0; pointer != nil; index++ {
 		if pointer.value == value {
@@ -83,7 +83,7 @@ func (d *DoublyComparable[T]) IndexOf(value T) int {
 // IndexOfLast returns the last index of the given value.
 // If the value is not found, it returns -1.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) IndexOfLast(value T) int {
+func (d *Doubly[T]) IndexOfLast(value T) int {
 	result := -1
 	pointer := d.head
 
@@ -100,41 +100,41 @@ func (d *DoublyComparable[T]) IndexOfLast(value T) int {
 
 // Contains returns true if the list contains the given value.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) Contains(value T) bool {
+func (d *Doubly[T]) Contains(value T) bool {
 	return d.IndexOf(value) != -1
 }
 
 // Clear removes all nodes from the list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) Length() int {
+func (d *Doubly[T]) Length() int {
 	return d.length
 }
 
 // Clear removes all nodes from the list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) Empty() bool {
+func (d *Doubly[T]) Empty() bool {
 	return d.length == 0
 }
 
 // AddFirst adds a new node with the given value to the beginning of the list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) AddFirst(value T) bool {
+func (d *Doubly[T]) AddFirst(value T) bool {
 	return d.AddAt(0, value)
 }
 
 // AddLast adds a new node with the given value to the end of the list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) AddLast(value T) bool {
+func (d *Doubly[T]) AddLast(value T) bool {
 	return d.AddAt(d.length, value)
 }
 
 // AddAt adds a new node with the given value at the given index.
 // If index is out of range, it returns false.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) AddAt(index int, value T) bool {
+func (d *Doubly[T]) AddAt(index int, value T) bool {
 	if index == 0 {
 		d.length++
-		d.head = &DoublyNodeComparable[T]{
+		d.head = &DoublyNode[T]{
 			value: value,
 			next:  d.head,
 		}
@@ -155,7 +155,7 @@ func (d *DoublyComparable[T]) AddAt(index int, value T) bool {
 
 	d.length++
 
-	node.next = &DoublyNodeComparable[T]{
+	node.next = &DoublyNode[T]{
 		value: value,
 		next:  node.next,
 		prev:  node,
@@ -173,21 +173,21 @@ func (d *DoublyComparable[T]) AddAt(index int, value T) bool {
 // PopFirts removes the first node from the list and returns its value.
 // If the list is empty, it returns false.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) PopFirst() (T, bool) {
+func (d *Doubly[T]) PopFirst() (T, bool) {
 	return d.PopAt(0)
 }
 
 // PopLast removes the last node from the list and returns its value.
 // If the list is empty, it returns false.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) PopLast() (T, bool) {
+func (d *Doubly[T]) PopLast() (T, bool) {
 	return d.PopAt(math.Max(d.length-1, 0))
 }
 
 // PopAt removes the node at the given index and returns its value.
 // If index is out of range, it returns false.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) PopAt(index int) (T, bool) {
+func (d *Doubly[T]) PopAt(index int) (T, bool) {
 	var result T
 
 	node := d.nodeAt(math.Max(index, 0))
@@ -206,12 +206,12 @@ func (d *DoublyComparable[T]) PopAt(index int) (T, bool) {
 // This function just use prev and next links to remove the node.
 // Make sure to pass the node that is associated to the current linked list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) RemoveNode(node Node[T]) bool {
+func (d *Doubly[T]) RemoveNode(node Node[T]) bool {
 	if node == nil {
 		return false
 	}
 
-	nodeCmp, ok := node.(*DoublyNodeComparable[T])
+	nodeCmp, ok := node.(*DoublyNode[T])
 	if !ok {
 		return false
 	}
@@ -224,7 +224,7 @@ func (d *DoublyComparable[T]) RemoveNode(node Node[T]) bool {
 // RemoveFirstBy removes the first node with the given value from the list.
 // This method returns true if the node has been removed from the list.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) RemoveFirstBy(value T) bool {
+func (d *Doubly[T]) RemoveFirstBy(value T) bool {
 	if d.head == nil {
 		return false
 	}
@@ -246,7 +246,7 @@ func (d *DoublyComparable[T]) RemoveFirstBy(value T) bool {
 // RemoveLastBy removes the last node with the given value from the list.
 // This method returns true if the node has been removed from the list.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) RemoveLastBy(value T) bool {
+func (d *Doubly[T]) RemoveLastBy(value T) bool {
 	if d.tail == nil {
 		return false
 	}
@@ -269,7 +269,7 @@ func (d *DoublyComparable[T]) RemoveLastBy(value T) bool {
 // This method returns the number of nodes that have been removed.
 // This method will go through the whole list for every call.
 // This method has O(n) performance complexity.
-func (d *DoublyComparable[T]) RemoveAllBy(value T) int {
+func (d *Doubly[T]) RemoveAllBy(value T) int {
 	var removed int
 
 	if d.head == nil {
@@ -292,13 +292,13 @@ func (d *DoublyComparable[T]) RemoveAllBy(value T) int {
 
 // Clear removes all nodes from the list.
 // This method has O(1) performance complexity.
-func (d *DoublyComparable[T]) Clear() {
+func (d *Doubly[T]) Clear() {
 	d.head = nil
 	d.tail = nil
 	d.length = 0
 }
 
-func (d *DoublyComparable[T]) removeNode(node *DoublyNodeComparable[T]) *DoublyNodeComparable[T] {
+func (d *Doubly[T]) removeNode(node *DoublyNode[T]) *DoublyNode[T] {
 	if node == nil {
 		return nil
 	}
@@ -326,12 +326,12 @@ func (d *DoublyComparable[T]) removeNode(node *DoublyNodeComparable[T]) *DoublyN
 	return node.next
 }
 
-func (d *DoublyComparable[T]) nodeAt(index int) *DoublyNodeComparable[T] {
+func (d *Doubly[T]) nodeAt(index int) *DoublyNode[T] {
 	if index < 0 || index >= d.length {
 		return nil
 	}
 
-	var node *DoublyNodeComparable[T]
+	var node *DoublyNode[T]
 
 	if middle := d.length / 2; index < middle {
 		node = d.head
@@ -352,7 +352,7 @@ func (d *DoublyComparable[T]) nodeAt(index int) *DoublyNodeComparable[T] {
 	return node
 }
 
-func (d *DoublyComparable[T]) syncEnds() {
+func (d *Doubly[T]) syncEnds() {
 	if d.head == nil || d.tail == nil {
 		d.head = nil
 		d.tail = nil
@@ -360,23 +360,23 @@ func (d *DoublyComparable[T]) syncEnds() {
 	}
 }
 
-// DoublyNodeComparable[T] is a node of a doubly-linked list.
+// DoublyNode[T] is a node of a doubly-linked list.
 // It has a value and a pointer to the next and previous nodes.
 // It implements the Node interface.
-type DoublyNodeComparable[T comparable] struct {
+type DoublyNode[T comparable] struct {
 	value T
-	next  *DoublyNodeComparable[T]
-	prev  *DoublyNodeComparable[T]
+	next  *DoublyNode[T]
+	prev  *DoublyNode[T]
 }
 
 // Value returns the value of the node.
-func (d *DoublyNodeComparable[T]) Value() T {
+func (d *DoublyNode[T]) Value() T {
 	return d.value
 }
 
 // Next returns the next node.
 // If the node is the last node, it returns nil.
-func (d *DoublyNodeComparable[T]) Next() Node[T] {
+func (d *DoublyNode[T]) Next() Node[T] {
 	if d.next == nil {
 		return nil
 	}
@@ -386,7 +386,7 @@ func (d *DoublyNodeComparable[T]) Next() Node[T] {
 
 // Prev returns the previous node.
 // If the node is the first node, it returns nil.
-func (d *DoublyNodeComparable[T]) Prev() Node[T] {
+func (d *DoublyNode[T]) Prev() Node[T] {
 	if d.prev == nil {
 		return nil
 	}
