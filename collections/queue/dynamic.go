@@ -10,11 +10,11 @@ func NewDynamicLinkedList[T any](list linkedlist.LinkedList[T]) *Dynamic[T] {
 
 // NewDynamic returns a new dynamic queue for any type T.
 // The queue is not safe for concurrent use.
-// The queue based on NewDoublyAnyDeep linked list. The factory function does not use reflection.
+// The queue based on NewDoublyFuncDeep linked list. The factory function does not use reflection.
 // Queue does not use comparison functions.
 func NewDynamic[T any]() *Dynamic[T] {
 	return &Dynamic[T]{
-		list: linkedlist.NewDoublyAnyDeep[T](),
+		list: linkedlist.NewDoublyFuncDeep[T](),
 	}
 }
 

@@ -1,7 +1,7 @@
 package types
 
-// Convert converts a value to a specified type.
-func ConvertType[Type any](value any) (val Type, ok bool) {
+// Cast converts a value to a specified type.
+func Cast[Type any](value any) (val Type, ok bool) {
 	if value == nil {
 		return val, false
 	}
@@ -11,7 +11,7 @@ func ConvertType[Type any](value any) (val Type, ok bool) {
 	return val, ok
 }
 
-// ConvertOk converts a value to a specified type with checking second ok parameter.
+// CastOk converts a value to a specified type with checking second ok parameter.
 // If the second parameter is false, the function returns the default value and false.
 // This function is needed for this use case:
 //   func main() {
@@ -19,11 +19,11 @@ func ConvertType[Type any](value any) (val Type, ok bool) {
 //       return 1, true
 //     }
 //
-//     val, ok := ConvertOk(f1())
+//     val, ok := CastOk(f1())
 //     fmt.Println(val, ok)
 //   }
 //   Output: (1, true)
-func ConvertTypeOk[Type any](value any, ok bool) (Type, bool) {
+func CastOk[Type any](value any, ok bool) (Type, bool) {
 	var val Type
 
 	if value == nil {

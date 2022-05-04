@@ -4,88 +4,72 @@ import "sync"
 
 // AnySync is a concurrent safe linked list for any types T.
 // It can be used to cover thread safe container over any custom LinkedList implementation.
-func NewAnySync[T any](list LinkedList[T]) *AnySync[T] {
-	return &AnySync[T]{linkedlist: list}
+func NewAnySync[T any](list LinkedList[T]) *SyncAny[T] {
+	return &SyncAny[T]{linkedlist: list}
 }
 
-// NewSinglyAnySync returns a new Singly linked list for any type T.
+// NewSinglyFuncSync returns a new Singly linked list for any type T with the given comparting function.
 // Current instance of the LinkedList will be concurrent safe.
-func NewSinglyAnySync[T any]() *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewSinglyAny[T](),
+func NewSinglyFuncSync[T any](cmp func(T, T) bool) *SyncAny[T] {
+	return &SyncAny[T]{
+		linkedlist: NewSinglyFunc(cmp),
 	}
 }
 
-// NewSinglyAnySyncDeep returns a new Singly linked list for any type T with reflect.DeepEqual comparting function.
+// NewSinglyFuncDeepSync returns a new Singly linked list for any type T with reflect.DeepEqual comparting function.
 // Current instance of the LinkedList will be concurrent safe.
-func NewSinglyAnySyncDeep[T any]() *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewSinglyAnyDeep[T](),
+func NewSinglyFuncDeepSync[T any]() *SyncAny[T] {
+	return &SyncAny[T]{
+		linkedlist: NewSinglyFuncDeep[T](),
 	}
 }
 
-// NewSinglyAnySyncCmp returns a new Singly linked list for any type T with the given comparting function.
+// NewDoublyFuncSync returns a new Doubly linked list for any type T with the given comparting function.
 // Current instance of the LinkedList will be concurrent safe.
-func NewSinglyAnySyncCmp[T any](cmp func(T, T) bool) *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewSinglyAnyCmp(cmp),
+func NewDoublyFuncSync[T any](cmp func(T, T) bool) *SyncAny[T] {
+	return &SyncAny[T]{
+		linkedlist: NewDoublyFunc(cmp),
 	}
 }
 
-// NewDoublyAnySync returns a new Doubly linked list for any type T.
+// NewDoublyFuncDeepSync returns a new Doubly linked list for any type T with reflect.DeepEqual comparting function.
 // Current instance of the LinkedList will be concurrent safe.
-func NewDoublyAnySync[T any]() *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewDoublyAny[T](),
+func NewDoublyFuncDeepSync[T any]() *SyncAny[T] {
+	return &SyncAny[T]{
+		linkedlist: NewDoublyFuncDeep[T](),
 	}
 }
 
-// NewDoublyAnySyncDeep returns a new Doubly linked list for any type T with reflect.DeepEqual comparting function.
-// Current instance of the LinkedList will be concurrent safe.
-func NewDoublyAnySyncDeep[T any]() *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewDoublyAnyDeep[T](),
-	}
-}
-
-// NewDoublyAnySyncCmp returns a new Doubly linked list for any type T with the given comparting function.
-// Current instance of the LinkedList will be concurrent safe.
-func NewDoublyAnySyncCmp[T any](cmp func(T, T) bool) *AnySync[T] {
-	return &AnySync[T]{
-		linkedlist: NewDoublyAnyCmp(cmp),
-	}
-}
-
-// AnySync is a linked list container for any types T.
+// SyncAny is a linked list container for any types T.
 // It adds a synchornization layer to the linked list.
 // All methods are safe for concurrent use.
 // It uses RWMutex for synchronization, so read methods could be used in parallel.
-type AnySync[T any] struct {
+type SyncAny[T any] struct {
 	linkedlist LinkedList[T]
 	mutex      sync.RWMutex
 }
 
 // Lock locks the mutex for writing.
 // It can be used if some outside synchronization is needed.
-func (s *AnySync[T]) Lock() {
+func (s *SyncAny[T]) Lock() {
 	s.mutex.Lock()
 }
 
 // Unlock locks the mutex for writing.
 // It can be used if some outside synchronization is needed.
-func (s *AnySync[T]) Unlock() {
+func (s *SyncAny[T]) Unlock() {
 	s.mutex.Unlock()
 }
 
 // RLock locks the mutex for writing.
 // It can be used if some outside synchronization is needed.
-func (s *AnySync[T]) RLock() {
+func (s *SyncAny[T]) RLock() {
 	s.mutex.RLock()
 }
 
 // RUnlock locks the mutex for writing.
 // It can be used if some outside synchronization is needed.
-func (s *AnySync[T]) RUnlock() {
+func (s *SyncAny[T]) RUnlock() {
 	s.mutex.RUnlock()
 }
 
@@ -93,7 +77,7 @@ func (s *AnySync[T]) RUnlock() {
 // Returned node is not safe for concurrent use.
 // If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
-func (s *AnySync[T]) NodeFirst() Node[T] {
+func (s *SyncAny[T]) NodeFirst() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -104,7 +88,7 @@ func (s *AnySync[T]) NodeFirst() Node[T] {
 // Returned node is not safe for concurrent use.
 // If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
-func (s *AnySync[T]) NodeLast() Node[T] {
+func (s *SyncAny[T]) NodeLast() Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -115,7 +99,7 @@ func (s *AnySync[T]) NodeLast() Node[T] {
 // Returned node is not safe for concurrent use.
 // If you would like to use plain Node, use RLock/RUnlock from the structure.
 // See the details in the specific implementation.
-func (s *AnySync[T]) NodeAt(index int) Node[T] {
+func (s *SyncAny[T]) NodeAt(index int) Node[T] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -124,7 +108,7 @@ func (s *AnySync[T]) NodeAt(index int) Node[T] {
 
 // ValueFirst returns the first value in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) ValueFirst() (T, bool) {
+func (s *SyncAny[T]) ValueFirst() (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -133,7 +117,7 @@ func (s *AnySync[T]) ValueFirst() (T, bool) {
 
 // ValueLast returns the last value in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) ValueLast() (T, bool) {
+func (s *SyncAny[T]) ValueLast() (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -142,7 +126,7 @@ func (s *AnySync[T]) ValueLast() (T, bool) {
 
 // ValueAt returns the value at the given index.
 // See the details in the specific implementation.
-func (s *AnySync[T]) ValueAt(index int) (T, bool) {
+func (s *SyncAny[T]) ValueAt(index int) (T, bool) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -151,7 +135,7 @@ func (s *AnySync[T]) ValueAt(index int) (T, bool) {
 
 // IndexOf returns the first index of the given value.
 // See the details in the specific implementation.
-func (s *AnySync[T]) IndexOf(value T) int {
+func (s *SyncAny[T]) IndexOf(value T) int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -160,7 +144,7 @@ func (s *AnySync[T]) IndexOf(value T) int {
 
 // IndexOfLast returns the last index of the given value.
 // See the details in the specific implementation.
-func (s *AnySync[T]) IndexOfLast(value T) int {
+func (s *SyncAny[T]) IndexOfLast(value T) int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -169,7 +153,7 @@ func (s *AnySync[T]) IndexOfLast(value T) int {
 
 // Contains returns true if the given value is in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) Contains(value T) bool {
+func (s *SyncAny[T]) Contains(value T) bool {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -178,7 +162,7 @@ func (s *AnySync[T]) Contains(value T) bool {
 
 // Length returns the number of elements in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) Length() int {
+func (s *SyncAny[T]) Length() int {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -187,7 +171,7 @@ func (s *AnySync[T]) Length() int {
 
 // Empty returns true if the list is empty.
 // See the details in the specific implementation.
-func (s *AnySync[T]) Empty() bool {
+func (s *SyncAny[T]) Empty() bool {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -196,7 +180,7 @@ func (s *AnySync[T]) Empty() bool {
 
 // AddFirst adds the given value to the front of the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) AddFirst(value T) bool {
+func (s *SyncAny[T]) AddFirst(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -205,7 +189,7 @@ func (s *AnySync[T]) AddFirst(value T) bool {
 
 // AddLast adds the given value to the end of the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) AddLast(value T) bool {
+func (s *SyncAny[T]) AddLast(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -214,7 +198,7 @@ func (s *AnySync[T]) AddLast(value T) bool {
 
 // AddAt adds the given value at the given index.
 // See the details in the specific implementation.
-func (s *AnySync[T]) AddAt(index int, value T) bool {
+func (s *SyncAny[T]) AddAt(index int, value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -223,7 +207,7 @@ func (s *AnySync[T]) AddAt(index int, value T) bool {
 
 // PopFirst removes and returns the first value in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) PopFirst() (T, bool) {
+func (s *SyncAny[T]) PopFirst() (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -232,7 +216,7 @@ func (s *AnySync[T]) PopFirst() (T, bool) {
 
 // PopLast removes and returns the last value in the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) PopLast() (T, bool) {
+func (s *SyncAny[T]) PopLast() (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -241,7 +225,7 @@ func (s *AnySync[T]) PopLast() (T, bool) {
 
 // PopAt removes and returns the value at the given index.
 // See the details in the specific implementation.
-func (s *AnySync[T]) PopAt(index int) (T, bool) {
+func (s *SyncAny[T]) PopAt(index int) (T, bool) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -250,7 +234,7 @@ func (s *AnySync[T]) PopAt(index int) (T, bool) {
 
 // RemoveNode removes the given node from the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) RemoveNode(node Node[T]) bool {
+func (s *SyncAny[T]) RemoveNode(node Node[T]) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -259,7 +243,7 @@ func (s *AnySync[T]) RemoveNode(node Node[T]) bool {
 
 // RemoveFirstBy removes the first value that equals the given value.
 // See the details in the specific implementation.
-func (s *AnySync[T]) RemoveFirstBy(value T) bool {
+func (s *SyncAny[T]) RemoveFirstBy(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -268,7 +252,7 @@ func (s *AnySync[T]) RemoveFirstBy(value T) bool {
 
 // RemoveLastBy removes the last value that equals the given value.
 // See the details in the specific implementation.
-func (s *AnySync[T]) RemoveLastBy(value T) bool {
+func (s *SyncAny[T]) RemoveLastBy(value T) bool {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -277,7 +261,7 @@ func (s *AnySync[T]) RemoveLastBy(value T) bool {
 
 // RemoveAllBy removes all values that equals the given value.
 // See the details in the specific implementation.
-func (s *AnySync[T]) RemoveAllBy(value T) int {
+func (s *SyncAny[T]) RemoveAllBy(value T) int {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -286,7 +270,7 @@ func (s *AnySync[T]) RemoveAllBy(value T) int {
 
 // Clear removes all nodes from the list.
 // See the details in the specific implementation.
-func (s *AnySync[T]) Clear() {
+func (s *SyncAny[T]) Clear() {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
