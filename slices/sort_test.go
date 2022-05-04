@@ -1,11 +1,11 @@
-package sort_test
+package slices_test
 
 import (
 	"fmt"
 	"testing"
 
 	"github.com/aohorodnyk/stl/reflect"
-	"github.com/aohorodnyk/stl/sort"
+	"github.com/aohorodnyk/stl/slices"
 )
 
 func TestSortInt(t *testing.T) {
@@ -43,7 +43,7 @@ func TestSortInt(t *testing.T) {
 			slice := prov["slice"]
 			expected := prov["expected"]
 
-			sort.Sort(slice)
+			slices.Sort(slice)
 
 			if !reflect.DeepEqual(slice, expected) {
 				t.Errorf("Expected %v, got %v", expected, slice)
@@ -91,7 +91,7 @@ func TestSortString(t *testing.T) {
 			slice := prov["slice"]
 			expected := prov["expected"]
 
-			sort.Sort(slice)
+			slices.Sort(slice)
 
 			if !reflect.DeepEqual(slice, expected) {
 				t.Errorf("Expected %v, got %v", expected, slice)
@@ -139,7 +139,7 @@ func TestReverseInt(t *testing.T) {
 			slice := prov["slice"]
 			expected := prov["expected"]
 
-			sort.Reverse(slice)
+			slices.SortReverse(slice)
 
 			if !reflect.DeepEqual(slice, expected) {
 				t.Errorf("Expected %v, got %v", expected, slice)
@@ -191,7 +191,7 @@ func TestReverseString(t *testing.T) {
 			slice := prov["slice"]
 			expected := prov["expected"]
 
-			sort.Reverse(slice)
+			slices.SortReverse(slice)
 
 			if !reflect.DeepEqual(slice, expected) {
 				t.Errorf("Expected %v, got %v", expected, slice)

@@ -1,4 +1,4 @@
-package sort
+package slices
 
 import (
 	"sort"
@@ -11,8 +11,8 @@ func Sort[T types.Ordered](slice []T) {
 	sort.Sort(SliceOrdered[T](slice))
 }
 
-// Reverse is a helper function that simplifies the API for standard library.
-func Reverse[T types.Ordered](slice []T) {
+// SortReverse is a helper function that simplifies the API for standard library.
+func SortReverse[T types.Ordered](slice []T) {
 	sort.Sort(sort.Reverse(SliceOrdered[T](slice)))
 }
 

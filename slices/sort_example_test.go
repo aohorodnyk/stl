@@ -1,26 +1,26 @@
-package sort_test
+package slices_test
 
 import (
 	"fmt"
-	sortstd "sort"
+	"sort"
 
-	"github.com/aohorodnyk/stl/sort"
+	"github.com/aohorodnyk/stl/slices"
 )
 
 func ExampleSort() {
 	// Sort strings in ascending order.
 	strs := []string{"c", "a", "d", "aa", "cc", "b", "bb"}
-	sort.Sort(strs)
+	slices.Sort(strs)
 	fmt.Println(strs)
 
 	// Sort integers in ascending order.
 	ints := []int{5, 3, 4, 2, 7, 1, 8, 12, 9, 6}
-	sort.Sort(ints)
+	slices.Sort(ints)
 	fmt.Println(ints)
 
 	// Sort floats in ascending order.
 	floats := []float64{5.5, 3.3, 4.4, 2.2, 7.7, 1.1, 8.8, 12.12, 9.9, 6.6}
-	sort.Sort(floats)
+	slices.Sort(floats)
 	fmt.Println(floats)
 
 	// Output:
@@ -29,20 +29,20 @@ func ExampleSort() {
 	// [1.1 2.2 3.3 4.4 5.5 6.6 7.7 8.8 9.9 12.12]
 }
 
-func ExampleReverse() {
+func ExampleSortReverse() {
 	// Sort strings in reverse order.
 	strs := []string{"c", "a", "d", "aa", "cc", "b", "bb"}
-	sort.Reverse(strs)
+	slices.SortReverse(strs)
 	fmt.Println(strs)
 
 	// Sort integers in reverse order.
 	ints := []int{5, 3, 4, 2, 7, 1, 8, 12, 9, 6}
-	sort.Reverse(ints)
+	slices.SortReverse(ints)
 	fmt.Println(ints)
 
 	// Sort floats in reverse order.
 	floats := []float64{5.5, 3.3, 4.4, 2.2, 7.7, 1.1, 8.8, 12.12, 9.9, 6.6}
-	sort.Reverse(floats)
+	slices.SortReverse(floats)
 	fmt.Println(floats)
 
 	// Output:
@@ -53,19 +53,19 @@ func ExampleReverse() {
 
 func ExampleSorted() {
 	strs := []string{"c", "a", "d", "b"}
-	fmt.Println(sort.Sorted(strs))
+	fmt.Println(slices.Sorted(strs))
 
 	strs = []string{"a", "b", "c", "d"}
-	fmt.Println(sort.Sorted(strs))
+	fmt.Println(slices.Sorted(strs))
 
 	ints := []int{5, 4, 3, 2}
-	fmt.Println(sort.Sorted(ints))
+	fmt.Println(slices.Sorted(ints))
 
 	ints = []int{2, 3, 4, 5}
-	fmt.Println(sort.Sorted(ints))
+	fmt.Println(slices.Sorted(ints))
 
 	floats := []float64{2.2, 3.3, 4.1, 4.2}
-	fmt.Println(sort.Sorted(floats))
+	fmt.Println(slices.Sorted(floats))
 
 	// Output:
 	// false
@@ -77,19 +77,19 @@ func ExampleSorted() {
 
 func ExampleSortedReverse() {
 	strs := []string{"c", "a", "d", "b"}
-	fmt.Println(sort.SortedReverse(strs))
+	fmt.Println(slices.SortedReverse(strs))
 
 	strs = []string{"d", "c", "b", "a"}
-	fmt.Println(sort.SortedReverse(strs))
+	fmt.Println(slices.SortedReverse(strs))
 
 	ints := []int{2, 3, 4, 5}
-	fmt.Println(sort.SortedReverse(ints))
+	fmt.Println(slices.SortedReverse(ints))
 
 	ints = []int{5, 4, 3, 2}
-	fmt.Println(sort.SortedReverse(ints))
+	fmt.Println(slices.SortedReverse(ints))
 
 	floats := []float64{4.2, 4.1, 3.3, 2.1}
-	fmt.Println(sort.SortedReverse(floats))
+	fmt.Println(slices.SortedReverse(floats))
 
 	// Output:
 	// false
@@ -101,15 +101,15 @@ func ExampleSortedReverse() {
 
 func ExampleStable() {
 	strs := []string{"c", "a", "d", "b"}
-	sort.Stable(strs)
+	slices.Stable(strs)
 	fmt.Println(strs)
 
 	ints := []int{5, 4, 3, 2}
-	sort.Stable(ints)
+	slices.Stable(ints)
 	fmt.Println(ints)
 
 	floats := []float64{2.2, 3.3, 4.1, 4.2}
-	sort.Stable(floats)
+	slices.Stable(floats)
 	fmt.Println(floats)
 
 	// Output:
@@ -121,17 +121,17 @@ func ExampleStable() {
 func ExampleStableReverse() {
 	// Sort strings in reverse order.
 	strs := []string{"c", "a", "d", "aa", "cc", "b", "bb"}
-	sort.StableReverse(strs)
+	slices.StableReverse(strs)
 	fmt.Println(strs)
 
 	// Sort integers in reverse order.
 	ints := []int{5, 3, 4, 2, 7, 1, 8, 12, 9, 6}
-	sort.StableReverse(ints)
+	slices.StableReverse(ints)
 	fmt.Println(ints)
 
 	// Sort floats in reverse order.
 	floats := []float64{5.5, 3.3, 4.4, 2.2, 7.7, 1.1, 8.8, 12.12, 9.9, 6.6}
-	sort.StableReverse(floats)
+	slices.StableReverse(floats)
 	fmt.Println(floats)
 
 	// Output:
@@ -144,12 +144,12 @@ func ExampleSliceOrdered() {
 	// There are examples of using SliceOrdered in standard sort package.
 	// Sort strings in ascending order.
 	strs := []string{"c", "a", "d", "aa", "cc", "b", "bb"}
-	sortstd.Sort(sort.SliceOrdered[string](strs))
+	sort.Sort(slices.SliceOrdered[string](strs))
 	fmt.Println(strs)
 
 	// Sotr strings in reverse order.
 	strs = []string{"c", "a", "d", "aa", "cc", "b", "bb"}
-	sortstd.Sort(sortstd.Reverse(sort.SliceOrdered[string](strs)))
+	sort.Sort(sort.Reverse(slices.SliceOrdered[string](strs)))
 	fmt.Println(strs)
 
 	// Output:
