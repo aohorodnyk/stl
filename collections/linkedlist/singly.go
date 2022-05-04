@@ -2,19 +2,48 @@ package linkedlist
 
 import (
 	"github.com/aohorodnyk/stl/math"
+	"github.com/aohorodnyk/stl/reflect"
 )
 
-// NewSingly returns a new SinglyComparable linked list for comparable types T.
+// NewSingly returns a new Singly linked list for comparable types T.
 func NewSingly[T comparable]() *Singly[T] {
-	return &Singly[T]{}
+	cmp := func(a, b T) bool {
+		return a == b
+	}
+
+	return NewSinglyFunc(cmp)
 }
 
-// Singly is a singly linked list for comparable types T.
-// All search methods by value are compare values by direct comparison `==`.
-// This implementation is much faster than the SinglyAny implementation with the default cmp method.
-type Singly[T comparable] struct {
+// NewSinglyFunc returns a new Singly linked list for any types T.
+// cmp is a function that will be used for comparisons.
+// If the cmp function is nil, this function will throw panic.
+func NewSinglyFunc[T any](cmp func(T, T) bool) *Singly[T] {
+	if cmp == nil {
+		panic("Comparable function is required")
+	}
+
+	return &Singly[T]{
+		cmp: cmp,
+	}
+}
+
+// NewSinglyFuncDeep returns a new Singly linked list for any types T.
+// Comparisons will be done by `reflect.DeepEqual` function independently from the provided type.
+func NewSinglyFuncDeep[T any]() *Singly[T] {
+	cmp := func(a, b T) bool {
+		return reflect.DeepEqual(a, b)
+	}
+
+	return NewSinglyFunc(cmp)
+}
+
+// Singly is a singly linked list for any types T.
+// All search methods by value are compare values by a custom cmp function.
+// If the type T is comparable, Singly[T comparable] implementation is suggest for use.
+type Singly[T any] struct {
 	head   *SinglyNode[T]
 	length int
+	cmp    func(T, T) bool
 }
 
 // NodeFirst returns the first node in the list.
@@ -26,7 +55,6 @@ func (s *Singly[T]) NodeFirst() Node[T] {
 
 // NodeLast returns the last node in the list.
 // If the list is empty, it returns nil.
-// This method will go through the whole list for every call.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) NodeLast() Node[T] {
 	return s.NodeAt(math.Max(s.length-1, 0))
@@ -47,7 +75,7 @@ func (s *Singly[T]) ValueFirst() (T, bool) {
 }
 
 // ValueLast returns the last value in the list.
-// This method will go through the whole list for every call.
+// If the list is empty, it returns false.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) ValueLast() (T, bool) {
 	return s.ValueAt(math.Max(s.length-1, 0))
@@ -66,13 +94,13 @@ func (s *Singly[T]) ValueAt(index int) (T, bool) {
 	return result, false
 }
 
-// IndexOf returns the first index of the given value.
+// IndexOf returns the index of the given value.
 // If the value is not found, it returns -1.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) IndexOf(value T) int {
 	pointer := s.head
 	for index := 0; pointer != nil; index++ {
-		if pointer.value == value {
+		if s.cmp(pointer.value, value) {
 			return index
 		}
 
@@ -91,7 +119,7 @@ func (s *Singly[T]) IndexOfLast(value T) int {
 	pointer := s.head
 
 	for index := 0; pointer != nil; index++ {
-		if pointer.value == value {
+		if s.cmp(pointer.value, value) {
 			result = index
 		}
 
@@ -126,13 +154,13 @@ func (s *Singly[T]) AddFirst(value T) bool {
 }
 
 // AddLast adds the given value to the last position of the list.
-// This method will go through the whole list for every call.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) AddLast(value T) bool {
 	return s.AddAt(s.length, value)
 }
 
-// AddAt adds the given value to the given index of the list.
+// AddAt adds the given value to the given index.
+// If index is out of range, it returns false.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) AddAt(index int, value T) bool {
 	if index == 0 {
@@ -160,22 +188,22 @@ func (s *Singly[T]) AddAt(index int, value T) bool {
 	return true
 }
 
-// PopFirst removes the first node from the list and returns the value.
-// Second return value is true if node has been removed from the list.
+// PopFirst removes the first value from the list and return it.
+// If the list is empty, it returns false.
 // This method has O(1) performance complexity.
 func (s *Singly[T]) PopFirst() (T, bool) {
 	return s.PopAt(0)
 }
 
-// PopLast removes the last node from the list and returns the value.
-// Second return value is true if node has been removed from the list.
+// PopLast removes the last value from the list and return it.
+// If the list is empty, it returns false.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) PopLast() (T, bool) {
 	return s.PopAt(math.Max(s.length-1, 0))
 }
 
-// PopAt removes the node at the given index from the list and returns the value.
-// Second return value is true if node has been removed from the list.
+// PopAt removes the value at the given index and return it.
+// If index is out of range, it returns false.
 // This method has O(n) performance complexity.
 func (s *Singly[T]) PopAt(index int) (T, bool) {
 	var result T
@@ -244,7 +272,7 @@ func (s *Singly[T]) RemoveFirstBy(value T) bool {
 		return false
 	}
 
-	if s.head.value == value {
+	if s.cmp(s.head.value, value) {
 		s.head = s.head.next
 		s.length--
 
@@ -253,7 +281,7 @@ func (s *Singly[T]) RemoveFirstBy(value T) bool {
 
 	pointer := s.head
 	for pointer.next != nil {
-		if pointer.next.value == value {
+		if s.cmp(pointer.next.value, value) {
 			pointer.next = pointer.next.next
 			s.length--
 
@@ -279,7 +307,7 @@ func (s *Singly[T]) RemoveLastBy(value T) bool {
 
 	pointer := s.head
 	for pointer.next != nil {
-		if pointer.next.value == value {
+		if s.cmp(pointer.next.value, value) {
 			pointerLast = pointer
 		}
 
@@ -293,7 +321,7 @@ func (s *Singly[T]) RemoveLastBy(value T) bool {
 		return true
 	}
 
-	if s.head.value == value {
+	if s.cmp(s.head.value, value) {
 		s.head = s.head.next
 		s.length--
 
@@ -316,7 +344,7 @@ func (s *Singly[T]) RemoveAllBy(value T) int {
 
 	pointer := s.head
 	for pointer.next != nil {
-		if pointer.next.value == value {
+		if s.cmp(pointer.next.value, value) {
 			pointer.next = pointer.next.next
 			s.length--
 
@@ -326,7 +354,7 @@ func (s *Singly[T]) RemoveAllBy(value T) int {
 		pointer = pointer.next
 	}
 
-	if s.head.value == value {
+	if s.cmp(s.head.value, value) {
 		s.head = s.head.next
 		s.length--
 
@@ -363,17 +391,17 @@ func (s *Singly[T]) nodeAt(index int) *SinglyNode[T] {
 // SinglyNode[T] is a node of a singly-linked list.
 // It has a value and a pointer to the next node.
 // It implements the Node interface.
-type SinglyNode[T comparable] struct {
+type SinglyNode[T any] struct {
 	value T
 	next  *SinglyNode[T]
 }
 
-// Value returns the value of the node.
 func (s *SinglyNode[T]) Value() T {
 	return s.value
 }
 
-// Next returns the next node in the list.
+// Next returns the next node.
+// If the node is the last node, it returns nil.
 func (s *SinglyNode[T]) Next() Node[T] {
 	if s.next == nil {
 		return nil

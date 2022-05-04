@@ -2,9 +2,9 @@ package linkedlist
 
 import "sync"
 
-// AnySync is a concurrent safe linked list for comparable types T.
+// AnySync is a concurrent safe linked list for any types T.
 // It can be used to cover thread safe container over any custom LinkedList implementation.
-func NewSync[T comparable](list LinkedList[T]) *Sync[T] {
+func NewSync[T any](list LinkedList[T]) *Sync[T] {
 	return &Sync[T]{linkedlist: list}
 }
 
@@ -26,11 +26,43 @@ func NewDoublySync[T comparable]() *Sync[T] {
 	}
 }
 
-// Sync is a linked list container for comparable types T.
+// NewSinglyFuncSync returns a new Singly linked list for any type T with the given comparting function.
+// Current instance of the LinkedList will be concurrent safe.
+func NewSinglyFuncSync[T any](cmp func(T, T) bool) *Sync[T] {
+	return &Sync[T]{
+		linkedlist: NewSinglyFunc(cmp),
+	}
+}
+
+// NewSinglyFuncDeepSync returns a new Singly linked list for any type T with reflect.DeepEqual comparting function.
+// Current instance of the LinkedList will be concurrent safe.
+func NewSinglyFuncDeepSync[T any]() *Sync[T] {
+	return &Sync[T]{
+		linkedlist: NewSinglyFuncDeep[T](),
+	}
+}
+
+// NewDoublyFuncSync returns a new Doubly linked list for any type T with the given comparting function.
+// Current instance of the LinkedList will be concurrent safe.
+func NewDoublyFuncSync[T any](cmp func(T, T) bool) *Sync[T] {
+	return &Sync[T]{
+		linkedlist: NewDoublyFunc(cmp),
+	}
+}
+
+// NewDoublyFuncDeepSync returns a new Doubly linked list for any type T with reflect.DeepEqual comparting function.
+// Current instance of the LinkedList will be concurrent safe.
+func NewDoublyFuncDeepSync[T any]() *Sync[T] {
+	return &Sync[T]{
+		linkedlist: NewDoublyFuncDeep[T](),
+	}
+}
+
+// Sync is a linked list container for any types T.
 // It adds a synchornization layer to the linked list.
 // All methods are safe for concurrent use.
 // It uses RWMutex for synchronization, so read methods could be used in parallel.
-type Sync[T comparable] struct {
+type Sync[T any] struct {
 	linkedlist LinkedList[T]
 	mutex      sync.RWMutex
 }

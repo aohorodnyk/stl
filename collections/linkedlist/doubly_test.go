@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	_ linkedlist.LinkedList[int]               = &linkedlist.DoublyFunc[int]{}
-	_ linkedlist.LinkedList[string]            = &linkedlist.DoublyFunc[string]{}
-	_ linkedlist.LinkedList[map[string]string] = &linkedlist.DoublyFunc[map[string]string]{}
+	_ linkedlist.LinkedList[int]               = &linkedlist.Doubly[int]{}
+	_ linkedlist.LinkedList[string]            = &linkedlist.Doubly[string]{}
+	_ linkedlist.LinkedList[map[string]string] = &linkedlist.Doubly[map[string]string]{}
 
-	_ linkedlist.Node[int]               = &linkedlist.DoublyNodeAny[int]{}
-	_ linkedlist.Node[string]            = &linkedlist.DoublyNodeAny[string]{}
-	_ linkedlist.Node[map[string]string] = &linkedlist.DoublyNodeAny[map[string]string]{}
+	_ linkedlist.Node[int]               = &linkedlist.DoublyNode[int]{}
+	_ linkedlist.Node[string]            = &linkedlist.DoublyNode[string]{}
+	_ linkedlist.Node[map[string]string] = &linkedlist.DoublyNode[map[string]string]{}
 
 	_ linkedlist.LinkedList[int]    = &linkedlist.Doubly[int]{}
 	_ linkedlist.LinkedList[string] = &linkedlist.Doubly[string]{}
@@ -163,5 +163,32 @@ func nodeDoublyTest(t *testing.T, ll linkedlist.LinkedList[string]) {
 
 	if node.Prev().Value() != node2.Prev().Value() {
 		t.Errorf("Node2.Prev().Value = %s, want %s", node2.Prev().Value(), node.Value())
+	}
+}
+
+func TestDoublyFuncCustom(t *testing.T) {
+	t.Parallel()
+
+	type test struct {
+		a, b int
+	}
+
+	cmp := func(a, b test) bool {
+		return a.a == b.b || a.b == b.a
+	}
+
+	list := linkedlist.NewDoublyFunc(cmp)
+	list.AddFirst(test{a: 1, b: 5})
+
+	if list.IndexOf(test{a: 6, b: 1}) != 0 {
+		t.Errorf("Expected index of 0, got %d", list.IndexOf(test{a: 6, b: 1}))
+	}
+
+	if list.IndexOf(test{a: 5, b: 3}) != 0 {
+		t.Errorf("Expected index of 0, got %d", list.IndexOf(test{a: 5, b: 3}))
+	}
+
+	if list.IndexOf(test{a: 3, b: 3}) != -1 {
+		t.Errorf("Expected index of -1, got %d", list.IndexOf(test{a: 3, b: 3}))
 	}
 }

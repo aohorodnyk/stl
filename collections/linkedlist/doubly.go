@@ -1,19 +1,50 @@
 package linkedlist
 
-import "github.com/aohorodnyk/stl/math"
+import (
+	"github.com/aohorodnyk/stl/math"
+	"github.com/aohorodnyk/stl/reflect"
+)
 
-// NewDoubly returns a new DoublyComparable linked list for comparable types T.
+// NewDoubly returns a new Doubly linked list for comparable types T.
 func NewDoubly[T comparable]() *Doubly[T] {
-	return &Doubly[T]{}
+	cmp := func(a, b T) bool {
+		return a == b
+	}
+
+	return NewDoublyFunc(cmp)
 }
 
-// Doubly is a doubly linked list for comparable types T.
-// All search methods by value are compare values by direct comparison `==`.
-// This implementation is much faster than the DoublyAny implementation with the default cmp method.
-type Doubly[T comparable] struct {
+// NewDoublyFunc returns a new Doubly linked list for any types T.
+// cmp is a function that will be used for comparisons.
+// If the cmp function is nil, this function will throw panic.
+func NewDoublyFunc[T any](cmp func(T, T) bool) *Doubly[T] {
+	if cmp == nil {
+		panic("Comparable function is required")
+	}
+
+	return &Doubly[T]{
+		cmp: cmp,
+	}
+}
+
+// NewDoublyFuncDeep returns a new Doubly linked list for any types T.
+// Comparisons will be done by `reflect.DeepEqual` function independently from the provided type.
+// We suggest to use this method only if you have a strong reason to choose exact this configuration.
+func NewDoublyFuncDeep[T any]() *Doubly[T] {
+	cmp := func(a, b T) bool {
+		return reflect.DeepEqual(a, b)
+	}
+
+	return NewDoublyFunc(cmp)
+}
+
+// Doubly is a doubly linked list for any types T.
+// All search methods by value are compare values by a custom cmp function or stl/reflect.DeepEqual function.
+type Doubly[T any] struct {
 	head   *DoublyNode[T]
 	tail   *DoublyNode[T]
 	length int
+	cmp    func(T, T) bool
 }
 
 // NodeFirst returns the first node in the list.
@@ -70,7 +101,7 @@ func (d *Doubly[T]) ValueAt(index int) (T, bool) {
 func (d *Doubly[T]) IndexOf(value T) int {
 	pointer := d.head
 	for index := 0; pointer != nil; index++ {
-		if pointer.value == value {
+		if d.cmp(pointer.value, value) {
 			return index
 		}
 
@@ -88,7 +119,7 @@ func (d *Doubly[T]) IndexOfLast(value T) int {
 	pointer := d.head
 
 	for index := 0; pointer != nil; index++ {
-		if pointer.value == value {
+		if d.cmp(pointer.value, value) {
 			result = index
 		}
 
@@ -211,12 +242,12 @@ func (d *Doubly[T]) RemoveNode(node Node[T]) bool {
 		return false
 	}
 
-	nodeCmp, ok := node.(*DoublyNode[T])
+	nodeAny, ok := node.(*DoublyNode[T])
 	if !ok {
 		return false
 	}
 
-	d.removeNode(nodeCmp)
+	d.removeNode(nodeAny)
 
 	return true
 }
@@ -231,7 +262,7 @@ func (d *Doubly[T]) RemoveFirstBy(value T) bool {
 
 	pointer := d.head
 	for pointer != nil {
-		if pointer.value == value {
+		if d.cmp(pointer.value, value) {
 			d.removeNode(pointer)
 
 			return true
@@ -253,7 +284,7 @@ func (d *Doubly[T]) RemoveLastBy(value T) bool {
 
 	pointer := d.tail
 	for pointer != nil {
-		if pointer.value == value {
+		if d.cmp(pointer.value, value) {
 			d.removeNode(pointer)
 
 			return true
@@ -278,7 +309,7 @@ func (d *Doubly[T]) RemoveAllBy(value T) int {
 
 	pointer := d.head
 	for pointer != nil {
-		if pointer.value == value {
+		if d.cmp(pointer.value, value) {
 			pointer = d.removeNode(pointer)
 
 			removed++
@@ -363,7 +394,7 @@ func (d *Doubly[T]) syncEnds() {
 // DoublyNode[T] is a node of a doubly-linked list.
 // It has a value and a pointer to the next and previous nodes.
 // It implements the Node interface.
-type DoublyNode[T comparable] struct {
+type DoublyNode[T any] struct {
 	value T
 	next  *DoublyNode[T]
 	prev  *DoublyNode[T]
