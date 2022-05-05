@@ -344,7 +344,7 @@ func TestMaxInt(t *testing.T) {
 	}
 }
 
-func TestCompareMultiCustom(t *testing.T) {
+func TestMinMaxMultiCustom(t *testing.T) {
 	t.Parallel()
 
 	type customType struct {
@@ -355,32 +355,32 @@ func TestCompareMultiCustom(t *testing.T) {
 	cmpMax := func(first, second customType) bool { return first.field > second.field }
 	cmpRef := func(first, second *customType) bool { return first.field > second.field }
 
-	min := mathstl.CompareMulti(cmpMin, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	min := mathstl.MinMaxMulti(cmpMin, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
 	if min.field != -15 {
 		t.Errorf("got %v, expected %v", min.field, -15)
 	}
 
-	max := mathstl.CompareMulti(cmpMax, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	max := mathstl.MinMaxMulti(cmpMax, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
 	if max.field != 2 {
 		t.Errorf("got %v, expected %v", max.field, 2)
 	}
 
-	empty := mathstl.CompareMulti(cmpMax)
+	empty := mathstl.MinMaxMulti(cmpMax)
 	if empty.field != 0 {
 		t.Errorf("got %v, expected %v", max.field, 0)
 	}
 
-	emptyRef := mathstl.CompareMulti(cmpRef)
+	emptyRef := mathstl.MinMaxMulti(cmpRef)
 	if emptyRef != nil {
 		t.Errorf("got %v, expected %v", emptyRef, nil)
 	}
 
-	maxRef := mathstl.CompareMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2})
+	maxRef := mathstl.MinMaxMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2})
 	if maxRef.field != 2 {
 		t.Errorf("got %v, expected %v", emptyRef, 2)
 	}
 
-	maxRef = mathstl.CompareMulti(cmpRef, &customType{field: 1})
+	maxRef = mathstl.MinMaxMulti(cmpRef, &customType{field: 1})
 	if maxRef.field != 1 {
 		t.Errorf("got %v, expected %v", emptyRef, 1)
 	}

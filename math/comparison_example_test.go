@@ -87,14 +87,14 @@ func ExampleMaxMulti() {
 	// 0
 }
 
-func ExampleCompareMulti() {
+func ExampleMinMaxMulti() {
 	// Find the maximum value of the following set of numbers.
 	cmpInt := func(a, b int) bool { return a > b }
-	fmt.Println(math.CompareMulti(cmpInt, 15, 353, 12, -345, -53))
+	fmt.Println(math.MinMaxMulti(cmpInt, 15, 353, 12, -345, -53))
 
 	// Find the maximum value of the following set of numbers.
 	cmpInt = func(a, b int) bool { return a < b }
-	fmt.Println(math.CompareMulti(cmpInt, 15, 353, 12, -345, -53))
+	fmt.Println(math.MinMaxMulti(cmpInt, 15, 353, 12, -345, -53))
 
 	// Specify the custm type for further examples.
 	type customType struct {
@@ -103,23 +103,23 @@ func ExampleCompareMulti() {
 
 	// Find the minimum value for the custom structure type.
 	cmpCustom := func(first, second customType) bool { return first.field < second.field }
-	fmt.Println(math.CompareMulti(cmpCustom, customType{field: 15}, customType{field: 353}, customType{field: 12}))
+	fmt.Println(math.MinMaxMulti(cmpCustom, customType{field: 15}, customType{field: 353}, customType{field: 12}))
 
 	// Find the maximum value for the custom structure type.
 	cmpCustom = func(first, second customType) bool { return first.field > second.field }
-	fmt.Println(math.CompareMulti(cmpCustom, customType{field: 15}, customType{field: 353}, customType{field: 12}))
+	fmt.Println(math.MinMaxMulti(cmpCustom, customType{field: 15}, customType{field: 353}, customType{field: 12}))
 
 	// Compare empty list of values for the custom structure type.
-	fmt.Println(math.CompareMulti(cmpCustom))
+	fmt.Println(math.MinMaxMulti(cmpCustom))
 
 	cmpRef := func(first, second *customType) bool { return first.field > second.field }
 	// Compare empty list of values for the reference of the custom structure type.
-	fmt.Println(math.CompareMulti(cmpRef))
+	fmt.Println(math.MinMaxMulti(cmpRef))
 
 	// Compare the one value for the reference of the custom structure type.
-	fmt.Println(math.CompareMulti(cmpRef, &customType{field: 1}))
+	fmt.Println(math.MinMaxMulti(cmpRef, &customType{field: 1}))
 	// Compare the list of values for the reference of the custom structure type.
-	fmt.Println(math.CompareMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2}))
+	fmt.Println(math.MinMaxMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2}))
 
 	// Output:
 	// 353
@@ -130,4 +130,33 @@ func ExampleCompareMulti() {
 	// <nil>
 	// &{1}
 	// &{2}
+}
+
+func ExampleCompare() {
+	fmt.Println(math.Compare(1, 2))
+	fmt.Println(math.Compare(1, 1))
+	fmt.Println(math.Compare(5, -242234324))
+	fmt.Println(math.Compare(byte(5), 15))
+	fmt.Println(math.Compare(15, byte(15)))
+	fmt.Println(math.Compare(uint(123), 267865765426754))
+	fmt.Println(math.Compare(46524, uint(124)))
+	fmt.Println(math.Compare(635235.25362, 0.000001))
+	fmt.Println(math.Compare(234.25362, 234.25362))
+	fmt.Println(math.Compare("a", "b"))
+	fmt.Println(math.Compare("b", "a"))
+	fmt.Println(math.Compare("a", "a"))
+
+	// Output:
+	// -1
+	// 0
+	// 1
+	// -1
+	// 0
+	// -1
+	// 1
+	// 1
+	// 0
+	// -1
+	// 1
+	// 0
 }
