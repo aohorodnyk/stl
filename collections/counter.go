@@ -7,28 +7,35 @@ import (
 	mathstl "github.com/aohorodnyk/stl/math"
 )
 
+// NewCounter creates a new counter with a specified generic type.
 func NewCounter[T comparable]() Counter[T] {
 	return Counter[T]{
 		counter: make(map[T]uint),
 	}
 }
 
+// NewCounterSize creates a new counter with a specified generic type and predefined size for the initial map.
 func NewCounterSize[T comparable](size int) Counter[T] {
 	return Counter[T]{
 		counter: make(map[T]uint, size),
 	}
 }
 
+// CounterValue is a type for a counter value.
+// This type is used in the `ToSlice()` method.
 type CounterValue[T comparable] struct {
 	Key   T
 	Count uint
 }
 
+// Counter is a counter with a specified generic type.
+// It is a map with keys and counts per a key.
 type Counter[T comparable] struct {
 	counter map[T]uint
 	total   uint
 }
 
+// Add adds counts to the counter's key.
 func (c *Counter[T]) Add(key T, cnt uint) {
 	if cnt == 0 {
 		return
@@ -38,6 +45,7 @@ func (c *Counter[T]) Add(key T, cnt uint) {
 	c.total += cnt
 }
 
+// Sub subtracts counts from the counter's key.
 func (c *Counter[T]) Sub(key T, cnt uint) uint {
 	curCnt, ok := c.counter[key]
 	if !ok || cnt == 0 {
@@ -57,11 +65,13 @@ func (c *Counter[T]) Sub(key T, cnt uint) uint {
 	return cnt
 }
 
+// Inc adds 1 to the counter's key.
 func (c *Counter[T]) Inc(key T) {
 	c.counter[key]++
 	c.total++
 }
 
+// Dec subtracts 1 from the counter's key.
 func (c *Counter[T]) Dec(key T) bool {
 	if c.counter[key] == 1 {
 		delete(c.counter, key)
@@ -80,6 +90,7 @@ func (c *Counter[T]) Dec(key T) bool {
 	return false
 }
 
+// Counted returns the count number of the counter's key.
 func (c Counter[T]) Counted(key T) uint {
 	return c.counter[key]
 }
