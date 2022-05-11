@@ -1,7 +1,6 @@
 package math_test
 
 import (
-	mathstd "math"
 	"testing"
 
 	"github.com/aohorodnyk/stl/math"
@@ -9,7 +8,7 @@ import (
 
 func BenchmarkMinByteStandard(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		mathstd.Min(float64(byte(i)), float64(byte(i+1)))
+		math.Min(float64(byte(i)), float64(byte(i+1)))
 	}
 }
 
@@ -33,7 +32,7 @@ func BenchmarkMinByte4(b *testing.B) {
 
 func BenchmarkMinIntStandard(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		mathstd.Min(float64(i), float64(i+1))
+		math.Min(float64(i), float64(i+1))
 	}
 }
 
@@ -57,24 +56,24 @@ func BenchmarkMinInt4(b *testing.B) {
 
 func BenchmarkMinFloat64Standard(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		mathstd.Min(mathstd.MaxFloat64-345, mathstd.SmallestNonzeroFloat64+15)
+		math.Min(math.MaxFloat64-345, math.SmallestNonzeroFloat64+15)
 	}
 }
 
 func BenchmarkMinFloat64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		math.Min(mathstd.MaxFloat64-345, mathstd.SmallestNonzeroFloat64+15)
+		math.Min(math.MaxFloat64-345, math.SmallestNonzeroFloat64+15)
 	}
 }
 
 func BenchmarkMinMultiFloat642(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		math.MinMulti(mathstd.MaxFloat64-345, mathstd.SmallestNonzeroFloat64+15)
+		math.MinMulti(math.MaxFloat64-345, math.SmallestNonzeroFloat64+15)
 	}
 }
 
 func BenchmarkMinFloat644(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		math.MinMulti(mathstd.MaxFloat64, mathstd.MaxFloat64-345, mathstd.SmallestNonzeroFloat64+15, mathstd.SmallestNonzeroFloat64+15)
+		math.MinMulti(math.MaxFloat64, math.MaxFloat64-345, math.SmallestNonzeroFloat64+15, math.SmallestNonzeroFloat64+15)
 	}
 }

@@ -2,7 +2,6 @@ package math_test
 
 import (
 	"fmt"
-	mathstd "math"
 
 	"github.com/aohorodnyk/stl/math"
 )
@@ -48,7 +47,7 @@ func ExampleMinMulti() {
 	fmt.Println(math.MinMulti(46524, uint(124)))
 	fmt.Println(math.MinMulti(635235.25362, 0.000001, -324235.1242, -234., 345.0, 0.))
 
-	ints := []int64{mathstd.MaxInt64, mathstd.MinInt64, 345346, 125, -346763525, 346456346}
+	ints := []int64{math.MaxInt64, math.MinInt64, 345346, 125, -346763525, 346456346}
 	fmt.Println(math.MinMulti(ints...))
 
 	ints = nil
@@ -71,7 +70,7 @@ func ExampleMaxMulti() {
 	fmt.Println(math.MaxMulti(46524, int32(124), -235))
 	fmt.Println(math.MaxMulti(635235.25362, 0.000001, -324235.1242, -234., 345.0, 0.))
 
-	ints := []int64{mathstd.MaxInt64, mathstd.MinInt64, 345346, 125, -346763525, 346456346}
+	ints := []int64{math.MaxInt64, math.MinInt64, 345346, 125, -346763525, 346456346}
 	fmt.Println(math.MinMulti(ints...))
 
 	ints = nil

@@ -2,10 +2,9 @@ package math_test
 
 import (
 	"fmt"
-	"math"
 	"testing"
 
-	mathstl "github.com/aohorodnyk/stl/math"
+	"github.com/aohorodnyk/stl/math"
 )
 
 func TestMinMultiByte(t *testing.T) {
@@ -39,7 +38,7 @@ func TestMinMultiByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MinMulti(provData.input...)
+			res := math.MinMulti(provData.input...)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -80,7 +79,7 @@ func TestMinMultiInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MinMulti(provData.input...)
+			res := math.MinMulti(provData.input...)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -119,7 +118,7 @@ func TestMaxMultiByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MaxMulti(provData.input...)
+			res := math.MaxMulti(provData.input...)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -160,7 +159,7 @@ func TestMaxMultiInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.MaxMulti(provData.input...)
+			res := math.MaxMulti(provData.input...)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -203,7 +202,7 @@ func TestMinByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(provData.a, provData.b)
+			res := math.Min(provData.a, provData.b)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -248,7 +247,7 @@ func TestMinInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Min(provData.a, provData.b)
+			res := math.Min(provData.a, provData.b)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -291,7 +290,7 @@ func TestMaxByte(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(provData.a, provData.b)
+			res := math.Max(provData.a, provData.b)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -336,7 +335,7 @@ func TestMaxInt(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", idx+1), func(t *testing.T) {
 			t.Parallel()
 
-			res := mathstl.Max(provData.a, provData.b)
+			res := math.Max(provData.a, provData.b)
 			if res != provData.want {
 				t.Errorf("got %v, expected %v", res, provData.want)
 			}
@@ -355,32 +354,32 @@ func TestMinMaxMultiCustom(t *testing.T) {
 	cmpMax := func(first, second customType) bool { return first.field > second.field }
 	cmpRef := func(first, second *customType) bool { return first.field > second.field }
 
-	min := mathstl.MinMaxMulti(cmpMin, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	min := math.MinMaxMulti(cmpMin, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
 	if min.field != -15 {
 		t.Errorf("got %v, expected %v", min.field, -15)
 	}
 
-	max := mathstl.MinMaxMulti(cmpMax, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
+	max := math.MinMaxMulti(cmpMax, customType{field: 1}, customType{field: 2}, customType{field: -15}, customType{field: -2})
 	if max.field != 2 {
 		t.Errorf("got %v, expected %v", max.field, 2)
 	}
 
-	empty := mathstl.MinMaxMulti(cmpMax)
+	empty := math.MinMaxMulti(cmpMax)
 	if empty.field != 0 {
 		t.Errorf("got %v, expected %v", max.field, 0)
 	}
 
-	emptyRef := mathstl.MinMaxMulti(cmpRef)
+	emptyRef := math.MinMaxMulti(cmpRef)
 	if emptyRef != nil {
 		t.Errorf("got %v, expected %v", emptyRef, nil)
 	}
 
-	maxRef := mathstl.MinMaxMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2})
+	maxRef := math.MinMaxMulti(cmpRef, &customType{field: 1}, &customType{field: 2}, &customType{field: -15}, &customType{field: -2})
 	if maxRef.field != 2 {
 		t.Errorf("got %v, expected %v", emptyRef, 2)
 	}
 
-	maxRef = mathstl.MinMaxMulti(cmpRef, &customType{field: 1})
+	maxRef = math.MinMaxMulti(cmpRef, &customType{field: 1})
 	if maxRef.field != 1 {
 		t.Errorf("got %v, expected %v", emptyRef, 1)
 	}
