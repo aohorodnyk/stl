@@ -1,6 +1,8 @@
 package math
 
-import "math"
+import (
+	"math"
+)
 
 // Mathematical constants.
 const (
@@ -32,8 +34,6 @@ const (
 
 // Integer limit values.
 const (
-	IntSize = 32 << (^uint(0) >> 63) //nolint:gomnd // 32 or 64 bits in int.
-
 	MaxInt    = math.MaxInt
 	MinInt    = math.MinInt
 	MaxInt8   = math.MaxInt8
