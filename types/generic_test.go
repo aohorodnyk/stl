@@ -8,6 +8,7 @@ import (
 	"github.com/aohorodnyk/stl/types"
 )
 
+//nolint:unused // We added `f` variable for test purposes, it should not be used.
 type (
 	testSigned[T types.Signed]     struct{ f T }
 	testUnsigned[T types.Unsigned] struct{ f T }

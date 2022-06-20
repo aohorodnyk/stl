@@ -50,7 +50,7 @@ func BenchmarkDeepEqualCmpInt(b *testing.B) {
 
 func BenchmarkEqualInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		//nolint:gocritic // This test is expected to have the same params.
+		//nolint:gocritic,staticcheck // This test is expected to have the same params.
 		if i != i {
 			b.Fatal("not equal")
 		}
