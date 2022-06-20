@@ -43,7 +43,7 @@ linters:
     - errchkjson
     - errname
     - errorlint
-    # - execinquery # TODO: Enable when 1.46 will be released
+    - execinquery
     - exhaustive
     - exhaustivestruct
     - exportloopref
@@ -99,7 +99,7 @@ linters:
     - tagliatelle
     - tenv
     - testpackage
-    # - thelper // It's useless linter for now.
+    # - thelper # It's useless linter for now.
     - tparallel
     - unconvert
     - unparam
@@ -107,6 +107,8 @@ linters:
     - whitespace
     - wrapcheck
     - wsl
+    # - nonamedreturns # This linter does not make any sense.
+    - nosprintfhostport
 issues:
     exclude-rules:
       - path: _test\.go
