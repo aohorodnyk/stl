@@ -233,7 +233,7 @@ func (c Counter[T]) ToSlice() []CounterValue[T] {
 }
 
 // Remove an element from the counter by the given key.
-func (c Counter[T]) Remove(key T) uint {
+func (c *Counter[T]) Remove(key T) uint {
 	curCnt, ok := c.counter[key]
 	if !ok {
 		return 0
