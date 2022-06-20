@@ -45,7 +45,8 @@ linters:
     - errorlint
     - execinquery
     - exhaustive
-    - exhaustivestruct
+    # - exhaustivestruct # WARN [runner] The linter 'exhaustivestruct' is deprecated (since v1.46.0) due to: The owner seems to have abandoned the linter.  Replaced by exhaustruct.
+    - exhaustruct
     - exportloopref
     - forbidigo
     - forcetypeassert
