@@ -7,16 +7,16 @@ import (
 )
 
 var (
-	_ binflags.Flags = &binflags.Static[int]{}
-	_ binflags.Flags = &binflags.Static[uint]{}
-	_ binflags.Flags = &binflags.Static[uint16]{}
-	_ binflags.Flags = &binflags.Static[int16]{}
-	_ binflags.Flags = &binflags.Static[int8]{}
-	_ binflags.Flags = &binflags.Static[byte]{}
+	_ binflags.Flags = &binflags.Fixed[int]{}
+	_ binflags.Flags = &binflags.Fixed[uint]{}
+	_ binflags.Flags = &binflags.Fixed[uint16]{}
+	_ binflags.Flags = &binflags.Fixed[int16]{}
+	_ binflags.Flags = &binflags.Fixed[int8]{}
+	_ binflags.Flags = &binflags.Fixed[byte]{}
 )
 
-func ExampleStatic() {
-	flags := make(binflags.Static[uint8], 3)
+func ExampleFixed() {
+	flags := make(binflags.Fixed[uint8], 3)
 	fmt.Println(flags)
 	fmt.Println(flags.Set(20))
 	fmt.Println(flags)
@@ -55,8 +55,8 @@ func ExampleStatic() {
 	// [0 0 144]
 }
 
-func ExampleStatic_IsSet() {
-	flags := binflags.Static[uint8]{0, 255, 123, 53, 255}
+func ExampleFixed_IsSet() {
+	flags := binflags.Fixed[uint8]{0, 255, 123, 53, 255}
 	fmt.Println(flags.IsSet(0))
 	fmt.Println(flags.IsSet(7))
 	fmt.Println(flags.IsSet(8))
@@ -75,8 +75,8 @@ func ExampleStatic_IsSet() {
 	// false
 }
 
-func ExampleStatic_Set() {
-	flags := make(binflags.Static[uint8], 3)
+func ExampleFixed_Set() {
+	flags := make(binflags.Fixed[uint8], 3)
 	fmt.Println(flags)
 	fmt.Println(flags.Set(0))
 	fmt.Println(flags)
@@ -103,8 +103,8 @@ func ExampleStatic_Set() {
 	// [1 64 160]
 }
 
-func ExampleStatic_Unset() {
-	flags := binflags.Static[uint8]{255, 255, 255}
+func ExampleFixed_Unset() {
+	flags := binflags.Fixed[uint8]{255, 255, 255}
 	fmt.Println(flags)
 	fmt.Println(flags.Unset(0))
 	fmt.Println(flags)
