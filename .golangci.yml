@@ -110,7 +110,7 @@ issues:
       - path: doc\.go
         linters:
           - lll
-      - path: types\/constraints_test\.go
+      - path: constraints\/constraints_test\.go
         linters:
           - gocritic
           - wsl
@@ -121,6 +121,7 @@ issues:
           - unconvert
           - paralleltest
           - tparallel
+          - unused
 
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration

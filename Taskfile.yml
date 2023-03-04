@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  test:
+    desc: Run unit tests
+    cmds:
+      - go test ./...
+    env:
+      GOFLAGS: -count=1
+  lint:
+    desc: Run linter
+    cmds:
+      - golangci-lint run ./...
