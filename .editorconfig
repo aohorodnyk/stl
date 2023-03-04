@@ -1,0 +1,19 @@
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+tab_width = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+[*.go]
+indent_style = tab
+
+# 4 space indentation for Python.
+[*.py]
+indent_style = space
+indent_size = 4
