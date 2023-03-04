@@ -122,6 +122,9 @@ issues:
           - paralleltest
           - tparallel
           - unused
+      - path: types\/caster_example_test\.g
+        linters:
+          - dupword
 
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration
