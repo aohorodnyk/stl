@@ -14,6 +14,8 @@ func TestMin(t *testing.T) {
 		nums []int
 		exp  int
 	}{
+		{nil, 0},
+		{[]int{}, 0},
 		{[]int{25}, 25},
 		{[]int{25, 3}, 3},
 		{[]int{523, 32, 625, -235, 23}, -235},
@@ -34,54 +36,31 @@ func TestMin(t *testing.T) {
 	}
 }
 
-func TestMin_panicEmptyCall(t *testing.T) {
+func TestMax(t *testing.T) {
 	t.Parallel()
 
-	defer func() {
-		err := recover()
-		if err == nil || err != "Min function requires minimum one parameter" {
-			t.Errorf("Expected panic, got \"%s\"", err)
-		}
-	}()
+	provider := []struct {
+		nums []int
+		exp  int
+	}{
+		{nil, 0},
+		{[]int{}, 0},
+		{[]int{25}, 25},
+		{[]int{25, 3}, 25},
+		{[]int{523, 32, 625, -235, 23}, 625},
+		{[]int{-1245, 523, 32, 625, -235, 23}, 625},
+	}
 
-	math.Min[int]()
-}
+	for idx, prov := range provider {
+		prov := prov
 
-func TestMin_panicSlice(t *testing.T) {
-	t.Parallel()
+		t.Run(fmt.Sprintf("TestMin_%d", idx), func(t *testing.T) {
+			t.Parallel()
 
-	defer func() {
-		err := recover()
-		if err == nil || err != "Min function requires minimum one parameter" {
-			t.Errorf("Expected panic, got \"%s\"", err)
-		}
-	}()
-
-	math.Min([]int{}...)
-}
-
-func TestMax_panicEmptyCall(t *testing.T) {
-	t.Parallel()
-
-	defer func() {
-		err := recover()
-		if err == nil || err != "Max function requires minimum one parameter" {
-			t.Errorf("Expected panic, got \"%s\"", err)
-		}
-	}()
-
-	math.Max[int]()
-}
-
-func TestMax_panicSlice(t *testing.T) {
-	t.Parallel()
-
-	defer func() {
-		err := recover()
-		if err == nil || err != "Max function requires minimum one parameter" {
-			t.Errorf("Expected panic, got \"%s\"", err)
-		}
-	}()
-
-	math.Max([]int{}...)
+			cur := math.Max(prov.nums...)
+			if cur != prov.exp {
+				t.Errorf("Expected %d, got %d", prov.exp, cur)
+			}
+		})
+	}
 }

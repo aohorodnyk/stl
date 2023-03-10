@@ -8,10 +8,12 @@ import (
 // Float values are not excluded, but keep in mind they can contain INF and NAN values that require additional handling.
 // This function is variadic to make it more flexible. At the same time variadic functin is still faster
 // then a function from std lib, because it does not support types with INFs and NANs.
-func Min[T constraints.Ordered](values ...T) T {
+// If array with zero size provided, default value for the type will be returned.
+func Min[Type constraints.Ordered](values ...Type) Type {
 	if len(values) == 0 {
-		// Panic is an antipattern, but it's unclear what to return when values is empty.
-		panic("Min function requires minimum one parameter")
+		var result Type
+
+		return result
 	}
 
 	result := values[0]
@@ -28,10 +30,12 @@ func Min[T constraints.Ordered](values ...T) T {
 // Float values are excluded, but keep in mind they can contain INF and NAN values that require additional handling.
 // This function is variadic to make it more flexible. At the same time variadic functin is still faster
 // then a function from std lib, because it does not support types with INFs and NANs.
-func Max[T constraints.Ordered](values ...T) T {
+// If array with zero size provided, default value for the type will be returned.
+func Max[Type constraints.Ordered](values ...Type) Type {
 	if len(values) == 0 {
-		// Panic is an antipattern, but it's unclear what to return when values is empty.
-		panic("Max function requires minimum one parameter")
+		var result Type
+
+		return result
 	}
 
 	result := values[0]
