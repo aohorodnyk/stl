@@ -6,7 +6,7 @@ import "github.com/aohorodnyk/stl/constraints"
 // The function is reimplemented (does not use standard library),
 // to improve performance and decrease memory usage.
 // It works with O(1) memory and O(n) performance.
-func IsSorted[Type constraints.Ordered](slice []Type) bool {
+func IsSorted[T constraints.Ordered](slice []T) bool {
 	for i := len(slice) - 1; i > 0; i-- {
 		if slice[i] < slice[i-1] {
 			return false
@@ -20,7 +20,7 @@ func IsSorted[Type constraints.Ordered](slice []Type) bool {
 // The function is reimplemented (does not use standard library),
 // to improve performance and decrease memory usage.
 // It works with O(1) memory and O(n) performance.
-func IsSortedReverse[Type constraints.Ordered](slice []Type) bool {
+func IsSortedReverse[T constraints.Ordered](slice []T) bool {
 	for i := len(slice) - 1; i > 0; i-- {
 		if slice[i] > slice[i-1] {
 			return false

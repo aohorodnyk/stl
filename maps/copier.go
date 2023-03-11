@@ -5,7 +5,7 @@ package maps
 // If destination map contains some unique key, it will not be removed.
 // Returns false one when destination is nil, otherwise returns true.
 // This functions does not do DeepCopy, it just assigns values.
-func Copy[Key comparable, Value any](dest map[Key]Value, src map[Key]Value) bool {
+func Copy[K comparable, V any](dest map[K]V, src map[K]V) bool {
 	if dest == nil {
 		return false
 	}
@@ -20,8 +20,8 @@ func Copy[Key comparable, Value any](dest map[Key]Value, src map[Key]Value) bool
 // Clone create a new map with the same size as a source map and assign values
 // from the source map.
 // This functions does not do DeepCopy, it just assigns values.
-func Clone[Key comparable, Value any](src map[Key]Value) map[Key]Value {
-	res := make(map[Key]Value, len(src))
+func Clone[K comparable, V any](src map[K]V) map[K]V {
+	res := make(map[K]V, len(src))
 	Copy(res, src)
 
 	return res

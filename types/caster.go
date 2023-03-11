@@ -2,12 +2,12 @@ package types
 
 // Cast converts a value to a specified type.
 // It returns default type's value, if input is nil.
-func Cast[Type any](value any) (val Type, ok bool) {
+func Cast[T any](value any) (val T, ok bool) {
 	if value == nil {
 		return val, false
 	}
 
-	val, ok = value.(Type)
+	val, ok = value.(T)
 
 	return val, ok
 }
@@ -26,12 +26,12 @@ func Cast[Type any](value any) (val Type, ok bool) {
 //	  fmt.Println(val, ok)
 //	}
 //	Output: (1, true)
-func CastOk[Type any](value any, ok bool) (Type, bool) {
+func CastOk[T any](value any, ok bool) (T, bool) {
 	if !ok {
-		var val Type
+		var val T
 
 		return val, false
 	}
 
-	return Cast[Type](value)
+	return Cast[T](value)
 }
