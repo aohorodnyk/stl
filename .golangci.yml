@@ -122,7 +122,7 @@ issues:
           - paralleltest
           - tparallel
           - unused
-      - path: types\/caster_example_test\.g
+      - path: _test\.g
         linters:
           - dupword
 
