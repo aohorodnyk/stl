@@ -9,9 +9,9 @@ import (
 // This function is variadic to make it more flexible. At the same time variadic functin is still faster
 // then a function from std lib, because it does not support types with INFs and NANs.
 // If array with zero size provided, default value for the type will be returned.
-func Min[Type constraints.Ordered](values ...Type) Type {
+func Min[T constraints.Ordered](values ...T) T {
 	if len(values) == 0 {
-		var result Type
+		var result T
 
 		return result
 	}
@@ -31,9 +31,9 @@ func Min[Type constraints.Ordered](values ...Type) Type {
 // This function is variadic to make it more flexible. At the same time variadic functin is still faster
 // then a function from std lib, because it does not support types with INFs and NANs.
 // If array with zero size provided, default value for the type will be returned.
-func Max[Type constraints.Ordered](values ...Type) Type {
+func Max[T constraints.Ordered](values ...T) T {
 	if len(values) == 0 {
-		var result Type
+		var result T
 
 		return result
 	}

@@ -107,6 +107,7 @@ issues:
         linters:
           - dupl
           - funlen
+          - dupword
       - path: doc\.go
         linters:
           - lll
@@ -122,9 +123,6 @@ issues:
           - paralleltest
           - tparallel
           - unused
-      - path: _test\.g
-        linters:
-          - dupword
 
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration
