@@ -56,16 +56,16 @@ func TestIsSorted(t *testing.T) {
 	}
 }
 
-func ExampleIsSortedReverse() {
-	fmt.Println("Empty int:", slices.IsSortedReverse([]int{}))
-	fmt.Println("Sorted int:", slices.IsSortedReverse([]int{34, 1}))
-	fmt.Println("Unsorted int:", slices.IsSortedReverse([]int{5, 25, 13}))
+func ExampleIsReversed() {
+	fmt.Println("Empty int:", slices.IsReversed([]int{}))
+	fmt.Println("Sorted int:", slices.IsReversed([]int{34, 1}))
+	fmt.Println("Unsorted int:", slices.IsReversed([]int{5, 25, 13}))
 
 	fmt.Println()
 
-	fmt.Println("Empty string:", slices.IsSortedReverse([]string{}))
-	fmt.Println("Sorted string:", slices.IsSortedReverse([]string{"b", "a"}))
-	fmt.Println("Unsorted string:", slices.IsSortedReverse([]string{"a", "d", "b"}))
+	fmt.Println("Empty string:", slices.IsReversed([]string{}))
+	fmt.Println("Sorted string:", slices.IsReversed([]string{"b", "a"}))
+	fmt.Println("Unsorted string:", slices.IsReversed([]string{"a", "d", "b"}))
 
 	// Output:
 	// Empty int: true
@@ -77,7 +77,7 @@ func ExampleIsSortedReverse() {
 	// Unsorted string: false
 }
 
-func TestIsSortedReverse(t *testing.T) {
+func TestIsReversed(t *testing.T) {
 	t.Parallel()
 
 	provider := []struct {
@@ -94,10 +94,10 @@ func TestIsSortedReverse(t *testing.T) {
 	for idx, prov := range provider {
 		prov := prov
 
-		t.Run(fmt.Sprintf("TestIsSortedReverse_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestIsReversed_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
-			cur := slices.IsSortedReverse(prov.slice)
+			cur := slices.IsReversed(prov.slice)
 			if cur != prov.exp {
 				t.Errorf("Expected %t, got %t", prov.exp, cur)
 			}
