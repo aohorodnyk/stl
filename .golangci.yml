@@ -23,7 +23,7 @@ linters:
     - contextcheck
     - cyclop
     - decorder
-    - depguard
+    # - depguard # ? is not allowed from list 'Main' - maybe bug. Check later
     - dogsled
     - dupl
     - dupword
@@ -33,14 +33,14 @@ linters:
     - errorlint
     - execinquery
     - exhaustive
-    - exhaustruct
+    # - exhaustruct
     - exportloopref
     - forbidigo
     - forcetypeassert
     - funlen
     - gci
-    # - ginkgolinter # Will be enabled in 1.51.
-    # - gocheckcompilerdirectives # Will be enabled in 1.51.
+    - ginkgolinter
+    - gocheckcompilerdirectives
     - gochecknoglobals
     - gochecknoinits
     - gocognit
@@ -68,7 +68,7 @@ linters:
     - maintidx
     - makezero
     - misspell
-    # - musttag # Will be enabled in 1.51.
+    - musttag
     - nakedret
     - nestif
     - nilerr
@@ -101,6 +101,10 @@ linters:
     - whitespace
     - wrapcheck
     - wsl
+    - zerologlint
+    - gosmopolitan
+    - mirror
+    - tagalign
 issues:
     exclude-rules:
       - path: _test\.go
@@ -127,4 +131,4 @@ issues:
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration
 service:
-  golangci-lint-version: 1.51.x # use the fixed version to not introduce new linters unexpectedly
+  golangci-lint-version: 1.53.x # use the fixed version to not introduce new linters unexpectedly
