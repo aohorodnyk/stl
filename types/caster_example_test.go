@@ -77,3 +77,36 @@ func ExampleCastOk() {
 	// <nil> false
 	// <nil> false
 }
+
+func ExampleRef() {
+	intVal := types.Ref[int](0)
+	fmt.Println(*intVal)
+
+	intVal = types.Ref[int](235)
+	fmt.Println(*intVal)
+
+	ir := new(int)
+	*ir = 2532
+	fmt.Printf("%T %d\n", types.Ref[*int](ir), *ir)
+
+	strVal := types.Ref[string]("")
+	fmt.Println(*strVal)
+
+	strVal = types.Ref[string]("test")
+	fmt.Println(*strVal)
+
+	sr := new(string)
+	*sr = "sr_test"
+	fmt.Printf("%T %s\n", types.Ref[*string](sr), *sr)
+
+	fmt.Printf("%T\n", types.Ref[*string](nil))
+
+	// Output:
+	// 0
+	// 235
+	// **int 2532
+	//
+	// test
+	// **string sr_test
+	// **string
+}

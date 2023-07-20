@@ -129,3 +129,26 @@ func TestCastOk(t *testing.T) {
 		t.Errorf("Converted value is expected nil, but got %d", *curIntPointer)
 	}
 }
+
+func TestRef(t *testing.T) {
+	t.Parallel()
+
+	valInt := 234
+	curIntPointer := types.Ref[int](valInt)
+
+	if valInt != *curIntPointer {
+		t.Errorf("Converted int is expected %d, but got %d", valInt, *curIntPointer)
+	}
+
+	valStr := "my text"
+	curStrPointer := types.Ref[string](valStr)
+
+	if valStr != *curStrPointer {
+		t.Errorf("Converted string is expected %s, but got %s", valStr, *curStrPointer)
+	}
+
+	curNilIntPointer := types.Ref[*int](nil)
+	if *curNilIntPointer != nil {
+		t.Errorf("Converted nil is expected 0, but got %d", curNilIntPointer)
+	}
+}

@@ -35,3 +35,9 @@ func CastOk[T any](value any, ok bool) (T, bool) {
 
 	return Cast[T](value)
 }
+
+// Ref returns a pointer to the value passed in.
+// Useful for getting a pointer to any value.
+func Ref[T any](value T) *T {
+	return &value
+}
