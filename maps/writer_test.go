@@ -2,6 +2,7 @@ package maps_test
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 
 	"github.com/aohorodnyk/stl/maps"
@@ -36,6 +37,34 @@ func TestSet(t *testing.T) {
 
 			if old != prov.expValue {
 				t.Errorf("Unexpected value, expected: %d, got: %d", prov.expValue, old)
+			}
+		})
+	}
+}
+
+func TestDelete(t *testing.T) {
+	t.Parallel()
+
+	provider := []struct {
+		input map[int]int
+		keys  []int
+		exp   map[int]int
+	}{
+		{nil, []int{5, 3}, nil},
+		{map[int]int{}, []int{5, 3}, map[int]int{}},
+		{map[int]int{1: 3, 5: 6, 8: 2}, []int{12, 8}, map[int]int{1: 3, 5: 6}},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("TestDelete_%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			maps.Delete(prov.input, prov.keys...)
+
+			if reflect.DeepEqual(prov.input, prov.exp) == false {
+				t.Errorf("Unexpected map, expected: %v, got: %v", prov.exp, prov.input)
 			}
 		})
 	}
