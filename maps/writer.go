@@ -9,3 +9,21 @@ func Set[K comparable, V any](container map[K]V, key K, value V) (old V, ok bool
 
 	return old, ok
 }
+
+// Delete deletes keys from a provided map.
+// This function is just a wrapper around `delete` function, but with a support of variadic keys.
+func Delete[K comparable, V any](container map[K]V, keys ...K) {
+	for _, key := range keys {
+		delete(container, key)
+	}
+}
+
+// DeleteBy deletes keys from a map by a predicate.
+// If predicate returns true, key will be deleted.
+func DeleteBy[K comparable, V any](container map[K]V, predicate func(key K, value V) bool) {
+	for key, value := range container {
+		if predicate(key, value) {
+			delete(container, key)
+		}
+	}
+}
