@@ -17,3 +17,13 @@ func Delete[K comparable, V any](container map[K]V, keys ...K) {
 		delete(container, key)
 	}
 }
+
+// DeleteBy deletes keys from a map by a predicate.
+// If predicate returns true, key will be deleted.
+func DeleteBy[K comparable, V any](container map[K]V, predicate func(key K, value V) bool) {
+	for key, value := range container {
+		if predicate(key, value) {
+			delete(container, key)
+		}
+	}
+}

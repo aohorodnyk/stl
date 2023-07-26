@@ -69,3 +69,32 @@ func TestDelete(t *testing.T) {
 		})
 	}
 }
+
+func TestDeleteBy(t *testing.T) {
+	t.Parallel()
+
+	provider := []struct {
+		input     map[int]int
+		predicate func(key int, value int) bool
+		exp       map[int]int
+	}{
+		{nil, func(key int, value int) bool { return key == 5 }, nil},
+		{map[int]int{}, func(key int, value int) bool { return key == 5 }, map[int]int{}},
+		{map[int]int{1: 3, 5: 6, 8: 2}, func(key int, value int) bool { return key == 5 }, map[int]int{1: 3, 8: 2}},
+		{map[int]int{1: 3, 5: 6, 8: 2}, func(key int, value int) bool { return value == 6 }, map[int]int{1: 3, 8: 2}},
+	}
+
+	for idx, prov := range provider {
+		prov := prov
+
+		t.Run(fmt.Sprintf("TestDeleteBy_%d", idx), func(t *testing.T) {
+			t.Parallel()
+
+			maps.DeleteBy(prov.input, prov.predicate)
+
+			if !reflect.DeepEqual(prov.input, prov.exp) {
+				t.Errorf("Unexpected map, expected: %v, got: %v", prov.exp, prov.input)
+			}
+		})
+	}
+}
