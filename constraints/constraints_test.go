@@ -104,8 +104,6 @@ replace github.com/aohorodnyk/stl => %s
 	tidyCmd.Env = append(os.Environ(), "PWD="+tmpdir)
 	if out, err := tidyCmd.CombinedOutput(); err != nil {
 		t.Fatalf("%v: %v\n%s", tidyCmd, err, out)
-	} else {
-		t.Logf("%v:\n%s", tidyCmd, out)
 	}
 
 	// Test for types that should not satisfy a constraint.
@@ -149,7 +147,6 @@ replace github.com/aohorodnyk/stl => %s
 			if out, err := cmd.CombinedOutput(); err == nil {
 				t.Error("build succeeded, but expected to fail")
 			} else if len(out) > 0 {
-				t.Logf("%s", out)
 				if !wantRx.Match(out) {
 					t.Errorf("output does not match %q", wantRx)
 				}
