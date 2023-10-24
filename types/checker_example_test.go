@@ -1,17 +1,21 @@
-package types
+package types_test
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/aohorodnyk/stl/types"
+)
 
 func ExampleIsType() {
-	fmt.Println(IsType[int](0))
-	fmt.Println(IsType[int](1))
-	fmt.Println(IsType[int](1.0))
-	fmt.Println(IsType[int]("1"))
-	fmt.Println(IsType[string](0))
-	fmt.Println(IsType[string](1))
-	fmt.Println(IsType[string]("1"))
-	fmt.Println(IsType[*string]("1"))
-	fmt.Println(IsType[*string](Ref("1")))
+	fmt.Println(types.IsType[int](0))
+	fmt.Println(types.IsType[int](1))
+	fmt.Println(types.IsType[int](1.0))
+	fmt.Println(types.IsType[int]("1"))
+	fmt.Println(types.IsType[string](0))
+	fmt.Println(types.IsType[string](1))
+	fmt.Println(types.IsType[string]("1"))
+	fmt.Println(types.IsType[*string]("1"))
+	fmt.Println(types.IsType[*string](types.Ref("1")))
 
 	// Output:
 	// true

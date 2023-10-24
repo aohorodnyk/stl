@@ -1,49 +1,47 @@
-package types
+package types_test
 
 import (
 	"fmt"
 	"testing"
-)
 
-func helper(m *testing.T) {
-	m.Helper()
-}
+	"github.com/aohorodnyk/stl/types"
+)
 
 func TestIsType(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		isType func(value any) bool
+		IsType func(value any) bool
 		value  any
 		exp    bool
 	}{
 		{
-			isType: IsType[int],
+			IsType: types.IsType[int],
 			value:  0,
 			exp:    true,
 		},
 		{
-			isType: IsType[int],
+			IsType: types.IsType[int],
 			value:  1,
 			exp:    true,
 		},
 		{
-			isType: IsType[int],
+			IsType: types.IsType[int],
 			value:  1.0,
 			exp:    false,
 		},
 		{
-			isType: IsType[int],
+			IsType: types.IsType[int],
 			value:  "1",
 			exp:    false,
 		},
 		{
-			isType: IsType[string],
+			IsType: types.IsType[string],
 			value:  0,
 			exp:    false,
 		},
 		{
-			isType: IsType[string],
+			IsType: types.IsType[string],
 			value:  1,
 			exp:    false,
 		},
@@ -52,11 +50,11 @@ func TestIsType(t *testing.T) {
 	for idx, prov := range tests {
 		prov := prov
 
-		t.Run(fmt.Sprintf("TestIsType_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("Testtypes.IsType_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
-			if prov.isType(prov.value) != prov.exp {
-				t.Errorf("IsType() = %v, want %v", prov.isType(prov.value), prov.exp)
+			if prov.IsType(prov.value) != prov.exp {
+				t.Errorf("types.IsType() = %v, want %v", prov.IsType(prov.value), prov.exp)
 			}
 		})
 	}
