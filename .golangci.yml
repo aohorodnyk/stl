@@ -1,5 +1,7 @@
 run:
   modules-download-mode: readonly # Do not update dependencies.
+  concurrency: 4
+  timeout: 3m
 linters-settings:
   varnamelen:
     min-name-length: 2
@@ -105,6 +107,11 @@ linters:
     - gosmopolitan
     - mirror
     - tagalign
+    - testifylint
+    - sloglint
+    - protogetter
+    - perfsprint
+    - gochecksumtype
 issues:
     exclude-rules:
       - path: _test\.go
@@ -131,4 +138,4 @@ issues:
 # golangci.com configuration
 # https://github.com/golangci/golangci/wiki/Configuration
 service:
-  golangci-lint-version: 1.53.x # use the fixed version to not introduce new linters unexpectedly
+  golangci-lint-version: 1.55.x # use the fixed version to not introduce new linters unexpectedly
