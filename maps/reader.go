@@ -10,7 +10,7 @@ func KeyExists[K comparable, V any](container map[K]V, key K) bool {
 }
 
 // Search searches value in a provided map.
-// Performance complexity is O(n), memory complaxity is O(1).
+// Performance complexity is O(n), memory complexity is O(1).
 // It supports ONLY comparable value, otherwise we cannot compare values without reflect.
 func Search[K comparable, V comparable](container map[K]V, value V) (K, bool) {
 	for key, val := range container {
@@ -24,8 +24,8 @@ func Search[K comparable, V comparable](container map[K]V, value V) (K, bool) {
 	return key, false
 }
 
-// Search searches value in a provided map.
-// Performance complexity is O(n), memory complaxity is O(1).
+// SearchFunc searches value in a provided map.
+// Performance complexity is O(n), memory complexity is O(1).
 func SearchFunc[K comparable, V any](container map[K]V, cmp func(K) bool) (K, bool) {
 	for key := range container {
 		if cmp(key) {
