@@ -2,6 +2,7 @@ package types_test
 
 import (
 	"fmt"
+
 	"github.com/aohorodnyk/stl/types"
 )
 
