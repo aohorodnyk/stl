@@ -2,7 +2,7 @@ package slices
 
 import "github.com/aohorodnyk/stl/constraints"
 
-// Sorted is a helper function that simplifies the API for standard library.
+// IsSorted is a helper function that simplifies the API for standard library.
 // The function is reimplemented (does not use standard library),
 // to improve performance and decrease memory usage.
 // It works with O(1) memory and O(n) performance.
@@ -16,7 +16,7 @@ func IsSorted[T constraints.Ordered](slice []T) bool {
 	return true
 }
 
-// Sorted is a helper function that simplifies the API for standard library in reverse order.
+// IsReversed is a helper function that simplifies the API for standard library in reverse order.
 // The function is reimplemented (does not use standard library),
 // to improve performance and decrease memory usage.
 // It works with O(1) memory and O(n) performance.
