@@ -7,7 +7,7 @@ import (
 // Min function returns the smaller of two values for all types that support strict order comparisons.
 // Float values are not excluded, but keep in mind they can contain INF and NAN values that require additional handling.
 // This function is variadic to make it more flexible. At the same time variadic functin is still faster
-// then a function from std lib, because it does not support types with INFs and NANs.
+// than a function from std lib, because it does not support types with INFs and NANs.
 // If array with zero size provided, default value for the type will be returned.
 func Min[T constraints.Ordered](values ...T) (result T) {
 	if len(values) == 0 {
@@ -26,8 +26,8 @@ func Min[T constraints.Ordered](values ...T) (result T) {
 
 // Max function returns the larger of two values for all types that support strict order comparisons.
 // Float values are excluded, but keep in mind they can contain INF and NAN values that require additional handling.
-// This function is variadic to make it more flexible. At the same time variadic functin is still faster
-// then a function from std lib, because it does not support types with INFs and NANs.
+// This function is variadic to make it more flexible. At the same time variadic function is still faster
+// than a function from std lib, because it does not support types with INFs and NANs.
 // If array with zero size provided, default value for the type will be returned.
 func Max[T constraints.Ordered](values ...T) (result T) {
 	if len(values) == 0 {
