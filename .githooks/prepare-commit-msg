@@ -1,22 +1,74 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
-# This hook adds issue/ticket number from branch name to every commit message
+# This hook adds issue/ticket/version number from branch name to every commit message
 #
+
+# Incoming parameters.
+COMMIT_MSG_FILE=$1
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
-MSG=$(head -n 1 "${1}")
 
-[[ -z "${BRANCH_NAME}" ]] && exit 0
-
-TICKET=$(echo "${BRANCH_NAME}" | grep -m 1 -oE "^v?[0-9\.]+|^\w+-[0-9]+" | head -n1)
-if [[ "${TICKET}" == "" ]]; then
-  PREPEND="[${BRANCH_NAME}]"
-elif [[ "${TICKET}" =~ ^[0-9]+$ ]]; then
-  PREPEND="#${TICKET}"
-else
-  PREPEND="[${TICKET}]"
+# Check if branch name is found.
+if [ -z "${BRANCH_NAME-}" ]; then
+  echo "[prepare-commit-msg]: Branch name not found"
+  exit 0
 fi
 
-[[ "${MSG}" == *"${PREPEND}"* ]] && exit 0
+prependMessage() {
+  # Simple semver regex (1.2.3).
+  REGEX_SEMVER="((0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*))"
 
-sed -i.bak -e "1s|^|${PREPEND} |" "${1}"
+  # Jira tickets regex (TMP-1, OD-234, MTPS-234).
+  REGEX_JIRA_TICKET="([A-Z]+-[0-9]+)"
+
+  # Github/Gitlab/Gitea issues regex (1-description, 234-description, 2345-description).
+  # Note: Issue number must be upfront of the description.
+  # It supports:
+  # 1. 123-my_feature
+  # 2. feature/1234-my_feature
+  REGEX_ISSUE_NUMBER="(^|\/)([0-9]+)"
+
+  # By default we do not add any prefix.
+  PARSED_VERSION=""
+
+  if [[ ${BRANCH_NAME} =~ ${REGEX_SEMVER} ]]; then
+    PARSED_VERSION="${BASH_REMATCH[1]}"
+    echo "[${PARSED_VERSION}]: "
+
+    return 1
+  fi
+
+  if [[ ${BRANCH_NAME} =~ ${REGEX_JIRA_TICKET} ]]; then
+    PARSED_VERSION="${BASH_REMATCH[1]}"
+    echo "[${PARSED_VERSION}]:"
+
+    return 1
+  fi
+
+  if [[ ${BRANCH_NAME} =~ ${REGEX_ISSUE_NUMBER} ]]; then
+    PARSED_VERSION="${BASH_REMATCH[2]}"
+    echo "[#${PARSED_VERSION}]:"
+
+    return 1
+  fi
+}
+
+
+PREPEND_MSG=$(prependMessage $BRANCH_NAME)
+
+if [ -z "${PREPEND_MSG-}" ]; then
+  echo "[prepare-commit-msg]: No version found"
+  exit 0
+fi
+
+# Since we expect to have the mssage in the first line, we can use head to get it.
+MSG=$(head -n 1 "${1}")
+
+# If the message already contains the version, we do not prepend it.
+if [[ "${MSG}" == *"${PREPEND_MSG}"* ]]; then
+  echo '[prepare-commit-msg]: Version already found in message'
+  exit 0
+fi
+
+# Prepend the version to the message.
+sed -i.bak -e "1s|^|${PREPEND_MSG} |" "${COMMIT_MSG_FILE}"
