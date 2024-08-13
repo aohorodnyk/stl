@@ -31,7 +31,7 @@ type StdInterface[V any] struct {
 	// 		return cmp.Less(h.data[i], h.data[j])
 	// 	}
 	// This function is required.
-	LessFunc types.Less
+	LessFunc func(int, int) bool
 }
 
 func (h *StdInterface[V]) Value(index int) V {
