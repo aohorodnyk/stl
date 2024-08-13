@@ -9,7 +9,8 @@ func NewStdInterface[V any](data []V) StdInterface[V] {
 	}
 }
 
-// StdInterface is a heap implementation for generics with [V any] but for standard interface of `container/heap` package.
+// StdInterface is a heap implementation for generics with [V any]
+// but for standard interface of `container/heap` package.
 // This implementation is completely public and not thread-safe.
 // It's exposed to allow users to manipulate with stardard interface and data.
 // Implements heap.Interface and sort.Interface.
@@ -53,8 +54,9 @@ func (h *StdInterface[V]) Swap(i, j int) {
 }
 
 // Push pushes the element x onto the heap.
-func (h *StdInterface[V]) Push(x any) {
-	h.data = append(h.data, x.(V))
+func (h *StdInterface[V]) Push(value any) {
+	converted, _ := types.Cast[V](value)
+	h.data = append(h.data, converted)
 }
 
 // Pop pops the last element from the heap.

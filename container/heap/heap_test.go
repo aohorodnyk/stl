@@ -2,10 +2,11 @@ package heap_test
 
 import (
 	"fmt"
-	"github.com/aohorodnyk/stl/container/heap"
-	syncStl "github.com/aohorodnyk/stl/sync"
 	"sync"
 	"testing"
+
+	"github.com/aohorodnyk/stl/container/heap"
+	syncStl "github.com/aohorodnyk/stl/sync"
 )
 
 func TestNewMinHeapOrdered(t *testing.T) {
@@ -61,21 +62,22 @@ func TestNewMinHeapOrdered(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			h := heap.NewMinHeapOrdered(test.init)
+			heapOrdered := heap.NewMinHeapOrdered(test.init)
 			for _, v := range test.added {
-				h.Push(v)
+				heapOrdered.Push(v)
 			}
 
-			for h.Len() > 0 {
-				got := h.Pop()
+			for heapOrdered.Len() > 0 {
+				got := heapOrdered.Pop()
 				if got != test.want[0] {
 					t.Errorf("got %v, want %v", got, test.want[0])
 				}
+
 				test.want = test.want[1:]
 			}
 
 			if len(test.want) != 0 {
-				t.Errorf("want %v, but h.Len() == %d", test.want, h.Len())
+				t.Errorf("want %v, but heapOrdered.Len() == %d", test.want, heapOrdered.Len())
 			}
 		})
 	}
@@ -128,13 +130,13 @@ func TestNewMaxHeapOrdered(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
-			h := heap.NewMaxHeapOrdered(test.init)
+			heapOrdered := heap.NewMaxHeapOrdered(test.init)
 			for _, v := range test.added {
-				h.Push(v)
+				heapOrdered.Push(v)
 			}
 
-			for h.Len() > 0 {
-				got := h.Pop()
+			for heapOrdered.Len() > 0 {
+				got := heapOrdered.Pop()
 				if got != test.want[0] {
 					t.Errorf("got %v, want %v", got, test.want[0])
 				}
@@ -143,31 +145,31 @@ func TestNewMaxHeapOrdered(t *testing.T) {
 			}
 
 			if len(test.want) != 0 {
-				t.Errorf("want %v, but h.Len() == %d", test.want, h.Len())
+				t.Errorf("want %v, but heapOrdered.Len() == %d", test.want, heapOrdered.Len())
 			}
 		})
 	}
 }
 
 func ExampleNewSyncMaxHeapOrdered() {
-	h := heap.NewSyncMaxHeapOrdered[int](nil)
+	heapOrdered := heap.NewSyncMaxHeapOrdered[int](nil)
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < 1000; i++ {
+	for idx := 0; idx < 1000; idx++ {
 		wg.Add(1)
 
 		go func(i int) {
 			defer wg.Done()
 
-			h.Push(i)
-		}(i)
+			heapOrdered.Push(i)
+		}(idx)
 	}
 
 	wg.Wait()
 
 	for i := 0; i < 5; i++ {
-		fmt.Println(h.Pop())
+		fmt.Println(heapOrdered.Pop())
 	}
 
 	// Output:
@@ -179,24 +181,24 @@ func ExampleNewSyncMaxHeapOrdered() {
 }
 
 func ExampleNewSyncMinHeapOrdered() {
-	h := heap.NewSyncMinHeapOrdered[int](nil)
+	heapOrdered := heap.NewSyncMinHeapOrdered[int](nil)
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < 1000; i++ {
+	for idx := 0; idx < 1000; idx++ {
 		wg.Add(1)
 
 		go func(i int) {
 			defer wg.Done()
 
-			h.Push(i)
-		}(i)
+			heapOrdered.Push(i)
+		}(idx)
 	}
 
 	wg.Wait()
 
 	for i := 0; i < 5; i++ {
-		fmt.Println(h.Pop())
+		fmt.Println(heapOrdered.Pop())
 	}
 
 	// Output:
@@ -208,14 +210,14 @@ func ExampleNewSyncMinHeapOrdered() {
 }
 
 func ExampleNewMaxHeapOrdered() {
-	h := heap.NewMaxHeapOrdered[int]([]int{253, 1, 234, 2, 453, 734})
-	h.Push(5)
-	h.Push(10354)
-	h.Push(15354)
-	h.Push(344)
+	heapOrdered := heap.NewMaxHeapOrdered[int]([]int{253, 1, 234, 2, 453, 734})
+	heapOrdered.Push(5)
+	heapOrdered.Push(10354)
+	heapOrdered.Push(15354)
+	heapOrdered.Push(344)
 
-	for h.Len() > 0 {
-		fmt.Println(h.Pop())
+	for heapOrdered.Len() > 0 {
+		fmt.Println(heapOrdered.Pop())
 	}
 
 	// Output:
@@ -232,14 +234,14 @@ func ExampleNewMaxHeapOrdered() {
 }
 
 func ExampleNewMinHeapOrdered() {
-	h := heap.NewMinHeapOrdered[int]([]int{253, 1, 234, 2, 453, 734})
-	h.Push(5)
-	h.Push(10354)
-	h.Push(15354)
-	h.Push(344)
+	heapOrdered := heap.NewMinHeapOrdered[int]([]int{253, 1, 234, 2, 453, 734})
+	heapOrdered.Push(5)
+	heapOrdered.Push(10354)
+	heapOrdered.Push(15354)
+	heapOrdered.Push(344)
 
-	for h.Len() > 0 {
-		fmt.Println(h.Pop())
+	for heapOrdered.Len() > 0 {
+		fmt.Println(heapOrdered.Pop())
 	}
 
 	// Output:
@@ -286,25 +288,25 @@ func ExampleNewHeapSync() {
 		return std.Value(i) < std.Value(j)
 	}
 
-	h := heap.NewHeapSync[int](&std)
+	heapSync := heap.NewHeapSync[int](&std)
 
 	var wg sync.WaitGroup
 
 	data := []int{253, 1, 234, 2, 453, 734, 5, 33}
-	for _, v := range data {
+	for _, val := range data {
 		wg.Add(1)
 
 		go func(v int) {
 			defer wg.Done()
 
-			h.Push(v)
-		}(v)
+			heapSync.Push(v)
+		}(val)
 	}
 
 	wg.Wait()
 
-	for h.Len() > 0 {
-		fmt.Println(h.Pop())
+	for heapSync.Len() > 0 {
+		fmt.Println(heapSync.Pop())
 	}
 
 	// Output:
@@ -324,15 +326,15 @@ func ExampleNewHeapSimple() {
 		return std.Value(i) < std.Value(j)
 	}
 
-	h := heap.NewHeapSimple[int](&std)
+	heapSimple := heap.NewHeapSimple[int](&std)
 
 	data := []int{253, 1, 234, 2, 453, 734, 5, 33}
 	for _, v := range data {
-		h.Push(v)
+		heapSimple.Push(v)
 	}
 
-	for h.Len() > 0 {
-		fmt.Println(h.Pop())
+	for heapSimple.Len() > 0 {
+		fmt.Println(heapSimple.Pop())
 	}
 
 	// Output:

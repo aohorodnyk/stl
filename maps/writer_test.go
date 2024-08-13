@@ -78,10 +78,10 @@ func TestDeleteBy(t *testing.T) {
 		predicate func(key int, value int) bool
 		exp       map[int]int
 	}{
-		{nil, func(key int, value int) bool { return key == 5 }, nil},
-		{map[int]int{}, func(key int, value int) bool { return key == 5 }, map[int]int{}},
-		{map[int]int{1: 3, 5: 6, 8: 2}, func(key int, value int) bool { return key == 5 }, map[int]int{1: 3, 8: 2}},
-		{map[int]int{1: 3, 5: 6, 8: 2}, func(key int, value int) bool { return value == 6 }, map[int]int{1: 3, 8: 2}},
+		{nil, func(key int, _ int) bool { return key == 5 }, nil},
+		{map[int]int{}, func(key int, _ int) bool { return key == 5 }, map[int]int{}},
+		{map[int]int{1: 3, 5: 6, 8: 2}, func(key int, _ int) bool { return key == 5 }, map[int]int{1: 3, 8: 2}},
+		{map[int]int{1: 3, 5: 6, 8: 2}, func(_ int, value int) bool { return value == 6 }, map[int]int{1: 3, 8: 2}},
 	}
 
 	for idx, prov := range provider {

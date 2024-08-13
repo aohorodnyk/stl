@@ -61,7 +61,7 @@ func TestSearchFun(t *testing.T) {
 	cmpFound := func(key string) bool {
 		return container[key] == searchVal
 	}
-	cmpNotFound := func(key string) bool {
+	cmpNotFound := func(_ string) bool {
 		return false
 	}
 

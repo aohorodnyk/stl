@@ -2,8 +2,9 @@ package heap
 
 import (
 	heapStd "container/heap"
-	"github.com/aohorodnyk/stl/types"
 	"sync"
+
+	"github.com/aohorodnyk/stl/types"
 )
 
 type heap[V any] struct {
@@ -40,11 +41,6 @@ func (h heap[V]) Push(v V) {
 	defer h.locker.Unlock()
 
 	heapStd.Push(h.data, v)
-	heapStd.Fix(h.data, h.data.Len()-1)
-	//
-	//if h.data.Len() > h.data.MaxSize {
-	//	h.Remove(h.data.Len() - 1)
-	//}
 }
 
 func (h heap[V]) Remove(i int) V {

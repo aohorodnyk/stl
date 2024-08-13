@@ -30,6 +30,7 @@ func TestReverse(t *testing.T) {
 			t.Parallel()
 
 			slices.Reverse(prov.input)
+
 			if !reflect.DeepEqual(prov.input, prov.exp) {
 				t.Errorf("Expected %v, got %v", prov.exp, prov.input)
 			}

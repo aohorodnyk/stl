@@ -10,7 +10,11 @@ tasks:
   lint:
     desc: Run linter
     cmds:
-      - golangci-lint run ./... --fix
+      - golangci-lint run ./...
+  lint:fix:
+    desc: Run linter and fix issues
+    cmds:
+      - golangci-lint run --fix ./...
   verify:
     desc: Run linter and unit tests together
     deps:
