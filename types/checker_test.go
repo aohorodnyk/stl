@@ -48,8 +48,6 @@ func TestIsType(t *testing.T) {
 	}
 
 	for idx, prov := range tests {
-		prov := prov
-
 		t.Run(fmt.Sprintf("Testtypes.IsType_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

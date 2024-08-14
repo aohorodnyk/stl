@@ -14,15 +14,17 @@ linters:
     - govet
     - ineffassign
     - staticcheck
-    - typecheck
     - unused
     # Additional linters
+    - typecheck
     - asasalint
     - asciicheck
     - bidichk
     - bodyclose
+    - canonicalheader
     - containedctx
     - contextcheck
+    - copyloopvar
     - cyclop
     - decorder
     # - depguard # ? is not allowed from list 'Main' - maybe bug. Check later
@@ -33,10 +35,11 @@ linters:
     - errchkjson
     - errname
     - errorlint
-    - execinquery
+#    - execinquery # Deprecated.
     - exhaustive
     # - exhaustruct
     - exportloopref
+    - fatcontext
     - forbidigo
     - forcetypeassert
     - funlen
@@ -51,12 +54,11 @@ linters:
     - gocyclo
     - godot
     - godox
-    - goerr113
+    - err113
     - gofmt
     - gofumpt
     - goheader
     - goimports
-    - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
@@ -64,7 +66,8 @@ linters:
     - grouper
     - importas
     - interfacebloat
-    # - ireturn # Does not support generics, see https://github.com/butuzov/ireturn/issues/39.
+    - intrange
+#    - ireturn
     - lll
     - loggercheck
     - maintidx
@@ -109,6 +112,7 @@ linters:
     - tagalign
     - testifylint
     - sloglint
+    - spancheck
     - protogetter
     - perfsprint
     - gochecksumtype
@@ -134,8 +138,3 @@ issues:
           - paralleltest
           - tparallel
           - unused
-
-# golangci.com configuration
-# https://github.com/golangci/golangci/wiki/Configuration
-service:
-  golangci-lint-version: 1.55.x # use the fixed version to not introduce new linters unexpectedly

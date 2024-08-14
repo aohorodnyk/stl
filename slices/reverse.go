@@ -7,7 +7,7 @@ package slices
 // This function is safe to use with null and empty slices.
 func Reverse[T any](slice []T) {
 	size := len(slice)
-	for index := 0; index < size/2; index++ {
+	for index := range size / 2 {
 		slice[index], slice[size-1-index] = slice[size-1-index], slice[index]
 	}
 }

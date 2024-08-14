@@ -64,8 +64,6 @@ func TestMakeMatrix(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("rows=%d,cols=%d", prov.rows, prov.cols), func(t *testing.T) {
 			t.Parallel()
 
@@ -98,8 +96,6 @@ func Test3D(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("rows=%d,cols=%d,tubes=%d", prov.rows, prov.cols, prov.tubes), func(t *testing.T) {
 			t.Parallel()
 
@@ -140,8 +136,6 @@ func Test4D(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		testName := fmt.Sprintf("rows=%d,cols=%d,tubes=%d,cells=%d", prov.rows, prov.cols, prov.tubes, prov.cells)
 		t.Run(testName, func(t *testing.T) {
 			t.Parallel()

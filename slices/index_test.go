@@ -25,8 +25,6 @@ func TestIndex(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("%v", prov.slice), func(t *testing.T) {
 			t.Parallel()
 
@@ -57,8 +55,6 @@ func TestIndexFunc(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("%v", prov.slice), func(t *testing.T) {
 			t.Parallel()
 
