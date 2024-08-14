@@ -8,7 +8,13 @@
 [![GoDoc](https://godoc.org/github.com/aohorodnyk/stl?status.svg)](https://pkg.go.dev/github.com/aohorodnyk/stl)
 
 This package contains the library extension and simplification I always missed and could not fill the gap in my every day development. This repository has been created right after Go 1.18 release with the generics support. It was the main problem to build the simple library with good performance.
-This package wont try to replace the standard library, but it will try to extend and simplify it.
+This package won't try to replace the standard library, but it will try to extend and simplify it.
+
+This repository is opinionated, and expected to stay minimalistic by design. All improvements and new features are
+welcome, but keep in mind that this library should stay as simple as possible and as close to the standard library as
+possible.
+
+There are many other libraries for Go, that tries to create their own standard library. Feel free to check them out.s
 
 ## Goals
 There are the main goals of this library:
