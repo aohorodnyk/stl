@@ -14,7 +14,7 @@ This repository is opinionated, and expected to stay minimalistic by design. All
 welcome, but keep in mind that this library should stay as simple as possible and as close to the standard library as
 possible.
 
-There are many other libraries for Go, that tries to create their own standard library. Feel free to check them out.s
+There are many other libraries for Go, that tries to create their own standard library. Feel free to check them out.
 
 ## Goals
 There are the main goals of this library:
@@ -30,17 +30,17 @@ Every feature or feature change should introduce some changes in comments, doc.g
 
 ### Different types usage in the library
 As we can mention, all the generic types are specified on te structure level, instead of the Get functions' levels.
-The implementation has been done, because of the Golang generics limitations where we cannot use generic's types on method level (more informaton [here](https://go.dev/doc/faq#generic_methods) and [here](https://go.googlesource.com/proposal/+/master/design/43651-type-parameters.md#no-parameterized-methods)).
+The implementation has been done, because of the Golang generics limitations where we cannot use generic's types on method level (more information [here](https://go.dev/doc/faq#generic_methods) and [here](https://go.googlesource.com/proposal/+/master/design/43651-type-parameters.md#no-parameterized-methods)).
 
 So, if you need to have different types on the value level, you can use `any` type and cast result by using `types.Cast` and `types.CastOk` functions.
 
 It's clear that the Golang's genetics implementation is not flexible enough for this kind of generic solutions, however, in the many cases it will work well without any problems.
-And we hope that aditional `Cast` function will not break the developer experience too much.
+And we hope that additional `Cast` function will not break the developer experience too much.
 
 ## Contributing
-The library is open source and you can contribute to it.
+The library is open source, and you can contribute to it.
 
-Before contrbution, make sure that githook is configured for you and all your commits contain the correct issue tag.
+Before contribution, make sure that githook is configured for you and all your commits contain the correct issue tag.
 
 ### Branch Name
 Before you start the contribution, make sure that you are on the correct branch. Branch name should start from the issue number dash and short explanation with spaces replaced by underscores. Example:
