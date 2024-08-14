@@ -49,8 +49,6 @@ func TestCopy(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestCopy_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -77,8 +75,6 @@ func TestClone(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestClone_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

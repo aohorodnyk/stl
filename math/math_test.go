@@ -20,7 +20,6 @@ func TestAbs_int8(t *testing.T) {
 	}
 
 	for _, provVal := range provider {
-		provVal := provVal
 		t.Run(fmt.Sprintf("TestAbs_%T_%d", provVal.num, provVal.num), func(t *testing.T) {
 			t.Parallel()
 
@@ -44,7 +43,6 @@ func TestAbs_int16(t *testing.T) {
 	}
 
 	for _, provVal := range provider {
-		provVal := provVal
 		t.Run(fmt.Sprintf("TestAbs_%T_%d", provVal.num, provVal.num), func(t *testing.T) {
 			t.Parallel()
 
@@ -68,7 +66,6 @@ func TestAbs_int32(t *testing.T) {
 	}
 
 	for _, provVal := range provider {
-		provVal := provVal
 		t.Run(fmt.Sprintf("TestAbs_%T_%d", provVal.num, provVal.num), func(t *testing.T) {
 			t.Parallel()
 
@@ -92,7 +89,6 @@ func TestAbs_int64(t *testing.T) {
 	}
 
 	for _, provVal := range provider {
-		provVal := provVal
 		t.Run(fmt.Sprintf("TestAbs_%T_%d", provVal.num, provVal.num), func(t *testing.T) {
 			t.Parallel()
 

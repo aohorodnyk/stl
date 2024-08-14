@@ -57,8 +57,6 @@ func TestNewMinHeapOrdered(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		test := test
-
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -125,8 +123,6 @@ func TestNewMaxHeapOrdered(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		test := test
-
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -156,7 +152,7 @@ func ExampleNewSyncMaxHeapOrdered() {
 
 	var wg sync.WaitGroup
 
-	for idx := 0; idx < 1000; idx++ {
+	for idx := range 1000 {
 		wg.Add(1)
 
 		go func(i int) {
@@ -168,7 +164,7 @@ func ExampleNewSyncMaxHeapOrdered() {
 
 	wg.Wait()
 
-	for i := 0; i < 5; i++ {
+	for range 5 {
 		fmt.Println(heapOrdered.Pop())
 	}
 
@@ -185,19 +181,19 @@ func ExampleNewSyncMinHeapOrdered() {
 
 	var wg sync.WaitGroup
 
-	for idx := 0; idx < 1000; idx++ {
+	for idx := range 1000 {
 		wg.Add(1)
 
-		go func(i int) {
+		go func(idx int) {
 			defer wg.Done()
 
-			heapOrdered.Push(i)
+			heapOrdered.Push(idx)
 		}(idx)
 	}
 
 	wg.Wait()
 
-	for i := 0; i < 5; i++ {
+	for range 5 {
 		fmt.Println(heapOrdered.Pop())
 	}
 

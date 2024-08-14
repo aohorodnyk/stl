@@ -43,8 +43,6 @@ func TestIsSorted(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestIsSorted_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -92,8 +90,6 @@ func TestIsReversed(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestIsReversed_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

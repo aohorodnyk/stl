@@ -25,8 +25,6 @@ func TestSet(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestSet_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -56,8 +54,6 @@ func TestDelete(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestDelete_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -85,8 +81,6 @@ func TestDeleteBy(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestDeleteBy_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

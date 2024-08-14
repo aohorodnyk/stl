@@ -35,8 +35,6 @@ func TestSortInt(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestSortInt_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -83,8 +81,6 @@ func TestSortString(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestSortString_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -131,8 +127,6 @@ func TestReverseInt(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestReverseInt_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -183,8 +177,6 @@ func TestReverseString(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestReverseString_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

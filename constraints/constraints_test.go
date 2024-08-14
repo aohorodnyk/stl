@@ -124,8 +124,6 @@ replace github.com/aohorodnyk/stl => %s
 		{"testComplex", "float64"},
 		{"testOrdered", "bool"},
 	} {
-		i := i
-		test := test
 		t.Run(fmt.Sprintf("%s %d", test.constraint, i), func(t *testing.T) {
 			t.Parallel()
 			name := fmt.Sprintf("go%d.go", i)

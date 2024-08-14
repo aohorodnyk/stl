@@ -34,8 +34,6 @@ func TestHasPrefixFold(t *testing.T) {
 	}
 
 	for idx, test := range tests {
-		test := test
-
 		t.Run(fmt.Sprintf("TestHasPrefixFold_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -65,8 +63,6 @@ func TestHasSuffixFold(t *testing.T) {
 	}
 
 	for idx, test := range tests {
-		test := test
-
 		t.Run(fmt.Sprintf("TestHasSuffixFold_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

@@ -28,8 +28,6 @@ func TestCast_int(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestCast_int_%d", idx), func(t *testing.T) {
 			t.Parallel()
 
@@ -60,8 +58,6 @@ func TestCast_string(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestCast_int_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

@@ -24,8 +24,6 @@ func TestReverse(t *testing.T) {
 	}
 
 	for idx, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("TestReverse_%d", idx), func(t *testing.T) {
 			t.Parallel()
 

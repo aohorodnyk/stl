@@ -27,8 +27,6 @@ func TestEqual(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("%v", prov.slice1), func(t *testing.T) {
 			t.Parallel()
 
@@ -64,8 +62,6 @@ func TestEqualFunc(t *testing.T) {
 	}
 
 	for _, prov := range provider {
-		prov := prov
-
 		t.Run(fmt.Sprintf("%v", prov.slice1), func(t *testing.T) {
 			t.Parallel()
 
