@@ -7,6 +7,8 @@ import "sync/atomic"
 // Once [Value.Store] has been called, a Value must not be copied.
 //
 // A Value must not be copied after first use.
+//
+// All functions have *T type to work with references only to properly support interfaces as types.
 type Value[T any] struct {
 	std atomic.Value
 }
