@@ -38,7 +38,7 @@ linters:
 #    - execinquery # Deprecated.
     - exhaustive
     # - exhaustruct
-    - exportloopref
+    # - exportloopref // The linter 'exportloopref' is deprecated (since v1.60.2) due to: Since Go1.22 (loopvar) this linter is no longer relevant.
     - fatcontext
     - forbidigo
     - forcetypeassert
